@@ -1,2 +1,2 @@
-# HapNet
+# HapSharp
 HAP Net bridge
