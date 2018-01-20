@@ -1,0 +1,3 @@
+[submodule "HAP-NodeJS"]
+	path = HAP-NodeJS
+	url = https://github.com/netonjm/HAP-NodeJS
