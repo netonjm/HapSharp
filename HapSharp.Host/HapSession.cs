@@ -8,7 +8,7 @@ using HapSharp.Accessories;
 
 namespace HapSharp
 {
-    internal class HapSession
+    public class HapSession
     {
         //internal const int Port = 51826;
         List<MessageDelegate> messages = new List<MessageDelegate>();
