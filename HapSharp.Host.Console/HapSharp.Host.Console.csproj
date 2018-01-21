@@ -34,8 +34,9 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomLightMessageDelegate.cs" />
     <Compile Include="StaticResources.cs" />
+    <Compile Include="Accessories\CustomBridgedCore.cs" />
+    <Compile Include="Accessories\CustomLight.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HapSharp.Host\HapSharp.Host.csproj">
@@ -46,6 +47,9 @@
       <Project>{57B7FD9C-946A-44C0-AA79-E2E5838CC38F}</Project>
       <Name>HapSharp.Host.Accessories</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Accessories\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

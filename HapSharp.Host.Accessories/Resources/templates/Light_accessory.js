@@ -3,15 +3,32 @@ var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
 var mqtt = require('mqtt');
+var client = mqtt.connect('mqtt://{{MQTT_ADDRESS}}');
 
-var client = mqtt.connect('mqtt://{{MQTT_ADDRESS}}')
+var name = "{{COMPONENT_NAME}}";
+var pincode = "{{COMPONENT_PINCODE}}";
+var username = "{{COMPONENT_USERNAME}}";
+var manufacturer = "{{COMPONENT_MANUFACTURER}}";
+var model = "{{COMPONENT_MODEL}}";
+var serialNumber = "{{COMPONENT_SERIALNUMBER}}";
 
-var name = "{{ACCESSORY_NAME}}";
-var pincode = "{{ACCESSORY_PINCODE}}";
-var username = "{{ACCESSORY_USERNAME}}";
-var manufacturer = "{{ACCESSORY_MANUFACTURER}}";
-var model = "{{ACCESSORY_MODEL}}";
-var serialNumber = "{{ACCESSORY_SERIALNUMBER}}";
+var power = false;
+var outputLogs = false;
+
+client.on('connect', () => {
+  client.subscribe('{{COMPONENT_TOPICRECEIVE}}')
+});
+
+client.on('message', (topic, message) => {
+  console.log("Received the '%s'", message);
+  if(topic === '{{COMPONENT_TOPICRECEIVE}}') {
+    var m = message.toString();
+    if (m.startsWith ("{{COMPONENT_TOPICGETON}}/")) {
+        power = (m.substring("{{COMPONENT_TOPICGETON}}/".length) === 'true');
+        console.log("POWER IS NOW '%s'", power);
+    }
+  }
+})
 
 // Generate a consistent UUID for our light Accessory that will remain the same even when
 // restarting our server. We use the `uuid.generate` helper function to create a deterministic
@@ -32,17 +49,21 @@ lightAccessory
     .setCharacteristic(Characteristic.SerialNumber, serialNumber);
 
 lightAccessory.on('identify', function(paired, callback) {
-  client.publish('/home/light', 'identify')
+  if(outputLogs) console.log("Identify the '%s'", name);
   callback();
 });
 
 lightAccessory
-  .addService(Service.Lightbulb, LightController.name)
+  .addService(Service.Lightbulb, name)
   .getCharacteristic(Characteristic.On)
   .on('set', function(value, callback) {
-    client.publish('/home/light', 'set/'+value)
+    if(outputLogs) console.log("Turning the '%s' %s", name, value ? "on" : "off");
+    this.power = value;
+    client.publish('{{COMPONENT_TOPIC}}', '{{COMPONENT_TOPICSETON}}/' + value);
     callback();
   })
   .on('get', function(callback) {
-    callback(null, LightController.getPower());
+    client.publish('{{COMPONENT_TOPIC}}', '{{COMPONENT_TOPICGETON}}');
+    if(this.outputLogs) console.log("'%s' is %s.", name, power ? "on" : "off");
+    callback(null, power ? true : false);
   });

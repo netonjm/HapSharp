@@ -35,6 +35,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HapSession.cs" />
+    <Compile Include="FileExtension.cs" />
+    <Compile Include="ProcessService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HapSharp.Host.Accessories\HapSharp.Host.Accessories.csproj">
