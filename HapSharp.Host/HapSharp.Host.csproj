@@ -29,7 +29,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="M2Mqtt.Net">
-      <HintPath>..\..\Downloads\paho.mqtt.m2mqtt-master\M2Mqtt\obj\Debug\M2Mqtt.Net.dll</HintPath>
+      <HintPath>..\libs\M2Mqtt\M2Mqtt.Net.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,5 @@
+/Users/jmedrano/Downloads/paho.mqtt.m2mqtt-master/bin/Debug/M2Mqtt.Net/M2Mqtt.Net.dll
+/Users/jmedrano/Downloads/paho.mqtt.m2mqtt-master/bin/Debug/M2Mqtt.Net/M2Mqtt.Net.pdb
+/Users/jmedrano/Downloads/paho.mqtt.m2mqtt-master/M2Mqtt/obj/Debug/M2Mqtt.Net.csproj.CoreCompileInputs.cache
+/Users/jmedrano/Downloads/paho.mqtt.m2mqtt-master/M2Mqtt/obj/Debug/M2Mqtt.Net.dll
+/Users/jmedrano/Downloads/paho.mqtt.m2mqtt-master/M2Mqtt/obj/Debug/M2Mqtt.Net.pdb

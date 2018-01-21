@@ -30,7 +30,7 @@
       <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="M2Mqtt.Net">
-      <HintPath>..\..\Downloads\paho.mqtt.m2mqtt-master\M2Mqtt\obj\Debug\M2Mqtt.Net.dll</HintPath>
+      <HintPath>..\libs\M2Mqtt\M2Mqtt.Net.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
