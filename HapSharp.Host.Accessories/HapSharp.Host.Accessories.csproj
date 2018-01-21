@@ -40,6 +40,7 @@
     <Compile Include="ResourcesService.cs">
       <LogicalName>HapSharp.Host.Accessories.ResourcesService.cs</LogicalName>
     </Compile>
+    <Compile Include="Accessories\TemperatureAccessory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\templates\Core.js" />
@@ -59,6 +60,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\templates\LightBulb_accessory.js">
       <LogicalName>LightBulb_accessory.js</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\templates\Temperature_accessory.js">
+      <LogicalName>Temperature_accessory.js</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

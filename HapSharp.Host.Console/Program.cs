@@ -30,6 +30,13 @@ namespace HapSharp.Host.Terminal
                    "/home/light2"
                )
            );
+
+            session.Add(
+                new CustomTemperatureMessageDelegate(
+                    new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73"),
+                    "/home/temperature"
+                )
+            );
             
             session.Start (StaticResources.BrokerAddress, hapNodeJsPath);
 

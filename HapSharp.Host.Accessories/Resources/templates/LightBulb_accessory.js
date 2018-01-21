@@ -55,6 +55,7 @@ lightAccessory
 
 lightAccessory.on('identify', function(paired, callback) {
   if(outputLogs) console.log("Identify the '%s'", name);
+  client.publish('{{COMPONENT_TOPIC}}', 'identify');
   callback();
 });
 

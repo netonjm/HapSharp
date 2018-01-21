@@ -37,6 +37,7 @@
     <Compile Include="StaticResources.cs" />
     <Compile Include="Accessories\CustomBridgedCore.cs" />
     <Compile Include="Accessories\CustomLight.cs" />
+    <Compile Include="Accessories\CustomTemperature.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HapSharp.Host\HapSharp.Host.csproj">

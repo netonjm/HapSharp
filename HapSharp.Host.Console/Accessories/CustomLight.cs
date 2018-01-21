@@ -3,6 +3,7 @@ using System;
 
 namespace HapSharp.Host.Terminal
 {
+
     class CustomLightMessageDelegate : MessageLightDelegate
     {
         bool actualValue;
@@ -29,7 +30,6 @@ namespace HapSharp.Host.Terminal
             Console.WriteLine("[Net]" + accessory.Name + " identified!!");
         }
     }
-
 
     class CustomRegulableLightMessageDelegate : MessageRegulableLightDelegate
     {

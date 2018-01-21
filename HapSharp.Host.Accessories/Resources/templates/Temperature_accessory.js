@@ -1,4 +1,4 @@
-﻿var Accessory = require('../').Accessory;
+var Accessory = require('../').Accessory;
 var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
@@ -12,20 +12,33 @@ var manufacturer = "{{COMPONENT_MANUFACTURER}}";
 var model = "{{COMPONENT_MODEL}}";
 var serialNumber = "{{COMPONENT_SERIALNUMBER}}";
 
-var power = false;
 var outputLogs = false;
+
+var active = true;
+
+var TemperatureSensor = {
+  currentTemperature: 0,
+  getTemperature: function() {
+    client.publish('{{COMPONENT_TOPIC}}', '{{COMPONENT_TOPICGET}}');
+    return this.currentTemperature;
+  }
+}
 
 client.on('connect', () => {
   client.subscribe('{{COMPONENT_TOPICRECEIVE}}')
 });
 
 client.on('message', (topic, message) => {
-  console.log("Received the '%s'", message);
+  console.log("Received the " + message);
   if(topic === '{{COMPONENT_TOPICRECEIVE}}') {
     var m = message.toString();
-    if (m.startsWith ("{{COMPONENT_TOPICGETON}}/")) {
-        power = (m.substring("{{COMPONENT_TOPICGETON}}/".length) === 'true');
-        console.log("POWER IS NOW '%s'", power);
+    if (m.startsWith ("{{COMPONENT_TOPICGET}}/")) {
+
+        var valueReceived = m.substring("{{COMPONENT_TOPICGET}}/".length);
+         console.log("Value received is '%s'", valueReceived);
+
+        TemperatureSensor.currentTemperature = parseInt (valueReceived);
+        console.log("POWER IS NOW '%s'", TemperatureSensor.currentTemperature);
     }
   }
 })
@@ -33,38 +46,41 @@ client.on('message', (topic, message) => {
 // Generate a consistent UUID for our light Accessory that will remain the same even when
 // restarting our server. We use the `uuid.generate` helper function to create a deterministic
 // UUID based on an arbitrary "namespace" and the word "light".
-var lightUUID = uuid.generate('hap-nodejs:accessories:light' + name);
+var lightUUID = uuid.generate('hap-nodejs:accessories:temperature' + name);
 
 // This is the Accessory that we'll return to HAP-NodeJS that represents our light.
-var lightAccessory = exports.accessory = new Accessory(name, lightUUID);
+var sensor = exports.accessory = new Accessory(name, lightUUID);
 
 // Add properties for publishing (in case we're using Core.js and not BridgedCore.js)
-lightAccessory.username = username;
-lightAccessory.pincode = pincode;
+sensor.username = username;
+sensor.pincode = pincode;
 
-lightAccessory
+sensor
   .getService(Service.AccessoryInformation)
     .setCharacteristic(Characteristic.Manufacturer, manufacturer)
     .setCharacteristic(Characteristic.Model, model)
     .setCharacteristic(Characteristic.SerialNumber, serialNumber);
 
-lightAccessory.on('identify', function(paired, callback) {
+sensor.on('identify', function(paired, callback) {
   if(outputLogs) console.log("Identify the '%s'", name);
   client.publish('{{COMPONENT_TOPIC}}', 'identify');
   callback();
 });
 
-lightAccessory
-  .addService(Service.Lightbulb, name)
-  .getCharacteristic(Characteristic.On)
-  .on('set', function(value, callback) {
-    if(outputLogs) console.log("Turning the '%s' %s", name, value ? "on" : "off");
-    this.power = value;
-    client.publish('{{COMPONENT_TOPIC}}', '{{COMPONENT_TOPICSETON}}/' + value);
-    callback();
-  })
+sensor
+  .addService(Service.TemperatureSensor)
+  .getCharacteristic(Characteristic.CurrentTemperature)
   .on('get', function(callback) {
-    client.publish('{{COMPONENT_TOPIC}}', '{{COMPONENT_TOPICGETON}}');
-    if(this.outputLogs) console.log("'%s' is %s.", name, power ? "on" : "off");
-    callback(null, power ? true : false);
+    callback(null, TemperatureSensor.getTemperature());
   });
+
+// gets our temperature reading every 6 seconds
+setInterval(function() {
+  // updates the characteristic values so interested iOS devices can get updated
+  sensor
+    .getService(Service.TemperatureSensor)
+    .setCharacteristic(Characteristic.CurrentTemperature, TemperatureSensor.getTemperature());
+
+}, {{COMPONENT_INTERVAL}});
+
+
