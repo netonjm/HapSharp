@@ -93,7 +93,9 @@ The host finishes session, closes communications and stops processes calling to 
 
 Open Mac Terminal:
 
-    sudo lsof -iTCP:51826 -sTCP:LISTEN 
+```
+sudo lsof -iTCP:51826 -sTCP:LISTEN
+```
 
 * Extra logging
 
