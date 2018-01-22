@@ -5,6 +5,8 @@
 
  HapSharp it’s a .net bridge to allow you expose our awesome .net world into HomeKit protocol.
 
+[![Alt text](https://img.youtube.com/vi/wNGShmgaPqI/0.jpg)](https://www.youtube.com/watch?v=wNGShmgaPqI)
+
 ### Requisites
 
 First of all you will need to configure your environment, I created a simple script to do it automagically for you
