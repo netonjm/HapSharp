@@ -1,5 +1,5 @@
 # HAP-Sharp
-## Net bridge for HomeKit Accessory Server  
+## Net bridge Accessory Server for HomeKit 
 
 ### Overview
 
