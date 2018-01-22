@@ -13,7 +13,7 @@ namespace HapSharp
     {
         const string DefaultBrokerHost = "broker.hivemq.com";
 
-        //internal const int Port = 51826;
+        internal const int Port = 51826;
         readonly List<MessageDelegate> messages = new List<MessageDelegate> ();
         readonly IMonitor monitor;
 
@@ -56,6 +56,8 @@ namespace HapSharp
 
             //Prints on console current PinCode to make easy the user add the bridge
             PrintCurrentCode ();
+
+            monitor.WriteLine ($"[Net] Host started in port {Port}");
         }
 
         void SubscribeAllTopics ()

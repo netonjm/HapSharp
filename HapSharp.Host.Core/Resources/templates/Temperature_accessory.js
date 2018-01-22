@@ -58,7 +58,7 @@ sensor
     .setCharacteristic(Characteristic.SerialNumber, serialNumber);
 
 sensor.on('identify', function(paired, callback) {
-  if(outputLogs) console.log("Identify the '%s'", name);
+  console.log("[{{COMPONENT_NAME}}] identified.");
   client.publish('{{COMPONENT_TOPIC}}', 'identify');
   callback();
 });
@@ -79,4 +79,4 @@ setInterval(function() {
 
 }, {{COMPONENT_INTERVAL}});
 
-
+console.log("[{{COMPONENT_NAME}}] loaded.");

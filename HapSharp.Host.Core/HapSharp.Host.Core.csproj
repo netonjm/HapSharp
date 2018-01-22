@@ -48,9 +48,6 @@
     <Compile Include="MessageDelegates\MessageLightDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\templates\Core.js" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Accessories\" />
     <Folder Include="Resources\" />
     <Folder Include="Resources\templates\" />

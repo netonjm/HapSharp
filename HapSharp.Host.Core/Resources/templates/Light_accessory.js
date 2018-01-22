@@ -49,7 +49,7 @@ lightAccessory
     .setCharacteristic(Characteristic.SerialNumber, serialNumber);
 
 lightAccessory.on('identify', function(paired, callback) {
-  if(outputLogs) console.log("Identify the '%s'", name);
+  console.log("[{{COMPONENT_NAME}}] identified.");
   client.publish('{{COMPONENT_TOPIC}}', 'identify');
   callback();
 });
@@ -68,3 +68,5 @@ lightAccessory
     if(this.outputLogs) console.log("'%s' is %s.", name, power ? "on" : "off");
     callback(null, power ? true : false);
   });
+
+console.log("[{{COMPONENT_NAME}}] loaded.");

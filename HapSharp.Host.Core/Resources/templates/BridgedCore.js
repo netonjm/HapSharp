@@ -8,7 +8,6 @@ var accessoryLoader = require('./lib/AccessoryLoader');
 var mqtt = require('mqtt');
 
 var client = mqtt.connect('mqtt://{{MQTT_ADDRESS}}')
-console.log("{{COMPONENT_NAME}} starting...");
 
 // Initialize our storage system
 storage.initSync();
@@ -19,7 +18,7 @@ var bridge = new Bridge('{{COMPONENT_NAME}}', uuid.generate("{{COMPONENT_NAME}}"
 // Listen for bridge identification event
 bridge.on('identify', function(paired, callback) {
   client.publish('{{COMPONENT_TOPIC}}', 'identify');
-  console.log("{{COMPONENT_NAME}} identify");
+  console.log("[{{COMPONENT_NAME}}] identified.");
   callback(); // success
 });
 
@@ -39,3 +38,5 @@ bridge.publish({
   pincode: "{{COMPONENT_PINCODE}}",
   category: Accessory.Categories.BRIDGE
 });
+
+console.log("[{{COMPONENT_NAME}}] loaded.");
