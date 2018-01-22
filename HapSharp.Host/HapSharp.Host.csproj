@@ -37,6 +37,7 @@
     <Compile Include="HapSession.cs" />
     <Compile Include="FileExtension.cs" />
     <Compile Include="ProcessService.cs" />
+    <Compile Include="IMonitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HapSharp.Host.Accessories\HapSharp.Host.Accessories.csproj">

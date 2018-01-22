@@ -4,7 +4,7 @@ using System.IO;
 
 namespace HapSharp.Host.Terminal
 {
-    class MainClass
+    partial class MainClass
     {
         public static void Main(string[] args)
         {
@@ -20,7 +20,10 @@ namespace HapSharp.Host.Terminal
                 throw new DirectoryNotFoundException (hapNodeJsPath);
             }
 
-            var session = new HapSession();
+            var monitor = new ConsoleMonitor ();
+
+            var session = new HapSession (monitor);
+
             //Adding Bridged Core
             session.Add(
                 new CustomBridgedCoreMessageDelegate(
@@ -36,13 +39,13 @@ namespace HapSharp.Host.Terminal
             );
 
             session.Add(
-               new CustomRegulableLightMessageDelegate(
+               new CustomRegulableLightMessageDelegate (
                     new RegulableLightAccessory("Second", "AB:12:45:27:55:73"),
                    "/home/light2"
                )
            );
 
-            session.Add(
+            session.Add (
                 new CustomTemperatureMessageDelegate(
                     new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73"),
                     "/home/temperature"

@@ -38,6 +38,7 @@
     <Compile Include="Accessories\CustomBridgedCore.cs" />
     <Compile Include="Accessories\CustomLight.cs" />
     <Compile Include="Accessories\CustomTemperature.cs" />
+    <Compile Include="ConsoleMonitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HapSharp.Host\HapSharp.Host.csproj">

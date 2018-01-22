@@ -14,7 +14,8 @@ namespace HapSharp
         const string DefaultBrokerHost = "broker.hivemq.com";
 
         //internal const int Port = 51826;
-        List<MessageDelegate> messages = new List<MessageDelegate> ();
+        readonly List<MessageDelegate> messages = new List<MessageDelegate> ();
+        readonly IMonitor monitor;
 
         MqttClient client;
         Process proc;
@@ -26,9 +27,9 @@ namespace HapSharp
 
         public bool IsConnected => client.IsConnected;
 
-        public HapSession ()
+        public HapSession (IMonitor monitor)
         {
-
+            this.monitor = monitor;
         }
 
         public void Start (string hapNodePath, string host = DefaultBrokerHost)
@@ -98,9 +99,9 @@ namespace HapSharp
             client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
 
             string clientId = Guid.NewGuid ().ToString ();
-            Console.WriteLine ("[Net] Connecting to: " + host + " with clientId: " + clientId);
+            monitor.WriteLine ("[Net] Connecting to: " + host + " with clientId: " + clientId);
             client.Connect (clientId);
-            Console.WriteLine ("[Net] Connected: " + client.IsConnected);
+            monitor.WriteLine ("[Net] Connected: " + client.IsConnected);
         }
 
         void StartHapNodeJs ()
@@ -121,7 +122,7 @@ namespace HapSharp
             }
 
             proc.OutputDataReceived += (s, e) => {
-                Console.WriteLine ("[NodeJS] " + e.Data);
+                monitor.WriteLine ("[NodeJS] " + e.Data);
             };
 
             proc.Start ();
@@ -138,7 +139,7 @@ namespace HapSharp
 
         void Subscribe (string topic)
         {
-            Console.WriteLine ("[Net] Suscribed to: " + topic);
+            monitor.WriteLine ("[Net] Suscribed to: " + topic);
             client.Subscribe (new string[] { topic }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
         }
 
@@ -158,11 +159,11 @@ namespace HapSharp
         void PrintCurrentCode ()
         {
             var pinCode = messages.FirstOrDefault (s => s is MessageBridgedCoreDelegate).accessory.PinCode;
-            Console.WriteLine ("---------------");
-            Console.WriteLine ("|              |");
-            Console.WriteLine ($"|  {pinCode}  |");
-            Console.WriteLine ("|              |");
-            Console.WriteLine ("---------------");
+            monitor.WriteLine ("---------------");
+            monitor.WriteLine ("|              |");
+            monitor.WriteLine ($"|  {pinCode}  |");
+            monitor.WriteLine ("|              |");
+            monitor.WriteLine ("---------------");
         }
 
         internal void Stop ()
