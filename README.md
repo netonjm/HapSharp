@@ -27,16 +27,56 @@ The generated NodeJS accessory files are prepared to establish MQTT communicatio
 
 Right now, in this prototype there are 4 type of accessories to include in your host:
 
-* BridgedCore: This an special accessory can host other Accessories “behind”. This way we can simply publish the Bridge (with a simple HAPServer on a single port) and all bridged Accessories will be hosted automatically, instead of needed to publish every single Accessory as a serpare server (this is not implemented yet).
-
+* BridgedCore: This an special accessory can host other Accessories “behind”. This way we can simply publish the Bridge (with a simple HAPServer on a single port) and all bridged Accessories will be hosted automatically, instead of needed to publish every single Accessory as a separte server (this is not implemented yet).
 
 Right now, we use this way to load all accessories created because it’s the easiest way. In the future this will be more customisable.
 
-* Light: This accessory exposes the behaviour of a single light, with 2 states: On/Off
 
-* Light with Brightness: Same like simple light but adds a regulable brightness bar
 
-* Temperature sensor: It allows handle the temperature in a specific timeout sending the calculated values to HomeKit.
+* **Light:** This accessory exposes the behaviour of a single light, with 2 states: On/Off
+
+* :**Light with Brightness::** Same like simple light but adds a regulable brightness bar
+
+* :**Temperature sensor::** It allows handle the temperature in a specific timeout sending the calculated values to HomeKit.
+
+Every new accessory inherits from **Accessory class** which has all the metadata required by HomeKit.
+
+
+### Message Delegates
+
+This accessories are useless without a logic, and here the Messages Delegates come into play.
+
+The Message Delegate handles and configures the MQTT channel messages and transforms the MQTT calls into events.
+
+For example:
+
+If you want create your own managed Temperature accessory, you will need create your own CustomMessageTemperatureDelegate class:
+
+```
+  class CustomTemperatureMessageDelegate : MessageTemperatureDelegate
+    {
+        public CustomTemperatureMessageDelegate (TemperatureAccessory accessory) : base (accessory)
+        {
+        }
+
+        Random rnd = new Random (DateTime.Now.Millisecond);
+        protected override int OnGetTemperature ()
+        {
+            var calculated = rnd.Next(20, 50);
+            Console.WriteLine($"[Net] Temperature: {calculated}");
+            return calculated;
+        }
+
+        public override void OnIdentify()
+        {
+            Console.WriteLine("[Net]" + accessory.Name + " identified!!");
+        }
+    }
+```
+
+OnGetTemperature handles the logic to calculate (or get) the temperature returns the desired temperature value.
+
+OnIdentify method is common to all delegates and is called every time HomeKit identifies the accessory.
 
 
 ### The Host
@@ -63,9 +103,15 @@ var session = new HapSession();
 Add all message delegates and accessories you want
 
 ```
- session.Add(new CustomBridgedCoreMessageDelegate(
-      new CustomBridgedCoreAccessory("NetAwesomeBridge", "22:32:43:54:65:14")
- ));
+//Bridge accessory is mandatory
+ var bridge = new BridgedCore("NetAwesomeBridge", "22:32:43:54:65:14");
+ var bridgeDelegate = new CustomBridgedCoreMessageDelegate(bridge);
+ session.Add(bridgeDelegate);
+
+//Adding an example of custom temperature accessory
+ var temperature = new BridgedCore("MyTemperature", "22:32:43:54:65:14");
+ var temperatureDelegate = new CustomTemperatureMessageDelegate(temperature);
+ session.Add(temperatureDelegate);
 ```
 
 Start the session
@@ -85,6 +131,7 @@ After this, all native accessories will be cleaned in the HAP-NodeJS embedded pr
 The console output will inform you about what’s happening and if something goes wrong.
 
 The host finishes session, closes communications and stops processes calling to Stop() method or Dispose.
+
 
 ## How add the bridge accessory to your HomeKit
 
