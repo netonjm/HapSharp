@@ -13,4 +13,8 @@ run: all
 processes:
 	sudo lsof -iTCP:51826 -sTCP:LISTEN
 
+package: all
+	curl -O https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+	mono nuget.exe pack NuGeT/HapSharp.nuspec
+
 .PHONY: all configure

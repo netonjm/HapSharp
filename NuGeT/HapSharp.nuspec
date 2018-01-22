@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>HapSharp.Host</id>
+    <version>0.35</version>
+    <title>Net bridge for HomeKit Accessory Server</title>
+    <authors>Jose Medrano</authors>
+    <owners>Jose Medrano</owners>
+    <licenseUrl>https://github.com/netonjm/HapSharp/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/netonjm/HapSharp</projectUrl>
+    <iconUrl>https://9to5mac.files.wordpress.com/2014/11/homekit-hero_2x.png?w=1000</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>HapSharp it’s a .net bridge to allow you expose our awesome .net world into HomeKit protocol.</description>
+    <copyright>netonjm</copyright>
+    <tags>homekit hap-nodejs</tags>
+
+  </metadata>
+
+  <files>
+    <file src="../HapSharp.Host/bin/Debug/*.dll" target="lib/net40" />
+  </files>
+
+</package>
