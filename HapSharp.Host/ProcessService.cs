@@ -27,7 +27,7 @@ namespace HapSharp
             return dev;
         }
 
-        public static void KillNode()
+        public static void TryKillCurrentNodeProcess ()
         {
             //hack for mac
             var process = GetProcessesByName("node").FirstOrDefault(s => s.MainModule?.FileName == "/usr/local/bin/node");

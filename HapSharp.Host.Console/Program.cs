@@ -38,7 +38,7 @@ namespace HapSharp.Host.Terminal
                 )
             );
             
-            session.Start (StaticResources.BrokerAddress, hapNodeJsPath);
+            session.Start (hapNodeJsPath);
 
             Console.WriteLine ("Press a key to exit.");
             Console.ReadKey ();
