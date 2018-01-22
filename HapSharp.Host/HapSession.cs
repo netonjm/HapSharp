@@ -148,10 +148,11 @@ namespace HapSharp
             var msg = messages.FirstOrDefault (s => s.Topic == e.Topic);
             if (msg != null) {
                 var message = System.Text.Encoding.Default.GetString (e.Message);
-                msg.OnMessageReceived (e.Topic, e.Message);
-                msg.OnMessageReceived (e.Topic, message);
                 if (message == "identify") {
                     msg.OnIdentify ();
+                } else {
+                    msg.OnMessageReceived (e.Topic, e.Message);
+                    msg.OnMessageReceived (e.Topic, message);
                 }
             }
         }
