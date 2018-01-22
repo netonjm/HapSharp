@@ -17,7 +17,7 @@
         const string TopicGet = "get";
         const string Interval = "Interval";
 
-        protected MessageTemperatureDelegate(TemperatureAccessory accessory, string topic = null) : base(accessory, topic)
+        protected MessageTemperatureDelegate(TemperatureAccessory accessory) : base(accessory)
         {
         }
 

@@ -33,22 +33,19 @@ namespace HapSharp.Host.Terminal
 
             session.Add(
                 new CustomLightMessageDelegate (
-                    new LightAccessory ("First", "AA:21:4D:87:66:78"), 
-                    "/home/light1"
+                    new LightAccessory ("First", "AA:21:4D:87:66:78")
                 )
             );
 
             session.Add(
                new CustomRegulableLightMessageDelegate (
-                    new RegulableLightAccessory("Second", "AB:12:45:27:55:73"),
-                   "/home/light2"
+                    new RegulableLightAccessory("Second", "AB:12:45:27:55:73")
                )
            );
 
             session.Add (
                 new CustomTemperatureMessageDelegate(
-                    new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73"),
-                    "/home/temperature"
+                    new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73")
                 )
             );
             

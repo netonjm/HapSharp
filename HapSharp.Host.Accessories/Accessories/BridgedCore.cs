@@ -15,7 +15,7 @@ namespace HapSharp.Accessories
 
     public abstract class MessageBridgedCoreDelegate : MessageDelegate
     {
-        protected MessageBridgedCoreDelegate(BridgedCore accessory, string topic = null) : base(accessory, topic ?? "/home/bridgedcore")
+        protected MessageBridgedCoreDelegate(BridgedCore accessory, string topic = null) : base (accessory)
         {
 
         }

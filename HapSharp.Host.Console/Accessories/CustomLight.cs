@@ -8,8 +8,8 @@ namespace HapSharp.Host.Terminal
     {
         bool actualValue;
 
-        public CustomLightMessageDelegate(LightAccessory lightAccessory, string topic = null) 
-            : base(lightAccessory, topic)
+        public CustomLightMessageDelegate (LightAccessory lightAccessory) 
+            : base (lightAccessory)
         {
 
         }

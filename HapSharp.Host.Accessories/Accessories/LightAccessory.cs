@@ -18,7 +18,7 @@ namespace HapSharp.Accessories
         const string TopicGetOn = "get/on";
 
       
-        protected MessageLightDelegate(LightAccessory accessory, string topic = null) : base(accessory, topic ?? "/home/light")
+        protected MessageLightDelegate(LightAccessory accessory) : base (accessory)
         {
 
         }

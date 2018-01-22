@@ -5,7 +5,7 @@ namespace HapSharp.Host.Terminal
 {
     class CustomTemperatureMessageDelegate : MessageTemperatureDelegate
     {
-        public CustomTemperatureMessageDelegate(TemperatureAccessory accessory, string topic = null) : base(accessory, topic)
+        public CustomTemperatureMessageDelegate(TemperatureAccessory accessory) : base (accessory)
         {
         }
 

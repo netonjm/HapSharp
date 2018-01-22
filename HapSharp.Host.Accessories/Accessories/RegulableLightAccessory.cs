@@ -15,7 +15,7 @@
         const string TopicSetBrightness = "set/brightness";
         const string TopicGetBrightness = "get/brightness";
 
-        protected MessageRegulableLightDelegate(RegulableLightAccessory accessory, string topic = null) : base(accessory, topic ?? "/home/light")
+        protected MessageRegulableLightDelegate(RegulableLightAccessory accessory, string topic = null) : base(accessory)
         {
 
         }
