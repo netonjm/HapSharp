@@ -2,7 +2,7 @@
 using HapSharp.Core.Accessories;
 using HapSharp.Core.MessageDelegates;
 
-namespace HapSharp.Host.Terminal
+namespace HapSharp.Host.Terminal.MessageDelegates
 {
     class CustomBridgedCoreMessageDelegate : MessageBridgedCoreDelegate
     {
