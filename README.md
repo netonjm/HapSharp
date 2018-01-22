@@ -104,13 +104,13 @@ Add all message delegates and accessories you want
 
 ```
 //Bridge accessory is mandatory
- var bridge = new BridgedCore("NetAwesomeBridge", "22:32:43:54:65:14");
+ var bridge = new BridgedCore ("NetAwesomeBridge", "22:32:43:54:65:14");
  var bridgeDelegate = new CustomBridgedCoreMessageDelegate(bridge);
  session.Add(bridgeDelegate);
 
 //Adding an example of custom temperature accessory
- var temperature = new BridgedCore("MyTemperature", "22:32:43:54:65:14");
- var temperatureDelegate = new CustomTemperatureMessageDelegate(temperature);
+ var temperature = new TemperatureAccessory ("MyTemperature", "22:32:43:54:65:14");
+ var temperatureDelegate = new CustomTemperatureMessageDelegate (temperature);
  session.Add(temperatureDelegate);
 ```
 
