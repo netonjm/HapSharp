@@ -1,5 +1,6 @@
-﻿using HapSharp.Accessories;
-using System;
+﻿using System;
+using HapSharp.Core.Accessories;
+using HapSharp.Core.MessageDelegates;
 
 namespace HapSharp.Host.Terminal
 {

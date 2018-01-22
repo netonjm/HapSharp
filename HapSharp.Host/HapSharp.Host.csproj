@@ -41,9 +41,9 @@
     <Compile Include="IMonitor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HapSharp.Host.Accessories\HapSharp.Host.Accessories.csproj">
+    <ProjectReference Include="..\HapSharp.Host.Core\HapSharp.Host.Core.csproj">
       <Project>{57B7FD9C-946A-44C0-AA79-E2E5838CC38F}</Project>
-      <Name>HapSharp.Host.Accessories</Name>
+      <Name>HapSharp.Host.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

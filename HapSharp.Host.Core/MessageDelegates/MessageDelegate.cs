@@ -1,7 +1,7 @@
 ﻿using System;
-using HapSharp.Accessories;
+using HapSharp.Core.Accessories;
 
-namespace HapSharp
+namespace HapSharp.Core.MessageDelegates
 {
     public abstract class MessageDelegate
     {
@@ -19,7 +19,7 @@ namespace HapSharp
 
         protected void OnSendMessage (string topic, string message)
         {
-            SendMessage?.Invoke(this, new Tuple<string, string>(topic, message));
+            SendMessage?.Invoke (this, new Tuple<string, string>(topic, message));
         }
 
         protected MessageDelegate (Accessory accessory) 
@@ -37,14 +37,14 @@ namespace HapSharp
         {
             //TODO: we need a strong replace way
             return ResourcesService.GetTemplate(accessory.Template)
-                                   .Replace(GetTemplateTagId(accessory.Prefix, nameof(accessory.Name)), accessory.Name)
-                                   .Replace(GetTemplateTagId(accessory.Prefix, nameof(accessory.PinCode)), accessory.PinCode)
-                                   .Replace(GetTemplateTagId(accessory.Prefix, nameof(accessory.UserName)), accessory.UserName)
-                                   .Replace(GetTemplateTagId(accessory.Prefix, nameof(accessory.Manufacturer)), accessory.Manufacturer)
-                                   .Replace(GetTemplateTagId(accessory.Prefix, nameof(accessory.SerialNumber)), accessory.SerialNumber)
-                                   .Replace(GetTemplateTagId(accessory.Prefix, nameof(Topic)), Topic)
-                                   .Replace(GetTemplateTagId(accessory.Prefix, nameof(TopicReceive)), TopicReceive)
-                                   .Replace(GetTemplateTagId(accessory.Prefix, nameof(accessory.Model)), accessory.Model);
+                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.Name)), accessory.Name)
+                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.PinCode)), accessory.PinCode)
+                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.UserName)), accessory.UserName)
+                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.Manufacturer)), accessory.Manufacturer)
+                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.SerialNumber)), accessory.SerialNumber)
+                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(Topic)), Topic)
+                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(TopicReceive)), TopicReceive)
+                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.Model)), accessory.Model);
             
         }
 

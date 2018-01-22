@@ -41,7 +41,11 @@
       <LogicalName>HapSharp.Host.Accessories.ResourcesService.cs</LogicalName>
     </Compile>
     <Compile Include="Accessories\TemperatureAccessory.cs" />
-    <Compile Include="MessageDelegate.cs" />
+    <Compile Include="MessageDelegates\MessageBridgedCoreDelegate.cs" />
+    <Compile Include="MessageDelegates\MessageDelegate.cs" />
+    <Compile Include="MessageDelegates\MessageTemperatureDelegate.cs" />
+    <Compile Include="MessageDelegates\MessageRegulableLightDelegate.cs" />
+    <Compile Include="MessageDelegates\MessageLightDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\templates\Core.js" />
@@ -50,6 +54,7 @@
     <Folder Include="Accessories\" />
     <Folder Include="Resources\" />
     <Folder Include="Resources\templates\" />
+    <Folder Include="MessageDelegates\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\templates\Light_accessory.js">

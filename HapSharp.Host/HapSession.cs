@@ -4,8 +4,8 @@ using System.IO;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using System.Linq;
-using HapSharp.Accessories;
 using System.Diagnostics;
+using HapSharp.Core.MessageDelegates;
 
 namespace HapSharp
 {

@@ -1,6 +1,6 @@
 ﻿using System;
-using HapSharp.Accessories;
 using System.IO;
+using HapSharp.Core.Accessories;
 
 namespace HapSharp.Host.Terminal
 {
@@ -26,27 +26,10 @@ namespace HapSharp.Host.Terminal
 
             //Adding Bridged Core
             session.Add(
-                new CustomBridgedCoreMessageDelegate(
-                    new CustomBridgedCoreAccessory("NetAwesomeBridge", "22:32:43:54:65:14")
-                )
-            );
-
-            session.Add(
-                new CustomLightMessageDelegate (
-                    new LightAccessory ("First", "AA:21:4D:87:66:78")
-                )
-            );
-
-            session.Add(
-               new CustomRegulableLightMessageDelegate (
-                    new RegulableLightAccessory("Second", "AB:12:45:27:55:73")
-               )
-           );
-
-            session.Add (
-                new CustomTemperatureMessageDelegate(
-                    new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73")
-                )
+                new CustomBridgedCoreMessageDelegate(new CustomBridgedCoreAccessory("NetAwesomeBridge", "22:32:43:54:65:14")),
+                new CustomLightMessageDelegate (new LightAccessory ("First", "AA:21:4D:87:66:78")),
+                new CustomRegulableLightMessageDelegate (new RegulableLightAccessory ("Second", "AB:12:45:27:55:73")),
+                new CustomTemperatureMessageDelegate (new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73"))
             );
             
             session.Start (hapNodeJsPath);

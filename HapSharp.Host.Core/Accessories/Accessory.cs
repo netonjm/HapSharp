@@ -1,6 +1,6 @@
 using System;
 
-namespace HapSharp.Accessories
+namespace HapSharp.Core.Accessories
 {
     public abstract class Accessory
     {

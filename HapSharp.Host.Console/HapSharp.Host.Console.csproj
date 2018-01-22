@@ -46,9 +46,9 @@
       <Project>{235C22F7-4738-4C12-99F0-0D2F25F0E8C7}</Project>
       <Name>HapSharp.Host</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HapSharp.Host.Accessories\HapSharp.Host.Accessories.csproj">
+    <ProjectReference Include="..\HapSharp.Host.Core\HapSharp.Host.Core.csproj">
       <Project>{57B7FD9C-946A-44C0-AA79-E2E5838CC38F}</Project>
-      <Name>HapSharp.Host.Accessories</Name>
+      <Name>HapSharp.Host.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
