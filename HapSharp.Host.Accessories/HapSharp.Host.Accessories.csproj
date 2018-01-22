@@ -32,7 +32,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Accessories\Accessory.cs" />
-    <Compile Include="Delegates\Delegates.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Accessories\LightAccessory.cs" />
     <Compile Include="Accessories\BridgedCore.cs" />
@@ -41,13 +40,13 @@
       <LogicalName>HapSharp.Host.Accessories.ResourcesService.cs</LogicalName>
     </Compile>
     <Compile Include="Accessories\TemperatureAccessory.cs" />
+    <Compile Include="MessageDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\templates\Core.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Accessories\" />
-    <Folder Include="Delegates\" />
     <Folder Include="Resources\" />
     <Folder Include="Resources\templates\" />
   </ItemGroup>

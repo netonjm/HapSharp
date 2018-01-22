@@ -10,7 +10,9 @@ namespace HapSharp
         public event EventHandler<Tuple<string, string>> SendMessage;
 
         readonly internal Accessory accessory;
+
         readonly internal string Topic;
+
         internal string TopicReceive => Topic + "/" + ReceiveTopicNode;
 
         internal string OutputAccessoryFileName => GetNormalizedFileName(accessory.Name) + "_accessory.js";
@@ -20,10 +22,10 @@ namespace HapSharp
             SendMessage?.Invoke(this, new Tuple<string, string>(topic, message));
         }
 
-        protected MessageDelegate (Accessory accessory, string topic) 
+        protected MessageDelegate (Accessory accessory) 
         {
             this.accessory = accessory;
-            this.Topic = topic;
+            Topic = "home/" + accessory.Id;
         }
 
         internal string GetTemplateTagId (string prefix, string name) 
@@ -55,7 +57,7 @@ namespace HapSharp
         {
             return name.Replace(" ", "");
         }
-        
+
         internal virtual void OnMessageReceived (string topic, string message)
         {
            
