@@ -25,7 +25,7 @@ client.on('message', (topic, message) => {
     var m = message.toString();
     if (m.startsWith ("{{COMPONENT_TOPICGETON}}/")) {
         power = (m.substring("{{COMPONENT_TOPICGETON}}/".length) === 'true');
-        console.log("POWER IS NOW '%s'", power);
+        console.log("Power: '%s'", power);
     }
   }
 })

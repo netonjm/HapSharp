@@ -13,7 +13,7 @@ namespace HapSharp.Host.Terminal
         protected override int OnGetTemperature()
         {
             var calculated = rnd.Next(20, 50);
-            Console.WriteLine($"[Net] Query Temperature: {calculated}");
+            Console.WriteLine($"[Net] Temperature: {calculated}");
             return calculated;
         }
 

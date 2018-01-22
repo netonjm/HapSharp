@@ -29,16 +29,12 @@ client.on('connect', () => {
 });
 
 client.on('message', (topic, message) => {
-  console.log("Received the " + message);
   if(topic === '{{COMPONENT_TOPICRECEIVE}}') {
     var m = message.toString();
     if (m.startsWith ("{{COMPONENT_TOPICGET}}/")) {
-
         var valueReceived = m.substring("{{COMPONENT_TOPICGET}}/".length);
-         console.log("Value received is '%s'", valueReceived);
-
         TemperatureSensor.currentTemperature = parseInt (valueReceived);
-        console.log("POWER IS NOW '%s'", TemperatureSensor.currentTemperature);
+        console.log("Temperature: '%s'", TemperatureSensor.currentTemperature);
     }
   }
 })

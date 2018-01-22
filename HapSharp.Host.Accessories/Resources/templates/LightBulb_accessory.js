@@ -27,10 +27,10 @@ client.on('message', (topic, message) => {
     var m = message.toString();
     if (m.startsWith ("{{COMPONENT_TOPICGET}}/")) {
         power = (m.substring("{{COMPONENT_TOPICGET}}/".length) === 'true');
-        console.log("POWER IS NOW '%s'", power);
+        console.log("Power: '%s'", power);
     } else if (m.startsWith ("{{COMPONENT_TOPICSETBRIGHTNESS}}/")) { 
         brightness = parseInt(m.substring("{{COMPONENT_TOPICSETBRIGHTNESS}}/".length));
-        console.log("brightness IS NOW '%s'", brightness);
+        console.log("Brightness: '%s'", brightness);
     }
   }
 })
