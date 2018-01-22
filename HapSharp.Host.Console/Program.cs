@@ -1,14 +1,25 @@
 ﻿using System;
 using HapSharp.Accessories;
+using System.IO;
 
 namespace HapSharp.Host.Terminal
 {
     class MainClass
     {
-        const string hapNodeJsPath = @"/Users/jmedrano/HapSharp/HAP-NodeJS";
-
         public static void Main(string[] args)
         {
+            if (args.Length != 1) {
+                Console.WriteLine ("You need add the path of your HAP-NodeJS directory to continue like an argument.");
+                Console.WriteLine ("Ex: mono HapSharp.Host.Console.exe /Users/user/HapSharp/HAP-NodeJS");
+                return;
+            }
+
+            var hapNodeJsPath = args[0];
+
+            if (!Directory.Exists (hapNodeJsPath)) {
+                throw new DirectoryNotFoundException (hapNodeJsPath);
+            }
+
             var session = new HapSession();
             //Adding Bridged Core
             session.Add(
