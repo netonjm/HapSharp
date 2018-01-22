@@ -54,10 +54,7 @@ namespace HapSharp.Host.Terminal
             
             session.Start (hapNodeJsPath);
 
-            Console.WriteLine ("Press a key to exit.");
             Console.ReadKey ();
-
-            session.Stop();
         }
     }
 }

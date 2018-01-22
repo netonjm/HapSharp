@@ -106,11 +106,11 @@ namespace HapSharp
 
         void StartHapNodeJs ()
         {
-            proc = new System.Diagnostics.Process {
-                StartInfo = new System.Diagnostics.ProcessStartInfo {
+            proc = new Process {
+                StartInfo = new ProcessStartInfo {
                     FileName = "node",
                     Arguments = "BridgedCore.js",
-                    WorkingDirectory = "/Users/jmedrano/HapSharp/HAP-NodeJS",
+                    WorkingDirectory = hapNodePath,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true,
@@ -158,7 +158,10 @@ namespace HapSharp
 
         void PrintCurrentCode ()
         {
-            var pinCode = messages.FirstOrDefault (s => s is MessageBridgedCoreDelegate).accessory.PinCode;
+            var pinCode = messages
+                .FirstOrDefault (s => s is MessageBridgedCoreDelegate)
+                .accessory.PinCode;
+            
             monitor.WriteLine ("---------------");
             monitor.WriteLine ("|              |");
             monitor.WriteLine ($"|  {pinCode}  |");
@@ -169,6 +172,10 @@ namespace HapSharp
         internal void Stop ()
         {
             try {
+                if (client.IsConnected) {
+                    client.Disconnect ();
+                }
+
                 proc.Close ();
                 proc.Kill ();
                 proc.Dispose ();
