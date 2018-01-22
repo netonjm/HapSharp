@@ -1,7 +1,6 @@
 ﻿using System;
 namespace HapSharp.Accessories
 {
-    
     public class LightAccessory : Accessory
     {
         public override string Template => "Light_accessory.js";
