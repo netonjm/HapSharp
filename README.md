@@ -9,7 +9,7 @@
 
 First of all you will need to configure your environment, I created a simple script to do it automagically for you
 
-    make
+    make configure
 
 If you want execute the current configured host, you can do it from VSforMac/VS or from a terminal window with:
 
@@ -27,16 +27,16 @@ The generated NodeJS accessory files are prepared to establish MQTT communicatio
 
 Right now, in this prototype there are 4 type of accessories to include in your host:
 
-* *BridgedCore:* This an special accessory can host other Accessories “behind”. This way we can simply publish the Bridge (with a simple HAPServer on a single port) and all bridged Accessories will be hosted automatically, instead of needed to publish every single Accessory as a serpare server (this is not implemented yet).
+* BridgedCore: This an special accessory can host other Accessories “behind”. This way we can simply publish the Bridge (with a simple HAPServer on a single port) and all bridged Accessories will be hosted automatically, instead of needed to publish every single Accessory as a serpare server (this is not implemented yet).
 
 
 Right now, we use this way to load all accessories created because it’s the easiest way. In the future this will be more customisable.
 
-* *Light:* This accessory exposes the behaviour of a single light, with 2 states: On/Off
+* Light: This accessory exposes the behaviour of a single light, with 2 states: On/Off
 
-* *Light with Brightness:* Same like simple light but adds a regulable brightness bar
+* Light with Brightness: Same like simple light but adds a regulable brightness bar
 
-* *Temperature sensor:* It allows handle the temperature in a specific timeout sending the calculated values to HomeKit.
+* Temperature sensor: It allows handle the temperature in a specific timeout sending the calculated values to HomeKit.
 
 
 ### The Host
@@ -44,6 +44,7 @@ Right now, we use this way to load all accessories created because it’s the ea
 The little boy who has the logic to make all this things possible is the Host. 
 
 In order of execution it’s the responsible of:
+
 1. Run and manage a clean environment
 2. Generates all native accessory code
 3. Keeps alive the current .net session
@@ -56,14 +57,13 @@ The host is represented by HapSession class which has 3 steps
 Instanciate
 
 ```
-var session = new HapSession(); 
+var session = new HapSession();
 ```
 
 Add all message delegates and accessories you want
 
 ```
- session.Add(
-    new CustomBridgedCoreMessageDelegate(
+ session.Add(new CustomBridgedCoreMessageDelegate(
       new CustomBridgedCoreAccessory("NetAwesomeBridge", "22:32:43:54:65:14")
  ));
 ```
@@ -71,7 +71,7 @@ Add all message delegates and accessories you want
 Start the session
 
 ```
-session.Start ([your Broker MQTT address for communication], [Your HAP-NodeJS path]);
+session.Start ([Your HAP-NodeJS path], [your Broker MQTT address for communication]);
 ```
 
 At this point your defined message handlers and accessories are loaded and your host knows all the necessary things to execute your HomeKit accessory hosting. 
