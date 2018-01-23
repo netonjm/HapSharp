@@ -153,8 +153,8 @@ namespace HapSharp
                 if (message == "identify") {
                     msg.OnIdentify ();
                 } else {
-                    msg.OnMessageReceived (e.Topic, e.Message);
-                    msg.OnMessageReceived (e.Topic, message);
+                    msg.RaiseMessageReceived (e.Topic, e.Message);
+                    msg.RaiseMessageReceived (e.Topic, message);
                 }
             }
         }

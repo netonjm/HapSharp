@@ -17,9 +17,19 @@ namespace HapSharp.Core.MessageDelegates
 
         internal string OutputAccessoryFileName => GetNormalizedFileName(accessory.Name) + "_accessory.js";
 
-        protected void OnSendMessage (string topic, string message)
+        protected void OnSendMessage (string topic, string message, int value)
         {
-            SendMessage?.Invoke (this, new Tuple<string, string>(topic, message));
+            OnSendMessage (topic, message, value.ToString ());
+        }
+
+        protected void OnSendMessage (string topic, string message, string value)
+        {
+            OnSendMessage (topic + "/" + ReceiveTopicNode, message + "/" + value);
+        }
+
+        void OnSendMessage (string topic, string message)
+        {
+            SendMessage?.Invoke (this, new Tuple<string, string> (topic, message));
         }
 
         protected MessageDelegate (Accessory accessory) 
@@ -28,7 +38,7 @@ namespace HapSharp.Core.MessageDelegates
             Topic = "home/" + accessory.Id;
         }
 
-        internal string GetTemplateTagId (string prefix, string name) 
+        protected string GetTemplateTagId (string prefix, string name) 
         {
             return $"{{{{{prefix}_{name.ToUpper ()}}}}}";
         }
@@ -58,12 +68,22 @@ namespace HapSharp.Core.MessageDelegates
             return name.Replace(" ", "");
         }
 
-        internal virtual void OnMessageReceived (string topic, string message)
+        internal void RaiseMessageReceived (string topic, string message) 
+        {
+            OnMessageReceived (topic, message);
+        }
+
+        internal void RaiseMessageReceived (string topic, byte[] message)
+        {
+            OnMessageReceived (topic, message);
+        }
+
+        protected virtual void OnMessageReceived (string topic, string message)
         {
            
         }
 
-        internal virtual void OnMessageReceived (string topic, byte[] message)
+        protected virtual void OnMessageReceived (string topic, byte[] message)
         {
 
         }

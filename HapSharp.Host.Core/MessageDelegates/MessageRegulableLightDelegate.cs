@@ -12,13 +12,13 @@ namespace HapSharp.Core.MessageDelegates
 
         }
 
-        internal override void OnMessageReceived (string topic, string message)
+        protected override void OnMessageReceived (string topic, string message)
         {
             if (message.StartsWith (TopicSetBrightness + "/")) {
                 OnChangeBrightness (message.Substring ((TopicSetBrightness + "/").Length).ToInt ());
             } else if (message == TopicGetBrightness) {
                 var current = OnGetBrightness ();
-                OnSendMessage (topic + "/" + ReceiveTopicNode, message + "/" + current);
+                OnSendMessage (topic, message, current);
             } else {
                 base.OnMessageReceived (topic, message);
             }

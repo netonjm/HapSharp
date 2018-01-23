@@ -11,11 +11,11 @@ namespace HapSharp.Core.MessageDelegates
         {
         }
 
-        internal override void OnMessageReceived (string topic, string message)
+        protected override void OnMessageReceived (string topic, string message)
         {
             if (message == TopicGet) {
                 var value = OnGetTemperature ();
-                OnSendMessage (topic + "/" + ReceiveTopicNode, message + "/" + value.ToString ());
+                OnSendMessage (topic, message, value);
             } else {
                 throw new System.NotImplementedException (message);
             }
