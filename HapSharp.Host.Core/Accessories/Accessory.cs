@@ -7,6 +7,7 @@ namespace HapSharp.Accessories
         public string Id { get; private set; }
         public abstract string Template { get; }
         protected virtual string Prefix => "COMPONENT";
+		public virtual int Interval => 0;
         public string Name { get; private set; }
         public string PinCode { get; set; } = "031-45-154";
         public string UserName { get; private set; } = "11:22:33:44:55:66";
@@ -24,6 +25,9 @@ namespace HapSharp.Accessories
 
         public virtual string OnReplaceTemplate (string template)
         {
+			if (Interval > 0) {
+				template = template.Replace (GetTemplateTagId (nameof (Interval)), Interval.ToString ());
+			}
             //TODO: we need a strong replace way
             return template.Replace (GetTemplateTagId (nameof (Name)), Name)
                            .Replace (GetTemplateTagId (nameof (PinCode)), PinCode)
