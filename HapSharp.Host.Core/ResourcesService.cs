@@ -12,21 +12,17 @@ namespace HapSharp
 
         }
 
-        public static string GetTemplate (string resourceId)
+        public static string GetManifestResource(Assembly assembly, string resource)
         {
-            var resourceData = GetManifestResource(Assembly.GetExecutingAssembly(), resourceId);
-            return resourceData;
-        }
-
-        public static string GetManifestResource(System.Reflection.Assembly assembly, string resource)
-        {
-            var resources = assembly.GetManifestResourceNames();
-            using (var stream = assembly.GetManifestResourceStream(resource))
-            {
-                using (TextReader tr = new StreamReader(stream))
-                {
-                    return tr.ReadToEnd();
-                };
+            try {
+                var resources = assembly.GetManifestResourceNames ();
+                using (var stream = assembly.GetManifestResourceStream (resource)) {
+                    using (TextReader tr = new StreamReader (stream)) {
+                        return tr.ReadToEnd ();
+                    };
+                }
+            } catch (System.Exception) {
+                return null;
             }
         }
     }

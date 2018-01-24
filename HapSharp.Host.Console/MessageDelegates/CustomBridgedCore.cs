@@ -1,6 +1,6 @@
 ﻿using System;
-using HapSharp.Core.Accessories;
-using HapSharp.Core.MessageDelegates;
+using HapSharp.Accessories;
+using HapSharp.MessageDelegates;
 
 namespace HapSharp.Host.Terminal.MessageDelegates
 {
@@ -13,7 +13,7 @@ namespace HapSharp.Host.Terminal.MessageDelegates
 
         public override void OnIdentify()
         {
-            Console.WriteLine("[Net]" + accessory.Name + " identified!!");
+            Console.WriteLine("[Net]" + Accessory.Name + " identified!!");
         }
     }
 }

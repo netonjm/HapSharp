@@ -1,4 +1,4 @@
-﻿namespace HapSharp.Core.Accessories
+﻿namespace HapSharp.Accessories
 {
     public class LightAccessory : Accessory
     {

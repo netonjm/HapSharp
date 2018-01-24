@@ -5,7 +5,9 @@ using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using System.Linq;
 using System.Diagnostics;
-using HapSharp.Core.MessageDelegates;
+using HapSharp.MessageDelegates;
+using System.Reflection;
+using HapSharp.Accessories;
 
 namespace HapSharp
 {
@@ -72,21 +74,54 @@ namespace HapSharp
 
         void WriteAccessories (string host) 
         {
-            string template;
             string filePath;
 
             foreach (var msg in messages) {
-                template = msg.GetTemplate ()
-                              .Replace ("{{MQTT_ADDRESS}}", host);
-
                 if (msg is MessageBridgedCoreDelegate) {
-                    filePath = Path.Combine (hapNodePath, hapNodePath, ((MessageBridgedCoreDelegate)msg).accessory.Template);
+                    filePath = Path.Combine (hapNodePath, hapNodePath, ((MessageBridgedCoreDelegate)msg).Accessory.Template);
                 } else {
                     filePath = Path.Combine (hapNodePath, "accessories", msg.OutputAccessoryFileName);
                 }
+
+                var template = GetProcessedTemplate (msg);
                 File.WriteAllText (filePath, template);
             }
         }
+
+        string GetProcessedTemplate (MessageDelegate msgDelegate) 
+        {
+            var delegateType = msgDelegate.GetType ();
+
+			var template = GetTemplateFromResourceId (delegateType, msgDelegate.Accessory.Template);
+            if (template == null) {
+				throw new Exception ("Resource not found in assemblies");
+            }
+            template = msgDelegate.OnReplaceTemplate (template);
+            template = msgDelegate.Accessory.OnReplaceTemplate (template);
+            return template.Replace ("{{MQTT_ADDRESS}}", Host);
+        }
+
+        public Type GetAccessoryFirstType (Type type) {
+            if (type.BaseType == typeof (MessageDelegate))
+                return type;
+            return GetAccessoryFirstType (type.BaseType);
+        }
+
+		string GetTemplateFromResourceId (Type type, string resourceId)
+		{
+			var template = ResourcesService.GetManifestResource (type.Assembly, resourceId);
+			if (template == null){
+				return template = GetTemplateFromResourceId (type.BaseType, resourceId);
+			}
+			return template;
+		}
+
+        //public Assembly GetAssembly (MessageDelegate msgDelegate) {
+			
+        //    var baseType = GetAccessoryFirstType (msgDelegate.GetType ());
+        //    return baseType.Assembly;
+        //    return Assembly.GetAssembly (msgDelegate.GetType ());
+        //}
 
         void ConnectToBroker (string host)
         {
@@ -163,7 +198,7 @@ namespace HapSharp
         {
             var pinCode = messages
                 .FirstOrDefault (s => s is MessageBridgedCoreDelegate)
-                .accessory.PinCode;
+                .Accessory.PinCode;
             
             monitor.WriteLine ("---------------");
             monitor.WriteLine ("|              |");

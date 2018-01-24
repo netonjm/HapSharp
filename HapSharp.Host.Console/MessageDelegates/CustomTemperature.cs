@@ -1,26 +1,28 @@
 ﻿using System;
-using HapSharp.Core.Accessories;
-using HapSharp.Core.MessageDelegates;
+using HapSharp.Accessories;
+using HapSharp.MessageDelegates;
 
 namespace HapSharp.Host.Terminal.MessageDelegates
 {
-    class CustomTemperatureMessageDelegate : MessageTemperatureDelegate
-    {
-        public CustomTemperatureMessageDelegate (TemperatureAccessory accessory) : base (accessory)
-        {
-        }
+	class CustomTemperatureMessageDelegate : GetMessageDelegate
+	{
+		Random rnd = new Random (DateTime.Now.Millisecond);
 
-        Random rnd = new Random (DateTime.Now.Millisecond);
-        protected override int OnGetTemperature ()
-        {
-            var calculated = rnd.Next(20, 50);
-            Console.WriteLine($"[Net] Temperature: {calculated}");
-            return calculated;
-        }
+		public CustomTemperatureMessageDelegate (TemperatureAccessory accessory) : base (accessory)
+		{
+		}
 
-        public override void OnIdentify()
-        {
-            Console.WriteLine("[Net]" + accessory.Name + " identified!!");
-        }
-    }
+		public override int OnGetMessageReceived ()
+		{
+			var calculated = rnd.Next (20, 50);
+			Console.WriteLine ($"[Net] Temperature: {calculated}");
+			return calculated;
+		}
+
+
+		public override void OnIdentify ()
+		{
+			Console.WriteLine ("[Net]" + Accessory.Name + " identified!!");
+		}
+	}
 }

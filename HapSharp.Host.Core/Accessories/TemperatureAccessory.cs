@@ -1,4 +1,4 @@
-﻿namespace HapSharp.Core.Accessories
+﻿namespace HapSharp.Accessories
 {
     public class TemperatureAccessory : Accessory
     {
@@ -9,6 +9,12 @@
         public TemperatureAccessory(string name = null, string username = null) : base (name, username)
         {
 
+        }
+
+        public override string OnReplaceTemplate (string template)
+        {
+            return base.OnReplaceTemplate (template)
+                       .Replace (GetTemplateTagId (nameof (Interval)), Interval.ToString ());
         }
     }
 }

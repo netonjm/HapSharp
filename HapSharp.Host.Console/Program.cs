@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using HapSharp.Core.Accessories;
+using HapSharp.Accessories;
 using HapSharp.Host.Terminal.MessageDelegates;
 
 namespace HapSharp.Host.Terminal
@@ -27,10 +27,10 @@ namespace HapSharp.Host.Terminal
 
             //Adding Bridged Core
             session.Add(
-                new CustomBridgedCoreMessageDelegate(new BridgedCore("NetAwesomeBridge", "22:32:43:54:65:14")),
-                new CustomLightMessageDelegate (new LightAccessory ("First", "AA:21:4D:87:66:78")),
-                new CustomRegulableLightMessageDelegate (new RegulableLightAccessory ("Second", "AB:12:45:27:55:73")),
-                new CustomTemperatureMessageDelegate (new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73"))
+                new CustomBridgedCoreMessageDelegate(new BridgedCore("Xamarin Net Bridge", "22:32:43:54:65:14")),
+                new CustomLightMessageDelegate (new LightAccessory ("First Light", "AA:21:4D:87:66:78")),
+                new CustomRegulableLightMessageDelegate (new RegulableLightAccessory ("Second Light", "AB:12:45:27:55:73")),
+                new CustomTemperatureMessageDelegate (new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73")),
             );
             
             session.Start (hapNodeJsPath);

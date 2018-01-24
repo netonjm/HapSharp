@@ -1,7 +1,7 @@
 ﻿using System;
-using HapSharp.Core.Accessories;
+using HapSharp.Accessories;
 
-namespace HapSharp.Core.MessageDelegates
+namespace HapSharp.MessageDelegates
 {
     public abstract class MessageLightDelegate : MessageDelegate
     {
@@ -26,16 +26,16 @@ namespace HapSharp.Core.MessageDelegates
             }
         }
 
-        public override string GetTemplate ()
+        public override string OnReplaceTemplate (string template)
         {
-            return base.GetTemplate ()
-                       .Replace (GetTemplateTagId (accessory.Prefix, nameof (TopicGetOn)), TopicGetOn)
-                       .Replace (GetTemplateTagId (accessory.Prefix, nameof (TopicSetOn)), TopicSetOn);
+            return base.OnReplaceTemplate (template)
+                       .Replace (Accessory.GetTemplateTagId (nameof (TopicGetOn)), TopicGetOn)
+                       .Replace (Accessory.GetTemplateTagId (nameof (TopicSetOn)), TopicSetOn);
         }
 
         public override void OnIdentify ()
         {
-            Console.WriteLine ("[Net]" + accessory.Name + " identified!!");
+            Console.WriteLine ("[Net]" + Accessory.Name + " identified!!");
         }
 
         protected abstract bool OnGetPower ();

@@ -1,12 +1,12 @@
 using System;
 
-namespace HapSharp.Core.Accessories
+namespace HapSharp.Accessories
 {
     public abstract class Accessory
     {
         public string Id { get; private set; }
         public abstract string Template { get; }
-        internal virtual string Prefix => "COMPONENT";
+        protected virtual string Prefix => "COMPONENT";
         public string Name { get; private set; }
         public string PinCode { get; set; } = "031-45-154";
         public string UserName { get; private set; } = "11:22:33:44:55:66";
@@ -22,9 +22,21 @@ namespace HapSharp.Core.Accessories
             Id = name.Replace (" ", "") + username.Replace (":", "").ToLower ();
         }
 
-        protected virtual void Identify () 
+        public virtual string OnReplaceTemplate (string template)
         {
-            
+            //TODO: we need a strong replace way
+            return template.Replace (GetTemplateTagId (nameof (Name)), Name)
+                           .Replace (GetTemplateTagId (nameof (PinCode)), PinCode)
+                           .Replace (GetTemplateTagId (nameof (UserName)), UserName)
+                           .Replace (GetTemplateTagId (nameof (Manufacturer)), Manufacturer)
+                           .Replace (GetTemplateTagId (nameof (SerialNumber)), SerialNumber)
+                           .Replace (GetTemplateTagId (nameof (Model)), Model);
+
+        }
+
+        public string GetTemplateTagId (string name)
+        {
+            return $"{{{{{Prefix}_{name.ToUpper ()}}}}}";
         }
     }
 }

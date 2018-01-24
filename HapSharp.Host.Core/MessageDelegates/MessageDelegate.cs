@@ -1,21 +1,48 @@
 ﻿using System;
-using HapSharp.Core.Accessories;
+using HapSharp.Accessories;
 
-namespace HapSharp.Core.MessageDelegates
+namespace HapSharp.MessageDelegates
 {
+	public abstract class GetMessageDelegate : MessageDelegate
+	{
+		const string TopicGet = "get";
+
+		protected GetMessageDelegate (Accessory accessory) : base (accessory)
+		{
+		}
+
+		public abstract int OnGetMessageReceived ();
+
+		protected override void OnMessageReceived (string topic, string message)
+		{
+			if (message == TopicGet) {
+				var value = OnGetMessageReceived ();
+				OnSendMessage (topic, message, value);
+			} else {
+				throw new System.NotImplementedException (message);
+			}
+		}
+
+		public override string OnReplaceTemplate (string template)
+		{
+			return base.OnReplaceTemplate (template)
+					   .Replace (Accessory.GetTemplateTagId (nameof (TopicGet)), TopicGet);
+		}
+	}
+
     public abstract class MessageDelegate
     {
         protected const string ReceiveTopicNode = "r";
 
         public event EventHandler<Tuple<string, string>> SendMessage;
 
-        readonly internal Accessory accessory;
+        readonly public Accessory Accessory;
 
-        readonly internal string Topic;
+        readonly public string Topic;
 
         internal string TopicReceive => Topic + "/" + ReceiveTopicNode;
 
-        internal string OutputAccessoryFileName => GetNormalizedFileName(accessory.Name) + "_accessory.js";
+        internal string OutputAccessoryFileName => GetNormalizedFileName(Accessory.Name) + "_accessory.js";
 
         protected void OnSendMessage (string topic, string message, int value)
         {
@@ -34,28 +61,8 @@ namespace HapSharp.Core.MessageDelegates
 
         protected MessageDelegate (Accessory accessory) 
         {
-            this.accessory = accessory;
+            this.Accessory = accessory;
             Topic = "home/" + accessory.Id;
-        }
-
-        protected string GetTemplateTagId (string prefix, string name) 
-        {
-            return $"{{{{{prefix}_{name.ToUpper ()}}}}}";
-        }
-
-        public virtual string GetTemplate ()
-        {
-            //TODO: we need a strong replace way
-            return ResourcesService.GetTemplate(accessory.Template)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.Name)), accessory.Name)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.PinCode)), accessory.PinCode)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.UserName)), accessory.UserName)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.Manufacturer)), accessory.Manufacturer)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.SerialNumber)), accessory.SerialNumber)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(Topic)), Topic)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(TopicReceive)), TopicReceive)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.Model)), accessory.Model);
-            
         }
 
         public virtual void OnIdentify () 
@@ -81,6 +88,12 @@ namespace HapSharp.Core.MessageDelegates
         protected virtual void OnMessageReceived (string topic, string message)
         {
            
+        }
+
+        public virtual string OnReplaceTemplate (string template)
+        {
+            return template.Replace (Accessory.GetTemplateTagId (nameof (Topic)), Topic)
+                           .Replace (Accessory.GetTemplateTagId (nameof (TopicReceive)), TopicReceive);
         }
 
         protected virtual void OnMessageReceived (string topic, byte[] message)

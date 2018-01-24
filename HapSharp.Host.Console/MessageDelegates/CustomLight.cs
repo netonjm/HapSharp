@@ -1,6 +1,6 @@
 ﻿using System;
-using HapSharp.Core.Accessories;
-using HapSharp.Core.MessageDelegates;
+using HapSharp.Accessories;
+using HapSharp.MessageDelegates;
 
 namespace HapSharp.Host.Terminal.MessageDelegates
 {
@@ -17,7 +17,7 @@ namespace HapSharp.Host.Terminal.MessageDelegates
         protected override void OnChangePower (bool value)
         {
             actualValue = value;
-            Console.WriteLine("[Net]" + accessory.Name + " ChangePower to: " + value);
+            Console.WriteLine("[Net]" + Accessory.Name + " ChangePower to: " + value);
         }
 
         protected override bool OnGetPower()
@@ -27,7 +27,7 @@ namespace HapSharp.Host.Terminal.MessageDelegates
 
         public override void OnIdentify ()
         {
-            Console.WriteLine("[Net]" + accessory.Name + " identified!!");
+            Console.WriteLine("[Net]" + Accessory.Name + " identified!!");
         }
     }
 }

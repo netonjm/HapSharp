@@ -1,7 +1,7 @@
 ﻿using System;
-using HapSharp.Core.Accessories;
+using HapSharp.Accessories;
 
-namespace HapSharp.Core.MessageDelegates
+namespace HapSharp.MessageDelegates
 {
     public abstract class MessageBridgedCoreDelegate : MessageDelegate
     {
@@ -13,13 +13,6 @@ namespace HapSharp.Core.MessageDelegates
         public override void OnIdentify ()
         {
             Console.WriteLine ("[Net][MessageBridgedCore] identified!!");
-        }
-
-        public override string GetTemplate ()
-        {
-            var port = ((BridgedCore)accessory).Port.ToString ();
-            return base.GetTemplate ()
-                       .Replace (GetTemplateTagId (accessory.Prefix, nameof (BridgedCore.Port)), port);
         }
     }
 }

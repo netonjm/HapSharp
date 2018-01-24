@@ -40,6 +40,7 @@
     <Compile Include="MessageDelegates\CustomTemperature.cs" />
     <Compile Include="ConsoleMonitor.cs" />
     <Compile Include="MessageDelegates\CustomRegulableLight.cs" />
+    <Compile Include="MessageDelegates\CustomHumidity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HapSharp.Host\HapSharp.Host.csproj">
@@ -49,6 +50,10 @@
     <ProjectReference Include="..\HapSharp.Host.Core\HapSharp.Host.Core.csproj">
       <Project>{57B7FD9C-946A-44C0-AA79-E2E5838CC38F}</Project>
       <Name>HapSharp.Host.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HapSharp.Accessories.Humidity\HapSharp.Accessories.Humidity.csproj">
+      <Project>{B7013675-93E3-4196-897A-CD93404FE51F}</Project>
+      <Name>HapSharp.Accessories.Humidity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

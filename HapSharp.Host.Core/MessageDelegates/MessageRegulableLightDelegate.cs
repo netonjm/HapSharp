@@ -1,6 +1,6 @@
-﻿using HapSharp.Core.Accessories;
+﻿using HapSharp.Accessories;
 
-namespace HapSharp.Core.MessageDelegates
+namespace HapSharp.MessageDelegates
 {
     public abstract class MessageRegulableLightDelegate : MessageLightDelegate
     {
@@ -24,11 +24,11 @@ namespace HapSharp.Core.MessageDelegates
             }
         }
 
-        public override string GetTemplate ()
+        public override string OnReplaceTemplate (string template)
         {
-            return base.GetTemplate ()
-                       .Replace (GetTemplateTagId (accessory.Prefix, nameof (TopicGetBrightness)), TopicGetBrightness)
-                       .Replace (GetTemplateTagId (accessory.Prefix, nameof (TopicSetBrightness)), TopicSetBrightness);
+            return base.OnReplaceTemplate (template)
+                       .Replace (Accessory.GetTemplateTagId (nameof (TopicGetBrightness)), TopicGetBrightness)
+                       .Replace (Accessory.GetTemplateTagId (nameof (TopicSetBrightness)), TopicSetBrightness);
         }
 
         protected abstract int OnGetBrightness ();
