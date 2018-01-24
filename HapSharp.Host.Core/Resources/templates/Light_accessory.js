@@ -25,7 +25,7 @@ client.on('message', (topic, message) => {
     var m = message.toString();
     if (m.startsWith ("{{COMPONENT_TOPICGETON}}/")) {
         power = (m.substring("{{COMPONENT_TOPICGETON}}/".length) === 'true');
-        console.log("Power: '%s'", power);
+        console.log("[{{COMPONENT_NAME}}][Get] %s", power);
     }
   }
 })
@@ -49,7 +49,7 @@ lightAccessory
     .setCharacteristic(Characteristic.SerialNumber, serialNumber);
 
 lightAccessory.on('identify', function(paired, callback) {
-  console.log("[{{COMPONENT_NAME}}] identified.");
+  console.log("[{{COMPONENT_NAME}}] Identified.");
   client.publish('{{COMPONENT_TOPIC}}', 'identify');
   callback();
 });
@@ -69,4 +69,4 @@ lightAccessory
     callback(null, power ? true : false);
   });
 
-console.log("[{{COMPONENT_NAME}}] loaded.");
+console.log("[{{COMPONENT_NAME}}] Loaded.");

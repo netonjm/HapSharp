@@ -18,7 +18,7 @@ var bridge = new Bridge('{{COMPONENT_NAME}}', uuid.generate("{{COMPONENT_NAME}}"
 // Listen for bridge identification event
 bridge.on('identify', function(paired, callback) {
   client.publish('{{COMPONENT_TOPIC}}', 'identify');
-  console.log("[{{COMPONENT_NAME}}] identified.");
+  console.log("[{{COMPONENT_NAME}}] Identified.");
   callback(); // success
 });
 
@@ -39,4 +39,4 @@ bridge.publish({
   category: Accessory.Categories.BRIDGE
 });
 
-console.log("[{{COMPONENT_NAME}}] loaded.");
+console.log("[{{COMPONENT_NAME}}] Loaded.");

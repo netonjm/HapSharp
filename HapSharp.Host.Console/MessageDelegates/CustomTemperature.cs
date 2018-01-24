@@ -15,14 +15,14 @@ namespace HapSharp.Host.Terminal.MessageDelegates
 		public override int OnGetMessageReceived ()
 		{
 			var calculated = rnd.Next (20, 50);
-			Console.WriteLine ($"[Net] Temperature: {calculated}");
+			Console.WriteLine ($"[Net][{Accessory.Name}][Get] {calculated}");
 			return calculated;
 		}
 
 
 		public override void OnIdentify ()
 		{
-			Console.WriteLine ("[Net]" + Accessory.Name + " identified!!");
+			Console.WriteLine ($"[Net][{Accessory.Name}] Identified.");
 		}
 	}
 }

@@ -23,7 +23,7 @@ client.on('message', (topic, message) => {
     if (m.startsWith ("{{COMPONENT_TOPICGET}}/")) {
         var valueReceived = m.substring("{{COMPONENT_TOPICGET}}/".length);
         Sensor.value = parseInt (valueReceived);
-        console.log("[{{COMPONENT_NAME}}][GET]: '%s'", Sensor.value);
+        console.log("[{{COMPONENT_NAME}}][Get] %s", Sensor.value);
     }
   }
 })
@@ -41,7 +41,7 @@ sensor
     .setCharacteristic(Characteristic.SerialNumber, "{{COMPONENT_SERIALNUMBER}}");
 
 sensor.on('identify', function(paired, callback) {
-  console.log("[{{COMPONENT_NAME}}] identified.");
+  console.log("[{{COMPONENT_NAME}}] Identified.");
   client.publish('{{COMPONENT_TOPIC}}', 'identify');
   callback();
 });
@@ -60,4 +60,4 @@ setInterval(function() {
     .setCharacteristic(Characteristic.CurrentRelativeHumidity, Sensor.getValue());
 }, {{COMPONENT_INTERVAL}});
 
-console.log("[{{COMPONENT_NAME}}] loaded.");
+console.log("[{{COMPONENT_NAME}}] Loaded.");
