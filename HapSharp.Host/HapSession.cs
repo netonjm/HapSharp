@@ -13,7 +13,7 @@ namespace HapSharp
 {
     public class HapSession : IDisposable
     {
-        const string DefaultBrokerHost = "broker.hivemq.com";
+		const string DefaultBrokerHost = "localhost";
 
         internal const int Port = 51826;
         readonly List<MessageDelegate> messages = new List<MessageDelegate> ();
