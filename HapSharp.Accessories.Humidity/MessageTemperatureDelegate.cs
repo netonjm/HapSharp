@@ -2,13 +2,13 @@
 using HapSharp.Accessories;
 using HapSharp.MessageDelegates;
 
-namespace HapSharp.Host.Terminal.MessageDelegates
+namespace HapSharp.Accessories
 {
-	class CustomTemperatureMessageDelegate : GetMessageDelegate
+	public abstract class MessageHumidityDelegate : GetMessageDelegate
 	{
 		Random rnd = new Random (DateTime.Now.Millisecond);
 
-		public CustomTemperatureMessageDelegate (TemperatureAccessory accessory) : base (accessory)
+		protected MessageHumidityDelegate (HumidityAccessory accessory) : base (accessory)
 		{
 		}
 
@@ -19,10 +19,9 @@ namespace HapSharp.Host.Terminal.MessageDelegates
 			return calculated;
 		}
 
-
 		public override void OnIdentify ()
 		{
-			Console.WriteLine ($"[Net][{Accessory.Name}] Identified.");
+			Console.WriteLine ($"[Net][{Accessory.Name}] Identified");
 		}
 	}
 }

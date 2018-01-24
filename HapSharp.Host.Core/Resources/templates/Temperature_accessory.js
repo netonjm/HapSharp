@@ -34,7 +34,7 @@ client.on('message', (topic, message) => {
     if (m.startsWith ("{{COMPONENT_TOPICGET}}/")) {
         var valueReceived = m.substring("{{COMPONENT_TOPICGET}}/".length);
         TemperatureSensor.currentTemperature = parseInt (valueReceived);
-        console.log("Temperature: '%s'", TemperatureSensor.currentTemperature);
+        console.log("[{{COMPONENT_NAME}}][Get] %s", TemperatureSensor.currentTemperature);
     }
   }
 })
@@ -58,7 +58,7 @@ sensor
     .setCharacteristic(Characteristic.SerialNumber, serialNumber);
 
 sensor.on('identify', function(paired, callback) {
-  console.log("[{{COMPONENT_NAME}}] identified.");
+  console.log("[{{COMPONENT_NAME}}] Identified.");
   client.publish('{{COMPONENT_TOPIC}}', 'identify');
   callback();
 });
@@ -79,4 +79,4 @@ setInterval(function() {
 
 }, {{COMPONENT_INTERVAL}});
 
-console.log("[{{COMPONENT_NAME}}] loaded.");
+console.log("[{{COMPONENT_NAME}}] Loaded.");

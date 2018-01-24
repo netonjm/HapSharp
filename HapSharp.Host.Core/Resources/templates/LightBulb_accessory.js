@@ -27,10 +27,10 @@ client.on('message', (topic, message) => {
     var m = message.toString();
     if (m.startsWith ("{{COMPONENT_TOPICGET}}/")) {
         power = (m.substring("{{COMPONENT_TOPICGET}}/".length) === 'true');
-        console.log("Power: '%s'", power);
+        console.log("[{{COMPONENT_NAME}}][Set] %s", power);
     } else if (m.startsWith ("{{COMPONENT_TOPICSETBRIGHTNESS}}/")) { 
         brightness = parseInt(m.substring("{{COMPONENT_TOPICSETBRIGHTNESS}}/".length));
-        console.log("Brightness: '%s'", brightness);
+        console.log("[{{COMPONENT_NAME}}][Brightness] %s", brightness);
     }
   }
 })
@@ -54,7 +54,7 @@ lightAccessory
     .setCharacteristic(Characteristic.SerialNumber, serialNumber);
 
 lightAccessory.on('identify', function(paired, callback) {
-  console.log("[{{COMPONENT_NAME}}] identified.");
+  console.log("[{{COMPONENT_NAME}}] Identified.");
   client.publish('{{COMPONENT_TOPIC}}', 'identify');
   callback();
 });
@@ -63,7 +63,7 @@ lightAccessory
   .addService(Service.Lightbulb, name)
   .getCharacteristic(Characteristic.On)
   .on('set', function(value, callback) {
-    if(outputLogs) console.log("Turning the '%s' %s", name, value ? "on" : "off");
+    if(outputLogs) console.log("[{{COMPONENT_NAME}}] %s", value ? "on" : "off");
     this.power = value;
     client.publish('{{COMPONENT_TOPIC}}', '{{COMPONENT_TOPICSETON}}/' + value);
     callback();
@@ -81,7 +81,7 @@ lightAccessory
     // few seconds to respond, Siri will give up.
 
      client.publish('{{COMPONENT_TOPIC}}', '{{COMPONENT_TOPICGETON}}');
-    //if(this.outputLogs) console.log("'%s' is %s.", name, power ? "on" : "off");
+    if(this.outputLogs) console.log("[{{COMPONENT_NAME}}] is %s.", power ? "on" : "off");
     callback(null, power ? true : false);
 
   });
@@ -100,4 +100,4 @@ lightAccessory
     callback();
   })
 
-console.log("[{{COMPONENT_NAME}}] loaded.");
+console.log("[{{COMPONENT_NAME}}] Loaded.");

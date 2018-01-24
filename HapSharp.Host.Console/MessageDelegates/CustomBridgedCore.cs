@@ -1,19 +1,19 @@
 ﻿using System;
-using HapSharp.Core.Accessories;
-using HapSharp.Core.MessageDelegates;
+using HapSharp.Accessories;
+using HapSharp.MessageDelegates;
 
 namespace HapSharp.Host.Terminal.MessageDelegates
 {
-    class CustomBridgedCoreMessageDelegate : MessageBridgedCoreDelegate
-    {
-        public CustomBridgedCoreMessageDelegate (BridgedCore bridgedCoreAccessory) : base (bridgedCoreAccessory)
-        {
+	class CustomBridgedCoreMessageDelegate : MessageBridgedCoreDelegate
+	{
+		public CustomBridgedCoreMessageDelegate (BridgedCore bridgedCoreAccessory) : base (bridgedCoreAccessory)
+		{
 
-        }
+		}
 
-        public override void OnIdentify()
-        {
-            Console.WriteLine("[Net]" + accessory.Name + " identified!!");
-        }
-    }
+		public override void OnIdentify ()
+		{
+			Console.WriteLine ($"[Net][{Accessory.Name}] Identified.");
+		}
+	}
 }

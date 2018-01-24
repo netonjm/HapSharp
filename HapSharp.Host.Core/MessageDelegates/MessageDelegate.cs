@@ -1,71 +1,104 @@
 ﻿using System;
-using HapSharp.Core.Accessories;
+using HapSharp.Accessories;
 
-namespace HapSharp.Core.MessageDelegates
+namespace HapSharp.MessageDelegates
 {
-    public abstract class MessageDelegate
-    {
-        protected const string ReceiveTopicNode = "r";
+	public abstract class GetMessageDelegate : MessageDelegate
+	{
+		const string TopicGet = "get";
 
-        public event EventHandler<Tuple<string, string>> SendMessage;
+		protected GetMessageDelegate (Accessory accessory) : base (accessory)
+		{
+		}
 
-        readonly internal Accessory accessory;
+		public abstract int OnGetMessageReceived ();
 
-        readonly internal string Topic;
+		protected override void OnMessageReceived (string topic, string message)
+		{
+			if (message == TopicGet) {
+				var value = OnGetMessageReceived ();
+				OnSendMessage (topic, message, value);
+			} else {
+				throw new System.NotImplementedException (message);
+			}
+		}
 
-        internal string TopicReceive => Topic + "/" + ReceiveTopicNode;
+		public override string OnReplaceTemplate (string template)
+		{
+			return base.OnReplaceTemplate (template)
+					   .Replace (Accessory.GetTemplateTagId (nameof (TopicGet)), TopicGet);
+		}
+	}
 
-        internal string OutputAccessoryFileName => GetNormalizedFileName(accessory.Name) + "_accessory.js";
+	public abstract class MessageDelegate
+	{
+		protected const string ReceiveTopicNode = "r";
 
-        protected void OnSendMessage (string topic, string message)
-        {
-            SendMessage?.Invoke (this, new Tuple<string, string>(topic, message));
-        }
+		public event EventHandler<Tuple<string, string>> SendMessage;
 
-        protected MessageDelegate (Accessory accessory) 
-        {
-            this.accessory = accessory;
-            Topic = "home/" + accessory.Id;
-        }
+		readonly public Accessory Accessory;
 
-        internal string GetTemplateTagId (string prefix, string name) 
-        {
-            return $"{{{{{prefix}_{name.ToUpper ()}}}}}";
-        }
+		readonly public string Topic;
 
-        public virtual string GetTemplate ()
-        {
-            //TODO: we need a strong replace way
-            return ResourcesService.GetTemplate(accessory.Template)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.Name)), accessory.Name)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.PinCode)), accessory.PinCode)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.UserName)), accessory.UserName)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.Manufacturer)), accessory.Manufacturer)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.SerialNumber)), accessory.SerialNumber)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(Topic)), Topic)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(TopicReceive)), TopicReceive)
-                                   .Replace(GetTemplateTagId (accessory.Prefix, nameof(accessory.Model)), accessory.Model);
-            
-        }
+		internal string TopicReceive => Topic + "/" + ReceiveTopicNode;
 
-        public virtual void OnIdentify () 
-        {
-            
-        }
+		internal string OutputAccessoryFileName => GetNormalizedFileName (Accessory.Name) + "_accessory.js";
 
-        string GetNormalizedFileName (string name)
-        {
-            return name.Replace(" ", "");
-        }
+		protected void OnSendMessage (string topic, string message, int value)
+		{
+			OnSendMessage (topic, message, value.ToString ());
+		}
 
-        internal virtual void OnMessageReceived (string topic, string message)
-        {
-           
-        }
+		protected void OnSendMessage (string topic, string message, string value)
+		{
+			OnSendMessage (topic + "/" + ReceiveTopicNode, message + "/" + value);
+		}
 
-        internal virtual void OnMessageReceived (string topic, byte[] message)
-        {
+		void OnSendMessage (string topic, string message)
+		{
+			SendMessage?.Invoke (this, new Tuple<string, string> (topic, message));
+		}
 
-        }
-    }
+		protected MessageDelegate (Accessory accessory)
+		{
+			this.Accessory = accessory;
+			Topic = "home/" + accessory.Id;
+		}
+
+		public virtual void OnIdentify ()
+		{
+			Console.WriteLine ($"[Net][{Accessory.Name}] Identified.");
+		}
+
+		string GetNormalizedFileName (string name)
+		{
+			return name.Replace (" ", "");
+		}
+
+		internal void RaiseMessageReceived (string topic, string message)
+		{
+			OnMessageReceived (topic, message);
+		}
+
+		internal void RaiseMessageReceived (string topic, byte[] message)
+		{
+			OnMessageReceived (topic, message);
+		}
+
+		protected virtual void OnMessageReceived (string topic, string message)
+		{
+
+		}
+
+		public virtual string OnReplaceTemplate (string template)
+		{
+			return template.Replace (Accessory.GetTemplateTagId (nameof (Topic)), Topic)
+						   .Replace (Accessory.GetTemplateTagId (nameof (TopicReceive)), TopicReceive);
+		}
+
+		protected virtual void OnMessageReceived (string topic, byte[] message)
+		{
+
+		}
+	}
 }

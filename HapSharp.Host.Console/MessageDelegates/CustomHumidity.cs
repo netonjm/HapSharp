@@ -4,21 +4,19 @@ using HapSharp.MessageDelegates;
 
 namespace HapSharp.Host.Terminal.MessageDelegates
 {
-	class CustomTemperatureMessageDelegate : GetMessageDelegate
+	class CustomHumidityMessageDelegate : MessageHumidityDelegate
 	{
-		Random rnd = new Random (DateTime.Now.Millisecond);
-
-		public CustomTemperatureMessageDelegate (TemperatureAccessory accessory) : base (accessory)
+		public CustomHumidityMessageDelegate (HumidityAccessory accessory) : base (accessory)
 		{
 		}
 
+		Random rnd = new Random (DateTime.Now.Millisecond);
 		public override int OnGetMessageReceived ()
 		{
 			var calculated = rnd.Next (20, 50);
 			Console.WriteLine ($"[Net][{Accessory.Name}][Get] {calculated}");
 			return calculated;
 		}
-
 
 		public override void OnIdentify ()
 		{
