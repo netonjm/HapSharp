@@ -31,6 +31,7 @@ namespace HapSharp.Host.Terminal
                 new CustomLightMessageDelegate (new LightAccessory ("First Light", "AA:21:4D:87:66:78")),
                 new CustomRegulableLightMessageDelegate (new RegulableLightAccessory ("Second Light", "AB:12:45:27:55:73")),
                 new CustomTemperatureMessageDelegate (new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73")),
+                new CustomHumidityMessageDelegate (new HumidityAccessory ("MyHumidity", "A1:32:55:67:53:72"))
             );
             
             session.Start (hapNodeJsPath);
