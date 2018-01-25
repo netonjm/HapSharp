@@ -7,7 +7,7 @@ namespace HapSharp.MessageDelegates
 		const string TopicSetBrightness = "set/brightness";
 		const string TopicGetBrightness = "get/brightness";
 
-		protected MessageRegulableLightDelegate (RegulableLightAccessory accessory, string topic = null) : base (accessory)
+		protected MessageRegulableLightDelegate (RegulableLightAccessory accessory) : base (accessory)
 		{
 
 		}
@@ -24,11 +24,11 @@ namespace HapSharp.MessageDelegates
 			}
 		}
 
-		public override string OnReplaceTemplate (string template)
+		public override string OnReplaceTemplate (string prefix, string template)
 		{
-			return base.OnReplaceTemplate (template)
-					   .Replace (Accessory.GetTemplateTagId (nameof (TopicGetBrightness)), TopicGetBrightness)
-					   .Replace (Accessory.GetTemplateTagId (nameof (TopicSetBrightness)), TopicSetBrightness);
+			return base.OnReplaceTemplate (prefix, template)
+				       .Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (TopicGetBrightness)), TopicGetBrightness)
+				       .Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (TopicSetBrightness)), TopicSetBrightness);
 		}
 
 		protected abstract int OnGetBrightness ();

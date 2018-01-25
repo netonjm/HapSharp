@@ -25,11 +25,11 @@ namespace HapSharp.MessageDelegates
 			}
 		}
 
-		public override string OnReplaceTemplate (string template)
+		public override string OnReplaceTemplate (string prefix, string template)
 		{
-			return base.OnReplaceTemplate (template)
-					   .Replace (Accessory.GetTemplateTagId (nameof (TopicGetOn)), TopicGetOn)
-					   .Replace (Accessory.GetTemplateTagId (nameof (TopicSetOn)), TopicSetOn);
+			return base.OnReplaceTemplate (prefix, template)
+				       .Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (TopicGetOn)), TopicGetOn)
+				       .Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (TopicSetOn)), TopicSetOn);
 		}
 
 		protected abstract bool OnGetPower ();

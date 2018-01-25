@@ -1,12 +1,21 @@
 using System;
+using HapSharp.MessageDelegates;
 
 namespace HapSharp.Accessories
 {
+	public static class TemplateHelper
+	{
+		public static string GetTemplateTagId (string prefix, string name)
+		{
+			return $"{{{{{prefix}_{name.ToUpper ()}}}}}";
+		}
+	}
+
 	public abstract class Accessory
 	{
 		public string Id { get; private set; }
 		public abstract string Template { get; }
-		protected virtual string Prefix => "COMPONENT";
+
 		public virtual int Interval => 0;
 		public string Name { get; private set; }
 		public string PinCode { get; set; } = "031-45-154";
@@ -23,24 +32,18 @@ namespace HapSharp.Accessories
 			Id = name.Replace (" ", "") + username.Replace (":", "").ToLower ();
 		}
 
-		public virtual string OnReplaceTemplate (string template)
+		public virtual string OnReplaceTemplate (string prefix, string template)
 		{
 			if (Interval > 0) {
-				template = template.Replace (GetTemplateTagId (nameof (Interval)), Interval.ToString ());
+				template = template.Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (Interval)), Interval.ToString ());
 			}
 			//TODO: we need a strong replace way
-			return template.Replace (GetTemplateTagId (nameof (Name)), Name)
-						   .Replace (GetTemplateTagId (nameof (PinCode)), PinCode)
-						   .Replace (GetTemplateTagId (nameof (UserName)), UserName)
-						   .Replace (GetTemplateTagId (nameof (Manufacturer)), Manufacturer)
-						   .Replace (GetTemplateTagId (nameof (SerialNumber)), SerialNumber)
-						   .Replace (GetTemplateTagId (nameof (Model)), Model);
-
-		}
-
-		public string GetTemplateTagId (string name)
-		{
-			return $"{{{{{Prefix}_{name.ToUpper ()}}}}}";
+			return template.Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (Name)), Name)
+						   .Replace (TemplateHelper.GetTemplateTagId (prefix,nameof (PinCode)), PinCode)
+						   .Replace (TemplateHelper.GetTemplateTagId (prefix,nameof (UserName)), UserName)
+						   .Replace (TemplateHelper.GetTemplateTagId (prefix,nameof (Manufacturer)), Manufacturer)
+						   .Replace (TemplateHelper.GetTemplateTagId (prefix,nameof (SerialNumber)), SerialNumber)
+						   .Replace (TemplateHelper.GetTemplateTagId (prefix,nameof (Model)), Model);
 		}
 	}
 }

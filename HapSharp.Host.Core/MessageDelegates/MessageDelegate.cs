@@ -23,10 +23,10 @@ namespace HapSharp.MessageDelegates
 			}
 		}
 
-		public override string OnReplaceTemplate (string template)
+		public override string OnReplaceTemplate (string prefix, string template)
 		{
-			return base.OnReplaceTemplate (template)
-					   .Replace (Accessory.GetTemplateTagId (nameof (TopicGet)), TopicGet);
+			return base.OnReplaceTemplate (prefix, template)
+				       .Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (TopicGet)), TopicGet);
 		}
 	}
 
@@ -36,7 +36,7 @@ namespace HapSharp.MessageDelegates
 
 		public event EventHandler<Tuple<string, string>> SendMessage;
 
-		readonly public Accessory Accessory;
+		readonly protected Accessory Accessory;
 
 		readonly public string Topic;
 
@@ -90,10 +90,10 @@ namespace HapSharp.MessageDelegates
 
 		}
 
-		public virtual string OnReplaceTemplate (string template)
+		public virtual string OnReplaceTemplate (string prefix, string template)
 		{
-			return template.Replace (Accessory.GetTemplateTagId (nameof (Topic)), Topic)
-						   .Replace (Accessory.GetTemplateTagId (nameof (TopicReceive)), TopicReceive);
+			return template.Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (Topic)), Topic)
+				           .Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (TopicReceive)), TopicReceive);
 		}
 
 		protected virtual void OnMessageReceived (string topic, byte[] message)

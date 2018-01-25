@@ -11,10 +11,10 @@
 
 		}
 
-		public override string OnReplaceTemplate (string template)
+		public override string OnReplaceTemplate (string prefix, string template)
 		{
-			return base.OnReplaceTemplate (template)
-					   .Replace (GetTemplateTagId (nameof (Port)), Port.ToString ());
+			return base.OnReplaceTemplate (prefix, template)
+				       .Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (Port)), Port.ToString ());
 		}
 	}
 }

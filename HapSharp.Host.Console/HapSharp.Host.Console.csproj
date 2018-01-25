@@ -35,7 +35,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MessageDelegates\CustomBridgedCore.cs" />
     <Compile Include="MessageDelegates\CustomLight.cs" />
     <Compile Include="MessageDelegates\CustomTemperature.cs" />
     <Compile Include="ConsoleMonitor.cs" />

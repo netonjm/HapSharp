@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using uPLibrary.Networking.M2Mqtt;
-using uPLibrary.Networking.M2Mqtt.Messages;
 using System.Linq;
 using System.Diagnostics;
 using HapSharp.MessageDelegates;
 using System.Reflection;
 using HapSharp.Accessories;
+using uPLibrary.Networking.M2Mqtt;
+using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace HapSharp
 {
@@ -16,12 +16,11 @@ namespace HapSharp
 		const string DefaultBrokerHost = "localhost";
 
 		internal const int Port = 51826;
-		readonly List<MessageDelegate> messages = new List<MessageDelegate> ();
+		readonly List<AccessoryHost> accessoriesHosts = new List<AccessoryHost> ();
 		readonly IMonitor monitor;
 
+		Process process;
 		MqttClient client;
-		Process proc;
-
 		string hapNodePath;
 
 		public string Host { get; private set; }
@@ -34,12 +33,12 @@ namespace HapSharp
 			this.monitor = monitor;
 		}
 
-		public void Start (string hapNodePath, string host = DefaultBrokerHost)
+		public void Start (string hapNodePath, string brokerHost = DefaultBrokerHost)
 		{
 			this.hapNodePath = hapNodePath;
 
 			//Kill current user node processes
-			ProcessService.TryKillCurrentNodeProcess ();
+			ProcessService.CleanProcessesInMemory ();
 
 			//clean native .js files in HAP-NodeJS folder
 			hapNodePath.RemoveHapNodeJsFiles ();
@@ -47,8 +46,11 @@ namespace HapSharp
 			//re-generate native .js accessories based from our message delegates
 			WriteAccessories ();
 
+			//Starts a local broker with logging
+			//StartLocalBroker ();
+
 			//Connection to current MQTT broker
-			ConnectToBroker (host);
+			ConnectToBroker (brokerHost);
 
 			//We need subscribe to all topics
 			SubscribeAllTopics ();
@@ -59,14 +61,14 @@ namespace HapSharp
 			//Prints on console current PinCode to make easy the user add the bridge
 			PrintCurrentCode ();
 
-			monitor.WriteLine ($"[Net] Host started in port {Port}");
+			monitor.WriteLine ($"[Net] Host started in port: {Port}");
 		}
 
 		void SubscribeAllTopics ()
 		{
-			foreach (var item in messages) {
-				Subscribe (item.Topic);
-				item.SendMessage += (s, e) => {
+			foreach (var msgDelegate in accessoriesHosts.Select (s => s.MessageDelegate)) {
+				Subscribe (msgDelegate.Topic);
+				msgDelegate.SendMessage += (s, e) => {
 					client.Publish (e.Item1, System.Text.Encoding.Default.GetBytes (e.Item2));
 				};
 			}
@@ -76,28 +78,27 @@ namespace HapSharp
 		{
 			string filePath;
 
-			foreach (var msg in messages) {
-				if (msg is MessageBridgedCoreDelegate) {
-					filePath = Path.Combine (hapNodePath, hapNodePath, ((MessageBridgedCoreDelegate)msg).Accessory.Template);
+			foreach (var accHost in accessoriesHosts) {
+				if (accHost.MessageDelegate is MessageBridgedCoreDelegate) {
+					filePath = Path.Combine (hapNodePath, hapNodePath,  accHost.Accessory.Template);
 				} else {
-					filePath = Path.Combine (hapNodePath, "accessories", msg.OutputAccessoryFileName);
+					filePath = Path.Combine (hapNodePath, "accessories", accHost.MessageDelegate.OutputAccessoryFileName);
 				}
 
-				var template = GetProcessedTemplate (msg);
+				var template = GetProcessedTemplate (accHost);
 				File.WriteAllText (filePath, template);
 			}
 		}
 
-		string GetProcessedTemplate (MessageDelegate msgDelegate)
+		string GetProcessedTemplate (AccessoryHost accessoryHost)
 		{
-			var delegateType = msgDelegate.GetType ();
+			var delegateType = accessoryHost.MessageDelegate.GetType ();
 
-			var template = GetTemplateFromResourceId (delegateType, msgDelegate.Accessory.Template);
+			var template = GetTemplateFromResourceId (delegateType, accessoryHost.Accessory.Template);
 			if (template == null) {
-				throw new Exception ("Resource not found in assemblies");
+				throw new Exception ("Resource was not found in assemblies");
 			}
-			template = msgDelegate.OnReplaceTemplate (template);
-			template = msgDelegate.Accessory.OnReplaceTemplate (template);
+			template = accessoryHost.OnReplaceTemplate (template);
 			return template.Replace ("{{MQTT_ADDRESS}}", Host);
 		}
 
@@ -137,7 +138,7 @@ namespace HapSharp
 
 		void StartHapNodeJs ()
 		{
-			proc = new Process {
+			process = new Process {
 				StartInfo = new ProcessStartInfo {
 					FileName = "node",
 					Arguments = "BridgedCore.js",
@@ -149,22 +150,34 @@ namespace HapSharp
 			};
 
 			if (Debug) {
-				proc.StartInfo.EnvironmentVariables.Add ("DEBUG", "*");
+				process.StartInfo.EnvironmentVariables.Add ("DEBUG", "*");
 			}
 
-			proc.OutputDataReceived += (s, e) => {
+			process.OutputDataReceived += (s, e) => {
 				monitor.WriteLine ($"[NodeJS]{e.Data}");
 			};
 
-			proc.Start ();
-			proc.BeginOutputReadLine ();
+			process.Start ();
+			process.BeginOutputReadLine ();
 		}
 
-		public void Add (params MessageDelegate[] elements)
+		public void Add (params AccessoryHost[] elements)
 		{
 			foreach (var item in elements) {
-				messages.Add (item);
+				accessoriesHosts.Add (item);
 			}
+		}
+
+		public void Add (Accessory accessory, MessageDelegate messageDelegate)
+		{
+			accessoriesHosts.Add (new AccessoryHost (accessory, messageDelegate));
+		}
+
+		public void Add<T1, T2> (string name, string username)
+		{
+			var accessory = (Accessory) Activator.CreateInstance (typeof (T1), new object[] { name, username});
+			var message = (MessageDelegate) Activator.CreateInstance (typeof (T2), new object[] { accessory });
+			accessoriesHosts.Add (new AccessoryHost (accessory, message));
 		}
 
 		void Subscribe (string topic)
@@ -175,7 +188,7 @@ namespace HapSharp
 
 		void client_MqttMsgPublishReceived (object sender, MqttMsgPublishEventArgs e)
 		{
-			var msg = messages.FirstOrDefault (s => s.Topic == e.Topic);
+			var msg = accessoriesHosts.FirstOrDefault (s => s.MessageDelegate.Topic == e.Topic).MessageDelegate;
 			if (msg != null) {
 				var message = System.Text.Encoding.Default.GetString (e.Message);
 				if (message == "identify") {
@@ -189,8 +202,8 @@ namespace HapSharp
 
 		void PrintCurrentCode ()
 		{
-			var pinCode = messages
-				.FirstOrDefault (s => s is MessageBridgedCoreDelegate)
+			var pinCode = accessoriesHosts
+				.FirstOrDefault (s => s.MessageDelegate is MessageBridgedCoreDelegate)
 				.Accessory.PinCode;
 
 			monitor.WriteLine ("---------------");
@@ -202,14 +215,18 @@ namespace HapSharp
 
 		internal void Stop ()
 		{
-			try {
-				if (client.IsConnected) {
-					client.Disconnect ();
-				}
+			if (client.IsConnected) {
+				client.Disconnect ();
+			}
+			KillProcess (process);
+		}
 
-				proc.Close ();
-				proc.Kill ();
-				proc.Dispose ();
+		void KillProcess (Process process)
+		{
+			try {
+				process.Close ();
+				process.Kill ();
+				process.Dispose ();
 			} catch {
 			}
 		}

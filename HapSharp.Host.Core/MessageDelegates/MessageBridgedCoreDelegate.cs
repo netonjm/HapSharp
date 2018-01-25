@@ -3,9 +3,9 @@ using HapSharp.Accessories;
 
 namespace HapSharp.MessageDelegates
 {
-	public abstract class MessageBridgedCoreDelegate : MessageDelegate
+	public class MessageBridgedCoreDelegate : MessageDelegate
 	{
-		protected MessageBridgedCoreDelegate (BridgedCore accessory, string topic = null) : base (accessory)
+		public MessageBridgedCoreDelegate (BridgedCore accessory) : base (accessory)
 		{
 
 		}

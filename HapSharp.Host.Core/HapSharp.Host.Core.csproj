@@ -46,6 +46,7 @@
     <Compile Include="MessageDelegates\MessageTemperatureDelegate.cs" />
     <Compile Include="MessageDelegates\MessageRegulableLightDelegate.cs" />
     <Compile Include="MessageDelegates\MessageLightDelegate.cs" />
+    <Compile Include="MessageDelegates\AccessoryHost.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Accessories\" />

@@ -9,8 +9,8 @@ namespace HapSharp.Host.Terminal.MessageDelegates
 		bool actualValue;
 		int brightness = 100;
 
-		public CustomRegulableLightMessageDelegate (RegulableLightAccessory lightAccessory, string topic = null)
-			: base (lightAccessory, topic)
+		public CustomRegulableLightMessageDelegate (RegulableLightAccessory lightAccessory)
+			: base (lightAccessory)
 		{
 
 		}
