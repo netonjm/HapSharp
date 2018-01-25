@@ -50,6 +50,8 @@ project.fragment.lock.json
 artifacts/
 **/Properties/launchSettings.json
 
+nohup.out
+
 *_i.c
 *_p.c
 *_i.h
