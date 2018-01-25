@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Core", "HapSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.Humidity", "HapSharp.Accessories.Humidity\HapSharp.Accessories.Humidity.csproj", "{B7013675-93E3-4196-897A-CD93404FE51F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Broker", "HapSharp.Host.Broker\HapSharp.Host.Broker.csproj", "{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -31,6 +33,10 @@ Global
 		{B7013675-93E3-4196-897A-CD93404FE51F}.Debug|x86.Build.0 = Debug|Any CPU
 		{B7013675-93E3-4196-897A-CD93404FE51F}.Release|x86.ActiveCfg = Release|Any CPU
 		{B7013675-93E3-4196-897A-CD93404FE51F}.Release|x86.Build.0 = Release|Any CPU
+		{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}.Debug|x86.ActiveCfg = Debug|x86
+		{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}.Debug|x86.Build.0 = Debug|x86
+		{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}.Release|x86.ActiveCfg = Release|x86
+		{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
