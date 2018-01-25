@@ -33,8 +33,6 @@ Right now, in this prototype there are 4 type of accessories to include in your 
 
 Right now, we use this way to load all accessories created because it’s the easiest way. In the future this will be more customisable.
 
-
-
 * **Light:** This accessory exposes the behaviour of a single light, with 2 states: On/Off
 
 * :**Light with Brightness::** Same like simple light but adds a regulable brightness bar
@@ -55,25 +53,27 @@ For example:
 If you want create your own managed Temperature accessory, you will need create your own CustomMessageTemperatureDelegate class:
 
 ```
-  class CustomTemperatureMessageDelegate : MessageTemperatureDelegate
-    {
-        public CustomTemperatureMessageDelegate (TemperatureAccessory accessory) : base (accessory)
-        {
-        }
+	class CustomTemperatureMessageDelegate : GetMessageDelegate
+	{
+		Random rnd = new Random (DateTime.Now.Millisecond);
 
-        Random rnd = new Random (DateTime.Now.Millisecond);
-        protected override int OnGetTemperature ()
-        {
-            var calculated = rnd.Next(20, 50);
-            Console.WriteLine($"[Net] Temperature: {calculated}");
-            return calculated;
-        }
+		public CustomTemperatureMessageDelegate (TemperatureAccessory accessory) : base (accessory)
+		{
+		}
 
-        public override void OnIdentify()
-        {
-            Console.WriteLine("[Net]" + accessory.Name + " identified!!");
-        }
-    }
+		public override int OnGetMessageReceived ()
+		{
+			var calculated = rnd.Next (20, 50);
+			Console.WriteLine ($"[Net][{Accessory.Name}][Get] {calculated}");
+			return calculated;
+		}
+
+
+		public override void OnIdentify ()
+		{
+			Console.WriteLine ($"[Net][{Accessory.Name}] Identified.");
+		}
+	}
 ```
 
 OnGetTemperature handles the logic to calculate (or get) the temperature returns the desired temperature value.
@@ -83,7 +83,7 @@ OnIdentify method is common to all delegates and is called every time HomeKit id
 
 ### The Host
 
-The little boy who has the logic to make all this things possible is the Host. 
+This process has the logic to make all this things possible! 
 
 In order of execution it’s the responsible of:
 
@@ -106,21 +106,19 @@ Add all message delegates and accessories you want
 
 ```
 //Bridge accessory is mandatory
- var bridge = new BridgedCore ("NetAwesomeBridge", "22:32:43:54:65:14");
- var bridgeDelegate = new CustomBridgedCoreMessageDelegate(bridge);
- session.Add(bridgeDelegate);
+session.Add<BridgedCore, MessageBridgedCoreDelegate> ("Xamarin Net Bridge", "22:32:43:54:65:14");
 
 //Adding an example of custom temperature accessory
- var temperature = new TemperatureAccessory ("MyTemperature", "22:32:43:54:65:14");
- var temperatureDelegate = new CustomTemperatureMessageDelegate (temperature);
- session.Add(temperatureDelegate);
+session.Add<LightAccessory, CustomLightMessageDelegate> ("First Light", "AA:21:4D:87:66:78");
 ```
 
 Start the session
 
 ```
-session.Start ([Your HAP-NodeJS path], [your Broker MQTT address for communication]);
+session.Start ([Your HAP-NodeJS path], [your Broker MQTT address for communication, leave empty for localhost]);
 ```
+
+**NOTE: HapSharp.Host.Console project include better examples with comments**
 
 At this point your defined message handlers and accessories are loaded and your host knows all the necessary things to execute your HomeKit accessory hosting. 
 
@@ -167,7 +165,7 @@ Open your home app in any IOS device with iOS 10+
 
 * Your port is bussy with some instance of HAP-NodeJS zombie
 
-Open Mac Terminal:
+Show processes using the current port:
 
 ```
 sudo lsof -iTCP:51826 -sTCP:LISTEN
@@ -176,5 +174,37 @@ sudo lsof -iTCP:51826 -sTCP:LISTEN
 * Extra logging
 
 ```
-    var session = new HapSession() { Debug = True };
+var session = new HapSession() { Debug = True };
 ```
+
+Our Makefile include some interesting targets to 
+
+
+```
+make clean
+```
+
+## Broker
+
+NodeJS and C# talk with MQTT, both are are clients from a server (Broker), and there is a HapSharp.Host.Broker.exe to avoid install additional stuff.
+
+Right now, the broker executes automatically with **make run**, but you can execute it with: 
+
+```
+make broker
+```
+
+If you want clean the environtment, because you have some Zombie process try:
+
+```
+make clean
+```
+
+## NuGeT
+
+To generate the nuget:
+
+```
+make package
+```
+
