@@ -5,7 +5,16 @@ configure:
 	git submodule sync && git submodule update --init --recursive --force
 	cd HAP-NodeJS && npm install && npm update && npm install mqtt && cd ..
 
-run:
+clean:
+	echo "killing possible broker local instancess opened..."
+	killall nohup mono HapSharp.Host.Broker.exe
+
+broker:
+	echo "Executing a new broker instance..."
+	nohup mono HapSharp.Host.Console/bin/Debug/HapSharp.Host.Broker.exe &
+
+run: all broker
+	echo "Executing HAP-Sharp..."
 	mono HapSharp.Host.Console/bin/Debug/HapSharp.Host.Console.exe `echo $(PWD)`/HAP-NodeJS
 	
 processes:
