@@ -8,6 +8,7 @@ configure:
 clean:
 	echo "killing possible broker local instancess opened..."
 	killall nohup mono HapSharp.Host.Broker.exe
+	killall mono HapSharp.Host.Console/bin/Debug/HapSharp.Host.Console.exe $(PWD)/HAP-NodeJS
 
 broker:
 	echo "Executing a new broker instance..."
@@ -15,7 +16,7 @@ broker:
 
 run: all broker
 	echo "Executing HAP-Sharp..."
-	mono HapSharp.Host.Console/bin/Debug/HapSharp.Host.Console.exe `echo $(PWD)`/HAP-NodeJS
+	mono HapSharp.Host.Console/bin/Debug/HapSharp.Host.Console.exe $(PWD)/HAP-NodeJS
 	
 processes:
 	sudo lsof -iTCP:51826 -sTCP:LISTEN
