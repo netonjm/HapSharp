@@ -132,6 +132,19 @@ The console output will inform you about what’s happening and if something goe
 
 The host finishes session, closes communications and stops processes calling to Stop() method or Dispose.
 
+## Extensivity
+
+HAP-Sharp 0.41 has a preview feature of extensions, and it allows read resources from external assemblies and resolve it for the file generation.
+
+You only need create an empty library with the follow structure:
+
+- Library
+	- template (folder)
+		foo_accessory.js -> this is your js template, build as EmbeddedResource and be sure your resource id match with it.
+	- FooAccessory.cs -> based from Accessory based classes 
+	- FooMesssageDelegate.cs based from MessageDelegates based classes
+
+Generate your nuget and share with the community!!!!!
 
 ## How add the bridge accessory to your HomeKit
 
@@ -161,29 +174,6 @@ Open your home app in any IOS device with iOS 10+
 
 ![](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0024.PNG)
 
-## Troubleshooting
-
-* Your port is bussy with some instance of HAP-NodeJS zombie
-
-Show processes using the current port:
-
-```
-sudo lsof -iTCP:51826 -sTCP:LISTEN
-```
-
-* Extra logging
-
-```
-var session = new HapSession() { Debug = True };
-```
-
-Our Makefile include some interesting targets to 
-
-
-```
-make clean
-```
-
 ## Broker
 
 NodeJS and C# talk with MQTT, both are are clients from a server (Broker), and there is a HapSharp.Host.Broker.exe to avoid install additional stuff.
@@ -202,9 +192,24 @@ make clean
 
 ## NuGeT
 
-To generate the nuget:
+To generate all the nugets in the main directory:
 
 ```
 make package
 ```
 
+## Troubleshooting
+
+* Your port is bussy with some instance of HAP-NodeJS zombie
+
+Show processes using the current port:
+
+```
+sudo lsof -iTCP:51826 -sTCP:LISTEN
+```
+
+* Extra logging
+
+```
+var session = new HapSession() { Debug = True };
+```
