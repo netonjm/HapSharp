@@ -1,4 +1,12 @@
 all: 
+		# nuget restoring
+	if [ ! -f src/.nuget/nuget.exe ]; then \
+		mkdir -p src/.nuget ; \
+	    echo "nuget.exe not found! downloading latest version" ; \
+	    curl -O https://dist.nuget.org/win-x86-commandline/latest/nuget.exe ; \
+	    mv nuget.exe src/.nuget/ ; \
+	fi
+	mono src/.nuget/nuget.exe restore HapSharp.sln
 	msbuild HapSharp.sln /p:Configuration=Debug
 
 configure: 
