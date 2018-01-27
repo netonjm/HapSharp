@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>HapSharp.Host</id>
-    <version>0.41</version>
+    <version>0.6</version>
     <title>Net bridge for HomeKit Accessory Server</title>
     <authors>Jose Medrano</authors>
     <owners>Jose Medrano</owners>

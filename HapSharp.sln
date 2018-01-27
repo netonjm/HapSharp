@@ -48,6 +48,6 @@ Global
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
-		version = 0.41
+		version = 0.6
 	EndGlobalSection
 EndGlobal
