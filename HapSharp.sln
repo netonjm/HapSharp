@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.Humidi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Broker", "HapSharp.Host.Broker\HapSharp.Host.Broker.csproj", "{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Raspbian", "HapSharp.Host.Raspbian\HapSharp.Host.Raspbian.csproj", "{E72C90AD-4CBA-4626-B714-C9B1AB2C2EFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -37,6 +39,10 @@ Global
 		{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}.Debug|x86.Build.0 = Debug|x86
 		{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}.Release|x86.ActiveCfg = Release|x86
 		{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}.Release|x86.Build.0 = Release|x86
+		{E72C90AD-4CBA-4626-B714-C9B1AB2C2EFE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E72C90AD-4CBA-4626-B714-C9B1AB2C2EFE}.Debug|x86.Build.0 = Debug|Any CPU
+		{E72C90AD-4CBA-4626-B714-C9B1AB2C2EFE}.Release|x86.ActiveCfg = Release|Any CPU
+		{E72C90AD-4CBA-4626-B714-C9B1AB2C2EFE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

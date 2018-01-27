@@ -1,0 +1,19 @@
+﻿<Project Sdk="Xamarin.IoT.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net461</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\HapSharp.Host\HapSharp.Host.csproj" />
+	  <ProjectReference Include="..\HapSharp.Host.Core\HapSharp.Host.Core.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="MessageDelegates\" />
+	  <Folder Include="Accessories\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="IoTSharp.Components.Raspbian" Version="0.4.0" />
+	</ItemGroup>
+</Project>
