@@ -32,8 +32,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MessageHumidityDelegate.cs" />
-    <Compile Include="HumidityAccessory.cs" />
+    <Compile Include="NugetMessageHumidityDelegate.cs" />
+    <Compile Include="CustomHumidityAccessory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HapSharp.Host.Core\HapSharp.Host.Core.csproj">
@@ -45,8 +45,8 @@
     <Folder Include="template\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="template\Humidity_accessory.js">
-      <LogicalName>Humidity_accessory.js</LogicalName>
+    <EmbeddedResource Include="template\NugetHumidity_accessory.js">
+      <LogicalName>NugetHumidity_accessory.js</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
