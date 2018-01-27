@@ -29,7 +29,7 @@ namespace HapSharp.Host.Terminal
 
 			//Now we need add Accessories and MessagesDelegates
 			//Our first element must be a bridgeCore, it contains all other accesories in session
-			session.Add<BridgedCore, MessageBridgedCoreDelegate> ("Laptop Net Bridge", "22:32:43:54:45:14");
+			session.Add<BridgedCore, BridgedCoreMessageDelegate> ("Laptop Net Bridge", "22:32:43:54:45:14");
 
 			//There are 2 ways of add accessories:
 			//Inline generic way: provides automatic instanciation of selected types
@@ -38,10 +38,10 @@ namespace HapSharp.Host.Terminal
 			session.Add<RegulableLightAccessory, CustomRegulableLightMessageDelegate> ("Second Light", "AB:12:45:27:55:73");
 			session.Add<HumidityAccessory, CustomHumidityMessageDelegate> ("MyHumidity", "A1:32:55:67:53:72");
 
-			session.Add<MotionSensorAccessory, CustomMotionSensorDelegate> ("My MotionSensor", "A1:32:55:67:53:72");
+			session.Add<MotionSensorAccessory, CustomMotionSensorMessageDelegate> ("My MotionSensor", "A1:32:55:67:53:72");
 
 			//Accessory in external Library 
-			session.Add<CustomHumidityAccessory, NugetMessageHumidityDelegate>("NuGet Humidity", "A1:32:55:67:53:72");
+			session.Add<CustomHumidityAccessory, NugetHumidityMessageDelegate>("NuGet Humidity", "A1:32:55:67:53:72");
 
 			//Another way to generate is the classic instanciation 
 			var temperatureAccessory = new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73");

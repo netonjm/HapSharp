@@ -3,7 +3,7 @@ using HapSharp.Accessories;
 
 namespace HapSharp.MessageDelegates
 {
-	class CustomLightMessageDelegate : MessageLightDelegate
+	class CustomLightMessageDelegate : LightMessageDelegate
 	{
 		bool actualValue;
 

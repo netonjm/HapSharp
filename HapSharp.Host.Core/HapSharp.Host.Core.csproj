@@ -41,17 +41,17 @@
       <LogicalName>HapSharp.Host.Accessories.ResourcesService.cs</LogicalName>
     </Compile>
     <Compile Include="Accessories\TemperatureAccessory.cs" />
-    <Compile Include="MessageDelegates\MessageBridgedCoreDelegate.cs" />
+    <Compile Include="MessageDelegates\BridgedCoreMessageDelegate.cs" />
     <Compile Include="MessageDelegates\MessageDelegate.cs" />
-    <Compile Include="MessageDelegates\MessageTemperatureDelegate.cs" />
-    <Compile Include="MessageDelegates\MessageRegulableLightDelegate.cs" />
-    <Compile Include="MessageDelegates\MessageLightDelegate.cs" />
+    <Compile Include="MessageDelegates\TemperatureMessageDelegate.cs" />
+    <Compile Include="MessageDelegates\RegulableLightMessageDelegate.cs" />
+    <Compile Include="MessageDelegates\LightMessageDelegate.cs" />
     <Compile Include="Accessories\HumidityAccessory.cs" />
     <Compile Include="Accessories\MotionSensorAccessory.cs" />
     <Compile Include="MessageDelegates\GetMessageDelegate.cs" />
     <Compile Include="MessageDelegates\AccessoryHost.cs" />
-    <Compile Include="MessageDelegates\MessageHumidityDelegate.cs" />
-    <Compile Include="MessageDelegates\MessageMotionSensorDelegate.cs" />
+    <Compile Include="MessageDelegates\HumidityMessageDelegate.cs" />
+    <Compile Include="MessageDelegates\MotionSensorMessageDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Accessories\" />

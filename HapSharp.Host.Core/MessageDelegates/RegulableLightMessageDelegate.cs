@@ -2,12 +2,12 @@
 
 namespace HapSharp.MessageDelegates
 {
-	public abstract class MessageRegulableLightDelegate : MessageLightDelegate
+	public abstract class RegulableLightMessageDelegate : LightMessageDelegate
 	{
 		const string TopicSetBrightness = "set/brightness";
 		const string TopicGetBrightness = "get/brightness";
 
-		public MessageRegulableLightDelegate (RegulableLightAccessory accessory) : base (accessory)
+		public RegulableLightMessageDelegate (RegulableLightAccessory accessory) : base (accessory)
 		{
 
 		}

@@ -3,12 +3,12 @@ using HapSharp.Accessories;
 
 namespace HapSharp.MessageDelegates
 {
-	public abstract class MessageLightDelegate : MessageDelegate
+	public abstract class LightMessageDelegate : MessageDelegate
 	{
 		const string TopicSetOn = "set/on";
 		const string TopicGetOn = "get/on";
 
-		public MessageLightDelegate (LightAccessory accessory) : base (accessory)
+		public LightMessageDelegate (LightAccessory accessory) : base (accessory)
 		{
 
 		}

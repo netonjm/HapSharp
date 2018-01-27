@@ -3,7 +3,7 @@ using HapSharp.Accessories;
 
 namespace HapSharp.MessageDelegates
 {
-	class CustomHumidityMessageDelegate : MessageHumidityDelegate
+	class CustomHumidityMessageDelegate : HumidityMessageDelegate
 	{
 		public CustomHumidityMessageDelegate (HumidityAccessory accessory) : base (accessory)
 		{

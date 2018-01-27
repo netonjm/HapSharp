@@ -3,9 +3,9 @@ using HapSharp.Accessories;
 
 namespace HapSharp.MessageDelegates
 {
-	public class NugetMessageHumidityDelegate : MessageHumidityDelegate
+	public class NugetHumidityMessageDelegate : HumidityMessageDelegate
 	{
-		public NugetMessageHumidityDelegate (CustomHumidityAccessory accessory) : base (accessory)
+		public NugetHumidityMessageDelegate (CustomHumidityAccessory accessory) : base (accessory)
 		{
 		}
 

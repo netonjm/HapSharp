@@ -4,7 +4,7 @@ using IoTSharp.Components;
 
 namespace HapSharp.MessageDelegates
 {
-	public class IoTLightMessageDelegate : MessageLightDelegate
+	public class IoTLightMessageDelegate : LightMessageDelegate
 	{
 		readonly IoTRelay relay;
 

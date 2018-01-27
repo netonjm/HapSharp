@@ -3,7 +3,7 @@ using IoTSharp.Components;
 
 namespace HapSharp.MessageDelegates
 {
-	public class IoTMotionSensorMessageDelegate : MessageMotionSensorDelegate
+	public class IoTMotionSensorMessageDelegate : MotionSensorMessageDelegate
 	{
 		readonly IoTSensor proximitySensor;
 

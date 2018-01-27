@@ -3,7 +3,7 @@ using HapSharp.Accessories;
 
 namespace HapSharp.MessageDelegates
 {
-	class CustomRegulableLightMessageDelegate : MessageRegulableLightDelegate
+	class CustomRegulableLightMessageDelegate : RegulableLightMessageDelegate
 	{
 		bool actualValue;
 		int brightness = 100;

@@ -6,7 +6,7 @@ using IoTSharp.Components;
 
 namespace HapSharp.MessageDelegates
 {
-	class CustomMusicMessageDelegate : MessageRegulableLightDelegate
+	class CustomMusicMessageDelegate : RegulableLightMessageDelegate
 	{
 		bool enabled;
 		int brightness = 100;

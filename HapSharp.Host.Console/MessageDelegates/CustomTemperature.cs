@@ -3,7 +3,7 @@ using HapSharp.Accessories;
 
 namespace HapSharp.MessageDelegates
 {
-	class CustomTemperatureMessageDelegate : MessageTemperatureDelegate
+	class CustomTemperatureMessageDelegate : TemperatureMessageDelegate
 	{
 		Random rnd = new Random (DateTime.Now.Millisecond);
 

@@ -3,12 +3,12 @@ using HapSharp.Accessories;
 
 namespace HapSharp.MessageDelegates
 {
-	class CustomMotionSensorDelegate : MessageMotionSensorDelegate
+	class CustomMotionSensorMessageDelegate : MotionSensorMessageDelegate
 	{
 		bool value;
 		Random rnd = new Random();
 
-		public CustomMotionSensorDelegate(MotionSensorAccessory accessory) : base(accessory)
+		public CustomMotionSensorMessageDelegate(MotionSensorAccessory accessory) : base(accessory)
 		{
 
 		}

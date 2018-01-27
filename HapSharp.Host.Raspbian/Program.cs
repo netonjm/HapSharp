@@ -20,13 +20,10 @@ namespace HapSharp_Host_Raspbian
 
 			//Now we need add Accessories and MessagesDelegates
 			//Our first element must be a bridgeCore, it contains all other accesories in session
-			session.Add<BridgedCore, MessageBridgedCoreDelegate>("Xamarin Net Bridge", "22:32:43:54:65:14");
+			session.Add<BridgedCore, BridgedCoreMessageDelegate>("Xamarin Net Bridge", "22:32:43:54:65:14");
 			session.Add<MotionSensorAccessory, IoTMotionSensorMessageDelegate>("IoT Net Sensor", "24:36:44:52:61:14");
 			session.Add<LightAccessory, IoTLightMessageDelegate>("IoT Light", "24:56:43:62:81:17");
 			session.Add<MusicAccessory, CustomMusicMessageDelegate>("IoT Music", "44:66:23:68:81:11");
-
-			session.Add<HumidityAccessory, IoTMessageHumidityDelegate>("IoT Humidity Sensor", "26:36:48:50:61:64");
-			session.Add<TemperatureAccessory, IoTMessageTemperatureDelegate>("IoT Temp Sensor", "27:36:49:58:61:74");
 
 			session.Start(hapNodeJsPath);
 

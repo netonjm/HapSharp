@@ -80,7 +80,7 @@ namespace HapSharp
 			string filePath;
 
 			foreach (var accHost in accessoriesHosts) {
-				if (accHost.MessageDelegate is MessageBridgedCoreDelegate) {
+				if (accHost.MessageDelegate is BridgedCoreMessageDelegate) {
 					filePath = Path.Combine (hapNodePath, hapNodePath,  accHost.Accessory.Template);
 				} else {
 					filePath = Path.Combine (hapNodePath, "accessories", accHost.MessageDelegate.OutputAccessoryFileName);
@@ -206,7 +206,7 @@ namespace HapSharp
 		void PrintCurrentCode ()
 		{
 			var pinCode = accessoriesHosts
-				.FirstOrDefault (s => s.MessageDelegate is MessageBridgedCoreDelegate)
+				.FirstOrDefault (s => s.MessageDelegate is BridgedCoreMessageDelegate)
 				.Accessory.PinCode;
 
 			monitor.WriteLine ("---------------");
