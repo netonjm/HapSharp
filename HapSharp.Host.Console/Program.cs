@@ -39,9 +39,12 @@ namespace HapSharp.Host.Terminal
 			session.Add<RegulableLightAccessory, CustomRegulableLightMessageDelegate> ("Second Light", "AB:12:45:27:55:73");
 			session.Add<HumidityAccessory, CustomHumidityMessageDelegate> ("MyHumidity", "A1:32:55:67:53:72");
 
+			session.Add<MotionSensorAccessory, MessageMotionSensorDelegate> ("My MotionSensor", "A1:32:55:67:53:72");
+
 			//Another way to generate is the classic instanciation 
 			var temperatureAccessory = new TemperatureAccessory ("Temperature", "A1:32:45:67:55:73");
 			var temperatureMessageDelegate = new CustomTemperatureMessageDelegate (temperatureAccessory);
+
 			session.Add (temperatureAccessory, temperatureMessageDelegate);
 
 			//Now we have some accessories we can start the session..

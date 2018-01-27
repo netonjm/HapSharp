@@ -1,10 +1,9 @@
 ﻿using System;
 using HapSharp.Accessories;
-using HapSharp.MessageDelegates;
 
-namespace HapSharp.Host.Terminal.MessageDelegates
+namespace HapSharp.MessageDelegates
 {
-	class CustomTemperatureMessageDelegate : GetMessageDelegate
+	class CustomTemperatureMessageDelegate : MessageTemperatureDelegate
 	{
 		Random rnd = new Random (DateTime.Now.Millisecond);
 

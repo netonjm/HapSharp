@@ -1,8 +1,7 @@
 ﻿using System;
 using HapSharp.Accessories;
-using HapSharp.MessageDelegates;
 
-namespace HapSharp.Host.Terminal.MessageDelegates
+namespace HapSharp.MessageDelegates
 {
 	class CustomHumidityMessageDelegate : MessageHumidityDelegate
 	{
