@@ -25,6 +25,7 @@ namespace HapSharp
 
 		public string Host { get; private set; }
 		public bool Debug { get; internal set; }
+		public bool Sudo { get; set; }
 
 		public bool IsConnected => client.IsConnected;
 
@@ -138,10 +139,12 @@ namespace HapSharp
 
 		void StartHapNodeJs ()
 		{
+			var filename = Sudo ? "sudo" : "node";
+			var arguments = Sudo ? "node BridgedCore.js" : "BridgedCore.js";
 			process = new Process {
 				StartInfo = new ProcessStartInfo {
-					FileName = "node",
-					Arguments = "BridgedCore.js",
+					FileName = filename,
+					Arguments = arguments,
 					WorkingDirectory = hapNodePath,
 					UseShellExecute = false,
 					RedirectStandardOutput = true,
