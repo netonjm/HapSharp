@@ -8,7 +8,7 @@ namespace HapSharp.MessageDelegates
 		const string TopicSetOn = "set/on";
 		const string TopicGetOn = "get/on";
 
-		protected MessageLightDelegate (LightAccessory accessory) : base (accessory)
+		public MessageLightDelegate (LightAccessory accessory) : base (accessory)
 		{
 
 		}

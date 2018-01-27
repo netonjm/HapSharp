@@ -46,7 +46,12 @@
     <Compile Include="MessageDelegates\MessageTemperatureDelegate.cs" />
     <Compile Include="MessageDelegates\MessageRegulableLightDelegate.cs" />
     <Compile Include="MessageDelegates\MessageLightDelegate.cs" />
+    <Compile Include="Accessories\HumidityAccessory.cs" />
+    <Compile Include="Accessories\MotionSensorAccessory.cs" />
+    <Compile Include="MessageDelegates\GetMessageDelegate.cs" />
     <Compile Include="MessageDelegates\AccessoryHost.cs" />
+    <Compile Include="MessageDelegates\MessageHumidityDelegate.cs" />
+    <Compile Include="MessageDelegates\MessageMotionSensorDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Accessories\" />
@@ -67,6 +72,14 @@
     <EmbeddedResource Include="Resources\templates\Temperature_accessory.js">
       <LogicalName>Temperature_accessory.js</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\templates\Humidity_accessory.js">
+      <LogicalName>Humidity_accessory.js</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\templates\MotionSensor_accessory.js">
+      <LogicalName>MotionSensor_accessory.js</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,34 +3,7 @@ using HapSharp.Accessories;
 
 namespace HapSharp.MessageDelegates
 {
-	public abstract class GetMessageDelegate : MessageDelegate
-	{
-		const string TopicGet = "get";
-
-		protected GetMessageDelegate (Accessory accessory) : base (accessory)
-		{
-		}
-
-		public abstract int OnGetMessageReceived ();
-
-		protected override void OnMessageReceived (string topic, string message)
-		{
-			if (message == TopicGet) {
-				var value = OnGetMessageReceived ();
-				OnSendMessage (topic, message, value);
-			} else {
-				throw new System.NotImplementedException (message);
-			}
-		}
-
-		public override string OnReplaceTemplate (string prefix, string template)
-		{
-			return base.OnReplaceTemplate (prefix, template)
-				       .Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (TopicGet)), TopicGet);
-		}
-	}
-
-	public abstract class MessageDelegate
+	public abstract class MessageDelegate : IDisposable
 	{
 		protected const string ReceiveTopicNode = "r";
 
@@ -47,6 +20,11 @@ namespace HapSharp.MessageDelegates
 		protected void OnSendMessage (string topic, string message, int value)
 		{
 			OnSendMessage (topic, message, value.ToString ());
+		}
+
+		protected void OnSendMessage(string topic, string message, bool value)
+		{
+			OnSendMessage(topic, message, value ? "true" : "false");
 		}
 
 		protected void OnSendMessage (string topic, string message, string value)
@@ -99,6 +77,11 @@ namespace HapSharp.MessageDelegates
 		protected virtual void OnMessageReceived (string topic, byte[] message)
 		{
 
+		}
+
+		public virtual void Dispose()
+		{
+			
 		}
 	}
 }
