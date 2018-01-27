@@ -7,7 +7,7 @@ all:
 	    mv nuget.exe src/.nuget/ ; \
 	fi
 	mono src/.nuget/nuget.exe restore HapSharp.sln
-	msbuild HapSharp.sln /p:Configuration=Debug
+	msbuild HapSharp.sln /p:Configuration=Debug /p:Platform="x86"
 
 configure: 
 	git submodule sync && git submodule update --init --recursive --force
@@ -29,9 +29,11 @@ run: all broker
 processes:
 	sudo lsof -iTCP:51826 -sTCP:LISTEN
 
-package: all
+package:
+	msbuild HapSharp.sln /p:Configuration=Package
 	curl -O https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 	mono nuget.exe pack NuGeT/HapSharp.nuspec
+	mono nuget.exe pack NuGeT/HapSharp.Core.nuspec
 	mono nuget.exe pack NuGeT/HapSharp.Accessories.Humidity.nuspec
 
 .PHONY: all configure

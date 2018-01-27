@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>HapSharp.Host</id>
+    <id>HapSharp.Core</id>
     <version>0.6</version>
-    <title>HapSharp Host + Core library to empower your accessories to the limit.</title>
+    <title>HapSharp Core library to empower your accessories to the limit.</title>
     <authors>Jose Medrano</authors>
     <owners>Jose Medrano</owners>
     <licenseUrl>https://github.com/netonjm/HapSharp/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/netonjm/HapSharp</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/netonjm/HapSharp/master/images/homekit-hero_2x.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/netonjm/HapSharp/master/images/homekit-core.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>HapSharp it’s a .net bridge to allow you expose our awesome .net world into HomeKit protocol.</description>
     <copyright>netonjm</copyright>
     <tags>homekit hap-nodejs</tags>
   </metadata>
   <files>
-    <file src="../HapSharp.Host/bin/Debug/*.dll" target="lib/net40" />
+    <file src="../HapSharp.Host.Core/bin/Debug/*.dll" target="lib/net40" />
   </files>
 
 </package>

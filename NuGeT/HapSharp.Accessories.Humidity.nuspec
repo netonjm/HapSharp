@@ -8,7 +8,7 @@
     <owners>Jose Medrano</owners>
     <licenseUrl>https://github.com/netonjm/HapSharp/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/netonjm/HapSharp</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/netonjm/HapSharp/master/images/homekit-temp.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/netonjm/HapSharp/master/images/homekit-humidity.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An example of HAP-Sharp accessory module</description>
     <copyright>netonjm</copyright>
