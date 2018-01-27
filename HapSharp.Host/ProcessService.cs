@@ -61,7 +61,7 @@ namespace HapSharp
 		public static void CleanProcessesInMemory () 
 		{
 			TryKillProcess (GetNodeProcess);
-			TryKillProcess (GetBrokerProcess);
+			//TryKillProcess (GetBrokerProcess);
 		}
 	}
 }
