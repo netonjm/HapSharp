@@ -4,3 +4,6 @@
 [submodule "external/paho.mqtt.m2mqtt"]
 	path = external/paho.mqtt.m2mqtt
 	url = https://github.com/eclipse/paho.mqtt.m2mqtt
+[submodule "external/iCloudLib"]
+	path = external/iCloudLib
+	url = git@github.com:netonjm/iCloudLib.git

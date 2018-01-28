@@ -7,11 +7,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Console", "Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Core", "HapSharp.Host.Core\HapSharp.Host.Core.csproj", "{57B7FD9C-946A-44C0-AA79-E2E5838CC38F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.Humidity", "HapSharp.Accessories.Humidity\HapSharp.Accessories.Humidity.csproj", "{B7013675-93E3-4196-897A-CD93404FE51F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.FindMyIphone", "HapSharp.Accessories.FindMyIphone\HapSharp.Accessories.FindMyIphone.csproj", "{B7013675-93E3-4196-897A-CD93404FE51F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Broker", "HapSharp.Host.Broker\HapSharp.Host.Broker.csproj", "{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Raspbian", "HapSharp.Host.Raspbian\HapSharp.Host.Raspbian.csproj", "{E72C90AD-4CBA-4626-B714-C9B1AB2C2EFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Accessories", "Accessories", "{52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{B651F17A-44BE-428B-B34C-ADD4C06CF67E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iCloudLib", "external\iCloudLib\iCloudLib\iCloudLib.csproj", "{32919B31-542C-42D2-8C5F-BB44033D92B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,11 +59,21 @@ Global
 		{E72C90AD-4CBA-4626-B714-C9B1AB2C2EFE}.Release|x86.ActiveCfg = Release|Any CPU
 		{E72C90AD-4CBA-4626-B714-C9B1AB2C2EFE}.Release|x86.Build.0 = Release|Any CPU
 		{E72C90AD-4CBA-4626-B714-C9B1AB2C2EFE}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{32919B31-542C-42D2-8C5F-BB44033D92B9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{32919B31-542C-42D2-8C5F-BB44033D92B9}.Debug|x86.Build.0 = Debug|Any CPU
+		{32919B31-542C-42D2-8C5F-BB44033D92B9}.Release|x86.ActiveCfg = Release|Any CPU
+		{32919B31-542C-42D2-8C5F-BB44033D92B9}.Release|x86.Build.0 = Release|Any CPU
+		{32919B31-542C-42D2-8C5F-BB44033D92B9}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{32919B31-542C-42D2-8C5F-BB44033D92B9}.Package|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
 		version = 0.6
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B7013675-93E3-4196-897A-CD93404FE51F} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
+		{32919B31-542C-42D2-8C5F-BB44033D92B9} = {B651F17A-44BE-428B-B34C-ADD4C06CF67E}
 	EndGlobalSection
 EndGlobal

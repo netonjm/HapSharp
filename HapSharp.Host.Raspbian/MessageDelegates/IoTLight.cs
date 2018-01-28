@@ -16,7 +16,6 @@ namespace HapSharp.MessageDelegates
 		protected override void OnChangePower(bool value)
 		{
 			relay.EnablePin(0, value);
-			//Console.WriteLine($"[Net][IoTLight][Set] " + value);
 		}
 
 		protected override bool OnGetPower()

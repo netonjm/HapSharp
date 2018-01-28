@@ -35,5 +35,6 @@ package:
 	mono nuget.exe pack NuGeT/HapSharp.nuspec
 	mono nuget.exe pack NuGeT/HapSharp.Core.nuspec
 	mono nuget.exe pack NuGeT/HapSharp.Accessories.Humidity.nuspec
+	mono nuget.exe pack NuGeT/HapSharp.Accessories.FindMyIphone.nuspec
 
 .PHONY: all configure
