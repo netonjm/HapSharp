@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Console", "Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Core", "HapSharp.Host.Core\HapSharp.Host.Core.csproj", "{57B7FD9C-946A-44C0-AA79-E2E5838CC38F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.Raspberry.Dht", "HapSharp.Accessories.Raspberry.Dht\HapSharp.Accessories.Raspberry.Dht.csproj", "{B7013675-93E3-4196-897A-CD93404FE51F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.Humidity", "HapSharp.Accessories.Humidity\HapSharp.Accessories.Humidity.csproj", "{B7013675-93E3-4196-897A-CD93404FE51F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Broker", "HapSharp.Host.Broker\HapSharp.Host.Broker.csproj", "{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}"
 EndProject
@@ -18,6 +18,20 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{B651F17A-44BE-428B-B34C-ADD4C06CF67E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iCloudLib", "external\iCloudLib\iCloudLib\iCloudLib.csproj", "{32919B31-542C-42D2-8C5F-BB44033D92B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.FindMyIphone", "HapSharp.Accessories.FindMyIphone\HapSharp.Accessories.FindMyIphone.csproj", "{0912252F-DFB5-4D65-A2F1-AC04199795A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.IoTSoundPlayer", "HapSharp.Accessories.IoTSoundPlayer\HapSharp.Accessories.IoTSoundPlayer.csproj", "{D33BF32A-A0D5-4583-AD44-30E118F0AEF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.IoTDhtSensor", "HapSharp.Accessories.IoTDhtSensor\HapSharp.Accessories.IoTDhtSensor.csproj", "{7E8089BD-F5E1-4177-88E4-D7BC7437A2A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.Mpd", "HapSharp.Accessories.Mpd\HapSharp.Accessories.Mpd.csproj", "{C5C11072-7DE4-44B8-BA09-ED51E1123EBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.MPD.Client", "external\Dapplo.MPD\Dapplo.MPD.Client\Dapplo.MPD.Client.csproj", "{A2AA5383-1658-4292-B1EA-A8B487822C16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.IoTRelayLight", "HapSharp.Accessories.IoTRelayLight\HapSharp.Accessories.IoTRelayLight.csproj", "{779DABEB-BD9A-400A-A0A8-E16CA2F0E3B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.IoTMotionSensor", "HapSharp.Accessories.IoTMotionSensor\HapSharp.Accessories.IoTMotionSensor.csproj", "{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +79,48 @@ Global
 		{32919B31-542C-42D2-8C5F-BB44033D92B9}.Release|x86.Build.0 = Release|Any CPU
 		{32919B31-542C-42D2-8C5F-BB44033D92B9}.Package|Any CPU.ActiveCfg = Debug|Any CPU
 		{32919B31-542C-42D2-8C5F-BB44033D92B9}.Package|Any CPU.Build.0 = Debug|Any CPU
+		{0912252F-DFB5-4D65-A2F1-AC04199795A6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0912252F-DFB5-4D65-A2F1-AC04199795A6}.Debug|x86.Build.0 = Debug|Any CPU
+		{0912252F-DFB5-4D65-A2F1-AC04199795A6}.Release|x86.ActiveCfg = Release|Any CPU
+		{0912252F-DFB5-4D65-A2F1-AC04199795A6}.Release|x86.Build.0 = Release|Any CPU
+		{0912252F-DFB5-4D65-A2F1-AC04199795A6}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{0912252F-DFB5-4D65-A2F1-AC04199795A6}.Package|Any CPU.Build.0 = Debug|Any CPU
+		{D33BF32A-A0D5-4583-AD44-30E118F0AEF6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D33BF32A-A0D5-4583-AD44-30E118F0AEF6}.Debug|x86.Build.0 = Debug|Any CPU
+		{D33BF32A-A0D5-4583-AD44-30E118F0AEF6}.Release|x86.ActiveCfg = Release|Any CPU
+		{D33BF32A-A0D5-4583-AD44-30E118F0AEF6}.Release|x86.Build.0 = Release|Any CPU
+		{D33BF32A-A0D5-4583-AD44-30E118F0AEF6}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{D33BF32A-A0D5-4583-AD44-30E118F0AEF6}.Package|Any CPU.Build.0 = Debug|Any CPU
+		{7E8089BD-F5E1-4177-88E4-D7BC7437A2A7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7E8089BD-F5E1-4177-88E4-D7BC7437A2A7}.Debug|x86.Build.0 = Debug|Any CPU
+		{7E8089BD-F5E1-4177-88E4-D7BC7437A2A7}.Release|x86.ActiveCfg = Release|Any CPU
+		{7E8089BD-F5E1-4177-88E4-D7BC7437A2A7}.Release|x86.Build.0 = Release|Any CPU
+		{7E8089BD-F5E1-4177-88E4-D7BC7437A2A7}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E8089BD-F5E1-4177-88E4-D7BC7437A2A7}.Package|Any CPU.Build.0 = Debug|Any CPU
+		{C5C11072-7DE4-44B8-BA09-ED51E1123EBE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C5C11072-7DE4-44B8-BA09-ED51E1123EBE}.Debug|x86.Build.0 = Debug|Any CPU
+		{C5C11072-7DE4-44B8-BA09-ED51E1123EBE}.Release|x86.ActiveCfg = Release|Any CPU
+		{C5C11072-7DE4-44B8-BA09-ED51E1123EBE}.Release|x86.Build.0 = Release|Any CPU
+		{C5C11072-7DE4-44B8-BA09-ED51E1123EBE}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5C11072-7DE4-44B8-BA09-ED51E1123EBE}.Package|Any CPU.Build.0 = Debug|Any CPU
+		{A2AA5383-1658-4292-B1EA-A8B487822C16}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A2AA5383-1658-4292-B1EA-A8B487822C16}.Debug|x86.Build.0 = Debug|Any CPU
+		{A2AA5383-1658-4292-B1EA-A8B487822C16}.Release|x86.ActiveCfg = Release|Any CPU
+		{A2AA5383-1658-4292-B1EA-A8B487822C16}.Release|x86.Build.0 = Release|Any CPU
+		{A2AA5383-1658-4292-B1EA-A8B487822C16}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2AA5383-1658-4292-B1EA-A8B487822C16}.Package|Any CPU.Build.0 = Debug|Any CPU
+		{779DABEB-BD9A-400A-A0A8-E16CA2F0E3B4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{779DABEB-BD9A-400A-A0A8-E16CA2F0E3B4}.Debug|x86.Build.0 = Debug|Any CPU
+		{779DABEB-BD9A-400A-A0A8-E16CA2F0E3B4}.Release|x86.ActiveCfg = Release|Any CPU
+		{779DABEB-BD9A-400A-A0A8-E16CA2F0E3B4}.Release|x86.Build.0 = Release|Any CPU
+		{779DABEB-BD9A-400A-A0A8-E16CA2F0E3B4}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{779DABEB-BD9A-400A-A0A8-E16CA2F0E3B4}.Package|Any CPU.Build.0 = Debug|Any CPU
+		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}.Debug|x86.Build.0 = Debug|Any CPU
+		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}.Release|x86.ActiveCfg = Release|Any CPU
+		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}.Release|x86.Build.0 = Release|Any CPU
+		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}.Package|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -75,5 +131,12 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B7013675-93E3-4196-897A-CD93404FE51F} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
 		{32919B31-542C-42D2-8C5F-BB44033D92B9} = {B651F17A-44BE-428B-B34C-ADD4C06CF67E}
+		{0912252F-DFB5-4D65-A2F1-AC04199795A6} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
+		{D33BF32A-A0D5-4583-AD44-30E118F0AEF6} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
+		{7E8089BD-F5E1-4177-88E4-D7BC7437A2A7} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
+		{C5C11072-7DE4-44B8-BA09-ED51E1123EBE} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
+		{A2AA5383-1658-4292-B1EA-A8B487822C16} = {B651F17A-44BE-428B-B34C-ADD4C06CF67E}
+		{779DABEB-BD9A-400A-A0A8-E16CA2F0E3B4} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
+		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
 	EndGlobalSection
 EndGlobal

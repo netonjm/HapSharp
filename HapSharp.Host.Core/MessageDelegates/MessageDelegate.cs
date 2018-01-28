@@ -7,6 +7,11 @@ namespace HapSharp.MessageDelegates
 	{
 		protected const string ReceiveTopicNode = "r";
 
+		public virtual void OnInitialize () 
+		{
+			
+		}
+
 		public event EventHandler<Tuple<string, string>> SendMessage;
 
 		readonly protected Accessory Accessory;
@@ -45,7 +50,7 @@ namespace HapSharp.MessageDelegates
 
 		public virtual void OnIdentify ()
 		{
-			Console.WriteLine ($"[Net][{Accessory.Name}] Identified.");
+			WriteLog ($"[{Accessory.Name}] Identified.");
 		}
 
 		string GetNormalizedFileName (string name)
@@ -77,6 +82,11 @@ namespace HapSharp.MessageDelegates
 		protected virtual void OnMessageReceived (string topic, byte[] message)
 		{
 
+		}
+
+		protected void WriteLog (string message) 
+		{
+			Console.WriteLine($"[Net][{Accessory.Name}]{message}");
 		}
 
 		public virtual void Dispose()

@@ -4,11 +4,14 @@
 	{
 		internal virtual int Port => ResourcesService.ServicePort;
 
-		public override string Template => "BridgedCore.js";
-
 		public BridgedCore (string name = null, string username = null) : base (name, username)
 		{
 
+		}
+
+		public override void OnTemplateSet()
+		{
+			Template = "BridgedCore.js";
 		}
 
 		public override string OnReplaceTemplate (string prefix, string template)

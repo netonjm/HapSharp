@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+   <id>HapSharp.Accessories.Mpd</id>
+    <version>0.6</version>
+    <title>Control your Mpd server with HomeKit</title>
+    <authors>Jose Medrano</authors>
+    <owners>Jose Medrano</owners>
+    <licenseUrl>https://github.com/netonjm/HapSharp/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/netonjm/HapSharp</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/netonjm/HapSharp/master/images/homekit-mpd.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This accessory allows control remotely any Mpd server installed in any device</description>
+    <copyright>netonjm</copyright>
+    <tags>homekit hap-nodejs</tags>
+  </metadata>
+
+  <files>
+    <file src="../HapSharp.Accessories.Mpd/bin/Debug/*.dll" target="lib/net40" />
+  </files>
+
+</package>

@@ -2,11 +2,11 @@
 
 namespace HapSharp.MessageDelegates
 {
-	public abstract class FindMyPhoneAccessory : LightAccessory
+	public class FindMyPhoneAccessory : LightAccessory
 	{
-		public abstract string Username { get; }
-		public abstract string Password { get; }
-		public abstract string DeviceId { get; }
+		public string Username { get; set; }
+		public string Password { get; set; }
+		public string DeviceId { get; set; }
 
 		public FindMyPhoneAccessory (string name = null, string username = null) : base (name, username)
 		{

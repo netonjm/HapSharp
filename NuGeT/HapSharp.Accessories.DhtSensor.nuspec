@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>HapSharp.Accessories.Raspberry.Dht</id>
+    <id>HapSharp.Accessories.IoTDhtSensor</id>
     <version>0.6</version>
     <title>Dht accessory module to use with HapSharp in a Raspberry</title>
     <authors>Jose Medrano</authors>
     <owners>Jose Medrano</owners>
-    <licenseUrl>https://github.com/netonjm/HapSharp.Accessories.Dht/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/netonjm/HapSharp.Accessories.Dht</projectUrl>
+    <licenseUrl>https://github.com/netonjm/HapSharp/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/netonjm/HapSharp</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/netonjm/HapSharp/master/images/homekit-temp.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>An example of HAP-Sharp accessory module</description>
+    <description>Dht accessory module allows you easily to get your temperature and humidity into your bridge</description>
     <copyright>netonjm</copyright>
     <tags>homekit hap-nodejs</tags>
 
   </metadata>
 
   <files>
-    <file src="../HapSharp.Accessories.Raspberry.Dht/bin/Debug/*.dll" target="lib/net40" />
+    <file src="../HapSharp.Accessories.IoTDhtSensor/bin/Debug/*.dll" target="lib/net40" />
   </files>
 
 </package>

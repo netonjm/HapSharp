@@ -5,11 +5,17 @@ namespace HapSharp.MessageDelegates
 {
 	public class IoTMotionSensorMessageDelegate : MotionSensorMessageDelegate
 	{
-		readonly IoTSensor proximitySensor;
+		IoTSensor proximitySensor;
 
-		public IoTMotionSensorMessageDelegate(MotionSensorAccessory sensor) : base(sensor)
+		readonly IoTMotionSensorAccessory sensor;
+		public IoTMotionSensorMessageDelegate(IoTMotionSensorAccessory sensor) : base(sensor)
 		{
-			proximitySensor = new IoTSensor(Connectors.GPIO22);
+			this.sensor = sensor;
+		}
+
+		public override void OnInitialize()
+		{
+			proximitySensor = new IoTSensor(sensor.Connector);
 		}
 
 		public override bool OnGetMessageReceived()

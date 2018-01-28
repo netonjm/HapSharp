@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+   <id>HapSharp.Accessories.IoTMotionSensor</id>
+    <version>0.6</version>
+    <title>Control your Motion Sensor connected in your Raspberry with HomeKit</title>
+    <authors>Jose Medrano</authors>
+    <owners>Jose Medrano</owners>
+    <licenseUrl>https://github.com/netonjm/HapSharp/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/netonjm/HapSharp</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/netonjm/HapSharp/master/images/homekit-pir.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This accessory allows handle a motion sensor connected to your raspberry with HomeKit</description>
+    <copyright>netonjm</copyright>
+    <tags>homekit hap-nodejs</tags>
+  </metadata>
+
+  <files>
+    <file src="../HapSharp.Accessories.IoTMotionSensor/bin/Debug/*.dll" target="lib/net40" />
+  </files>
+
+</package>

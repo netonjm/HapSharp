@@ -1,5 +1,4 @@
 ﻿using System;
-using HapSharp.Accessories;
 using iCloudLib;
 using System.Linq;
 

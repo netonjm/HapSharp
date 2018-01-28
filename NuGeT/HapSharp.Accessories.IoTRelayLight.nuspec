@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+   <id>HapSharp.Accessories.IoTRelayLight</id>
+    <version>0.6</version>
+    <title>Control your Relay Light in a Raspberry with HomeKit</title>
+    <authors>Jose Medrano</authors>
+    <owners>Jose Medrano</owners>
+    <licenseUrl>https://github.com/netonjm/HapSharp/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/netonjm/HapSharp</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/netonjm/HapSharp/master/images/homekit-light.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This accessory allows control remotely any light connected to a relay in your raspberry remotely with HomeKit</description>
+    <copyright>netonjm</copyright>
+    <tags>homekit hap-nodejs</tags>
+  </metadata>
+
+  <files>
+    <file src="../HapSharp.Accessories.IoTRelayLight/bin/Debug/*.dll" target="lib/net40" />
+  </files>
+
+</package>

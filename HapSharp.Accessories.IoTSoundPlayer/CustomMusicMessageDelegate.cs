@@ -16,6 +16,11 @@ namespace HapSharp.MessageDelegates
 		public CustomMusicMessageDelegate(MusicAccessory musicAccessory)
 			: base(musicAccessory)
 		{
+			
+		}
+
+		public override void OnInitialize()
+		{
 			musicPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 			soundPlayer = new IoTSoundPlayer();
 		}

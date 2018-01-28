@@ -15,6 +15,8 @@ namespace HapSharp
 	{
 		const string DefaultBrokerHost = "localhost";
 
+		public string[] AllowedHosts { get; set; }
+
 		internal const int Port = 51826;
 		readonly List<AccessoryHost> accessoriesHosts = new List<AccessoryHost> ();
 		readonly IMonitor monitor;
@@ -23,7 +25,8 @@ namespace HapSharp
 		MqttClient client;
 		string hapNodePath;
 
-		public string Host { get; private set; }
+		public string BrokerHost { get; private set; }
+
 		public bool Debug { get; internal set; }
 		public bool Sudo { get; set; }
 
@@ -34,15 +37,30 @@ namespace HapSharp
 			this.monitor = monitor;
 		}
 
-		public void Start (string hapNodePath, string brokerHost = DefaultBrokerHost)
+		public void CheckHost ()
+		{
+			//Is our device allowed to execute this host
+			if (AllowedHosts != null) {
+				if (!AllowedHosts.Contains(Environment.MachineName)) {
+					throw new UnauthorizedAccessException("Your device is not allowed to execute this Host session.");
+				}
+			}
+		}
+
+		public void Start(string hapNodePath, string brokerHost = DefaultBrokerHost)
 		{
 			this.hapNodePath = hapNodePath;
+
+			CheckHost ();
 
 			//Kill current user node processes
 			ProcessService.CleanProcessesInMemory ();
 
 			//clean native .js files in HAP-NodeJS folder
 			hapNodePath.RemoveHapNodeJsFiles ();
+
+			//accessory initialization
+			InitializeAccessories ();
 
 			//re-generate native .js accessories based from our message delegates
 			WriteAccessories ();
@@ -75,11 +93,22 @@ namespace HapSharp
 			}
 		}
 
+		void InitializeAccessories ()
+		{
+			monitor.WriteLine($"[Net] Starting accessories initialization...");
+			foreach (var accHost in accessoriesHosts) {
+				accHost.MessageDelegate.OnInitialize();
+			}
+		}
+
 		void WriteAccessories ()
 		{
 			string filePath;
 
 			foreach (var accHost in accessoriesHosts) {
+
+				accHost.Accessory.OnTemplateSet();
+
 				if (accHost.MessageDelegate is BridgedCoreMessageDelegate) {
 					filePath = Path.Combine (hapNodePath, hapNodePath,  accHost.Accessory.Template);
 				} else {
@@ -100,7 +129,7 @@ namespace HapSharp
 				throw new Exception ("Resource was not found in assemblies");
 			}
 			template = accessoryHost.OnReplaceTemplate (template);
-			return template.Replace ("{{MQTT_ADDRESS}}", Host);
+			return template.Replace ("{{MQTT_ADDRESS}}", BrokerHost);
 		}
 
 		public Type GetAccessoryFirstType (Type type)
@@ -126,7 +155,7 @@ namespace HapSharp
 				client.Disconnect ();
 			}
 
-			Host = host;
+			BrokerHost = host;
 
 			client = new MqttClient (host);
 			client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
@@ -176,10 +205,9 @@ namespace HapSharp
 			accessoriesHosts.Add (new AccessoryHost (accessory, messageDelegate));
 		}
 
-		public void Add<T1, T2> (string name, string username)
+		public void Add<T1> (Accessory accessory)
 		{
-			var accessory = (Accessory) Activator.CreateInstance (typeof (T1), new object[] { name, username});
-			var message = (MessageDelegate) Activator.CreateInstance (typeof (T2), new object[] { accessory });
+			var message = (MessageDelegate) Activator.CreateInstance (typeof (T1), new object[] { accessory });
 			accessoriesHosts.Add (new AccessoryHost (accessory, message));
 		}
 
