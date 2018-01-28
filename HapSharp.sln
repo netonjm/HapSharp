@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Console", "Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Core", "HapSharp.Host.Core\HapSharp.Host.Core.csproj", "{57B7FD9C-946A-44C0-AA79-E2E5838CC38F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.FindMyIphone", "HapSharp.Accessories.FindMyIphone\HapSharp.Accessories.FindMyIphone.csproj", "{B7013675-93E3-4196-897A-CD93404FE51F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.Raspberry.Dht", "HapSharp.Accessories.Raspberry.Dht\HapSharp.Accessories.Raspberry.Dht.csproj", "{B7013675-93E3-4196-897A-CD93404FE51F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Host.Broker", "HapSharp.Host.Broker\HapSharp.Host.Broker.csproj", "{3437A0A7-360F-47AA-91A5-FF09D9A9F32D}"
 EndProject
