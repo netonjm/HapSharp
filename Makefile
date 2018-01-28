@@ -14,6 +14,10 @@ configure:
 	cd HAP-NodeJS && npm install && npm update && npm install mqtt && cd ..
 
 clean:
+	echo "removing bin, obj and packages directories ..."
+	find . -type d -name bin -exec rm -rf {} \;
+	find . -type d -name obj -exec rm -rf {} \;
+	find . -type d -name packages -exec rm -rf {} \;
 	echo "killing possible broker local instancess opened..."
 	killall nohup mono HapSharp.Host.Broker.exe
 	killall mono HapSharp.Host.Console/bin/Debug/HapSharp.Host.Console.exe $(PWD)/HAP-NodeJS
