@@ -7,3 +7,6 @@
 [submodule "external/iCloudLib"]
 	path = external/iCloudLib
 	url = git@github.com:netonjm/iCloudLib.git
+[submodule "external/Dapplo.MPD"]
+	path = external/Dapplo.MPD
+	url = https://github.com/netonjm/Dapplo.MPD
