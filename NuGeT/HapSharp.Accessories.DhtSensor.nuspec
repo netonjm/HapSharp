@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>HapSharp.Accessories.IoTDhtSensor</id>
-    <version>0.6</version>
+    <version>0.7</version>
     <title>Dht accessory module to use with HapSharp in a Raspberry</title>
     <authors>Jose Medrano</authors>
     <owners>Jose Medrano</owners>
@@ -13,7 +13,6 @@
     <description>Dht accessory module allows you easily to get your temperature and humidity into your bridge</description>
     <copyright>netonjm</copyright>
     <tags>homekit hap-nodejs</tags>
-
   </metadata>
 
   <files>

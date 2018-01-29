@@ -2,7 +2,7 @@
 <package >
   <metadata>
    <id>HapSharp.Accessories.IoTMotionSensor</id>
-    <version>0.6</version>
+    <version>0.7</version>
     <title>Control your Motion Sensor connected in your Raspberry with HomeKit</title>
     <authors>Jose Medrano</authors>
     <owners>Jose Medrano</owners>

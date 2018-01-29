@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>HapSharp.Host</id>
-    <version>0.6</version>
+    <version>0.7</version>
     <title>HapSharp Host + Core library to empower your accessories to the limit.</title>
     <authors>Jose Medrano</authors>
     <owners>Jose Medrano</owners>

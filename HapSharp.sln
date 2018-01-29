@@ -126,7 +126,7 @@ Global
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
-		version = 0.6
+		version = 0.7
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B7013675-93E3-4196-897A-CD93404FE51F} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
