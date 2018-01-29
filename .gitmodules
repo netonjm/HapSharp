@@ -10,3 +10,6 @@
 [submodule "external/Dapplo.MPD"]
 	path = external/Dapplo.MPD
 	url = https://github.com/netonjm/Dapplo.MPD
+[submodule "external/broadlink-dotnet-mono"]
+	path = external/broadlink-dotnet-mono
+	url = git@github.com:netonjm/broadlink-dotnet-mono.git
