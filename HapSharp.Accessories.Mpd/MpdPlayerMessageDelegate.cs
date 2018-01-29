@@ -45,7 +45,7 @@ namespace HapSharp.MessageDelegates
 		{
 			ExectuteMpd((client) => client.PauseAsync(!value).Wait());
 
-			WriteLog ($"[Net][{Accessory.Name}][Set] [{value}]");
+			WriteLog ($"[Set] [{value}]");
 		}
 
 		public void Refresh (MpdClient client) 
@@ -69,7 +69,7 @@ namespace HapSharp.MessageDelegates
 
 		protected override void OnChangeBrightness(int value)
 		{
-			WriteLog ($"[Net][{Accessory.Name}][Volume] [{value}]");
+			WriteLog ($"[Volume] [{value}]");
 			ExectuteMpd((client) => client.VolumeAsync(value).Wait());
 			volume = value;
 		}
