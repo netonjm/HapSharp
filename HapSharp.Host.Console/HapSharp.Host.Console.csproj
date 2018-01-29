@@ -59,6 +59,10 @@
       <Project>{C5C11072-7DE4-44B8-BA09-ED51E1123EBE}</Project>
       <Name>HapSharp.Accessories.Mpd</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HapSharp.Accessories.Broadlink\HapSharp.Accessories.Broadlink.csproj">
+      <Project>{F8CCA0FB-67EA-4C5A-A2F7-18AE2436DDA8}</Project>
+      <Name>HapSharp.Accessories.Broadlink</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MessageDelegates\" />

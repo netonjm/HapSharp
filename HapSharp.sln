@@ -33,6 +33,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.IoTRel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.IoTMotionSensor", "HapSharp.Accessories.IoTMotionSensor\HapSharp.Accessories.IoTMotionSensor.csproj", "{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Accessories.Broadlink", "HapSharp.Accessories.Broadlink\HapSharp.Accessories.Broadlink.csproj", "{F8CCA0FB-67EA-4C5A-A2F7-18AE2436DDA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Broadlink.NET", "external\broadlink-dotnet-mono\Broadlink.NET\Broadlink.NET.csproj", "{8B5143DC-6ACF-492E-9E7B-29557C307D73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -121,6 +125,18 @@ Global
 		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}.Release|x86.Build.0 = Release|Any CPU
 		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}.Package|Any CPU.ActiveCfg = Debug|Any CPU
 		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC}.Package|Any CPU.Build.0 = Debug|Any CPU
+		{F8CCA0FB-67EA-4C5A-A2F7-18AE2436DDA8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F8CCA0FB-67EA-4C5A-A2F7-18AE2436DDA8}.Debug|x86.Build.0 = Debug|Any CPU
+		{F8CCA0FB-67EA-4C5A-A2F7-18AE2436DDA8}.Release|x86.ActiveCfg = Release|Any CPU
+		{F8CCA0FB-67EA-4C5A-A2F7-18AE2436DDA8}.Release|x86.Build.0 = Release|Any CPU
+		{F8CCA0FB-67EA-4C5A-A2F7-18AE2436DDA8}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8CCA0FB-67EA-4C5A-A2F7-18AE2436DDA8}.Package|Any CPU.Build.0 = Debug|Any CPU
+		{8B5143DC-6ACF-492E-9E7B-29557C307D73}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8B5143DC-6ACF-492E-9E7B-29557C307D73}.Debug|x86.Build.0 = Debug|Any CPU
+		{8B5143DC-6ACF-492E-9E7B-29557C307D73}.Release|x86.ActiveCfg = Release|Any CPU
+		{8B5143DC-6ACF-492E-9E7B-29557C307D73}.Release|x86.Build.0 = Release|Any CPU
+		{8B5143DC-6ACF-492E-9E7B-29557C307D73}.Package|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B5143DC-6ACF-492E-9E7B-29557C307D73}.Package|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -138,5 +154,7 @@ Global
 		{A2AA5383-1658-4292-B1EA-A8B487822C16} = {B651F17A-44BE-428B-B34C-ADD4C06CF67E}
 		{779DABEB-BD9A-400A-A0A8-E16CA2F0E3B4} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
 		{6228EA7F-268D-4803-9D28-5FAF2EC5F3AC} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
+		{F8CCA0FB-67EA-4C5A-A2F7-18AE2436DDA8} = {52D7BE9A-FBA2-47AD-9910-44ADFFE7008C}
+		{8B5143DC-6ACF-492E-9E7B-29557C307D73} = {B651F17A-44BE-428B-B34C-ADD4C06CF67E}
 	EndGlobalSection
 EndGlobal

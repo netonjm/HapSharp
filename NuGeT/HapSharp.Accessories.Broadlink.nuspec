@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-   <id>HapSharp.Accessories.FindMyIphone</id>
+   <id>HapSharp.Accessories.Broadlink</id>
     <version>0.7</version>
-    <title>HapSharp accessory to beep your Apple device in case was lost</title>
+    <title>HapSharp accessory to send IR/RF commands with your Broadlink network device</title>
     <authors>Jose Medrano</authors>
     <owners>Jose Medrano</owners>
     <licenseUrl>https://github.com/netonjm/HapSharp/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/netonjm/HapSharp</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/netonjm/HapSharp/master/images/homekit-where.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/netonjm/HapSharp/master/images/homekit-broadlink.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>If you misplace your iPhone, iPad, iPod touch, or Mac, the Find My iPhone app will let you use any iOS device to find it and protect your data.</description>
+    <description>HapSharp accessory to send IR/RF commands to your connected devices with a network Broadlink device</description>
     <copyright>netonjm</copyright>
     <tags>homekit hap-nodejs</tags>
   </metadata>
