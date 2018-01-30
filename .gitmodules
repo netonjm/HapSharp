@@ -9,7 +9,7 @@
 	url = git@github.com:netonjm/iCloudLib.git
 [submodule "external/Dapplo.MPD"]
 	path = external/Dapplo.MPD
-	url = https://github.com/netonjm/Dapplo.MPD
+	url = git@github.com:netonjm/Dapplo.MPD.git
 [submodule "external/broadlink-dotnet-mono"]
 	path = external/broadlink-dotnet-mono
 	url = git@github.com:netonjm/broadlink-dotnet-mono.git
