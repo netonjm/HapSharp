@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -29,9 +29,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="HapSharp.Host.Accessories">
-      <HintPath>..\packages\HapSharp.Core.0.6.0\lib\net40\HapSharp.Host.Accessories.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -42,13 +39,12 @@
     <Compile Include="Services\DhtModel.cs" />
     <Compile Include="Services\DhtService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MessageDelegates\" />
-    <Folder Include="Accessories\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\HapSharp.Host.Core\HapSharp.Host.Core.csproj">
+      <Project>{57b7fd9c-946a-44c0-aa79-e2e5838cc38f}</Project>
+      <Name>HapSharp.Host.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
