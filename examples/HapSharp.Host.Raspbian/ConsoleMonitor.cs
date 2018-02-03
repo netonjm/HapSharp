@@ -1,7 +1,6 @@
 ﻿using System;
-using HapSharp;
 
-namespace HapSharp_Host_Raspbian
+namespace HapSharp.Host.Raspbian
 {
 	partial class Program
 	{
