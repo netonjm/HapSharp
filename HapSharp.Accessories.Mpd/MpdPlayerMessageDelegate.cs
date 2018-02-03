@@ -20,11 +20,11 @@ namespace HapSharp.MessageDelegates
 			ExectuteMpd(Refresh);
 		}
 
-		public MpdPlayerMessageDelegate(MpdPlayerAccessory lightAccessory)
-			: base(lightAccessory)
+		public MpdPlayerMessageDelegate(MpdPlayerAccessory accessory)
+			: base(accessory)
 		{
-			host = lightAccessory.Host;
-			port = lightAccessory.Port;
+			host = accessory.Host;
+			port = accessory.Port;
 		}
 
 		public void ExectuteMpd (Action<MpdClient> handler) 
@@ -41,7 +41,7 @@ namespace HapSharp.MessageDelegates
 			}
 		}
 
-		protected override void OnChangePower(bool value)
+		public override void OnChangePower(bool value)
 		{
 			ExectuteMpd((client) => client.PauseAsync(!value).Wait());
 
@@ -56,7 +56,7 @@ namespace HapSharp.MessageDelegates
 			}
 		}
 
-		protected override bool OnGetPower()
+		public override bool OnGetPower()
 		{
 			ExectuteMpd(Refresh);
 			return enabled;

@@ -13,38 +13,42 @@ namespace HapSharp.MessageDelegates
 		{
 			this.accessory = accessory;
 			client = new iCloud ();
-			client.Connect (new iCloud.iCloudLoginCredentials (accessory.Username, accessory.Password, false));
+			client.Connect (new iCloud.iCloudLoginCredentials (accessory.PhoneUsername, accessory.PhonePassword, false));
+			if (!client.IsConnected) {
+				WriteLog ("Error: Login was not correct check user and password values");
+			}
 		}
 
-		protected override bool OnGetPower ()
+		public override bool OnGetPower ()
 		{
 			return true;
 		}
 
-		protected override void OnChangePower (bool value)
+		public override void OnChangePower (bool value)
 		{
 			SendNotification ();
 		}
 
-		void SendNotification ()
+		public void SendNotification ()
 		{
-			
 			if (client.Devices != null) {
-				PrintDevices ();
-				var device = client.Devices.FirstOrDefault (s => s.DeviceId == accessory.DeviceId);
+				var device = client.Devices.FirstOrDefault (s => s.DeviceId == accessory.PhoneDeviceId);
 				if (device != null) {
 					client.PlaySound ("Hey! Where are you?", device);
 				} else {
-					Console.WriteLine ("[FindMyPhone] Cannot send a notification. Your device was not found. :-(");
+					WriteLog ("Cannot send a notification. Your device was not found. :-(");
+					PrintDevices ();
 				}
+			} else {
+				WriteLog ("Error: No devices found.");
 			}
 		}
 
 		void PrintDevices () 
 		{
-			Console.WriteLine ($"[FindMyPhone] Listing your devices...");
+			WriteLog ($"Listing your devices...");
 			foreach (var device in client.Devices) {
-				Console.WriteLine ($"[FindMyPhone] {device.DeviceName} ({device.DeviceDisplayName}) {device.DeviceStatus} : {device.DeviceId}");
+				WriteLog ($"{device.DeviceName} ({device.DeviceDisplayName}) {device.DeviceStatus} : {device.DeviceId}");
 			}
 		}
 

@@ -52,6 +52,7 @@
     <Compile Include="MessageDelegates\AccessoryHost.cs" />
     <Compile Include="MessageDelegates\HumidityMessageDelegate.cs" />
     <Compile Include="MessageDelegates\MotionSensorMessageDelegate.cs" />
+    <Compile Include="IMonitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Accessories\" />

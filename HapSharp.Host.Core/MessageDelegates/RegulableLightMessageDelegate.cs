@@ -31,7 +31,7 @@ namespace HapSharp.MessageDelegates
 				       .Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (TopicSetBrightness)), TopicSetBrightness);
 		}
 
-		protected abstract int OnGetBrightness ();
-		protected abstract void OnChangeBrightness (int value);
+		public abstract int OnGetBrightness ();
+		public abstract void OnChangeBrightness (int value);
 	}
 }

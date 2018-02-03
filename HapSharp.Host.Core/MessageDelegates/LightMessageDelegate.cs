@@ -32,9 +32,9 @@ namespace HapSharp.MessageDelegates
 				       .Replace (TemplateHelper.GetTemplateTagId (prefix, nameof (TopicSetOn)), TopicSetOn);
 		}
 
-		protected abstract bool OnGetPower ();
+		public abstract bool OnGetPower ();
 
-		protected abstract void OnChangePower (bool value);
+		public abstract void OnChangePower (bool value);
 
 	}
 }

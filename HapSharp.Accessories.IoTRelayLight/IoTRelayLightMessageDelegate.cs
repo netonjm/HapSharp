@@ -19,14 +19,14 @@ namespace HapSharp.MessageDelegates
 			relay = new IoTRelay (sensor.Connector);
 		}
 
-		protected override void OnChangePower (bool value)
+		public override void OnChangePower (bool value)
 		{
 			var resultValue = sensor.InverseSwitch ? !value : value;
 			WriteLog ($"[On] {resultValue}");
-			relay.EnablePin (0, !resultValue);
+			relay.EnablePin (0, resultValue);
 		}
 
-		protected override bool OnGetPower ()
+		public override bool OnGetPower ()
 		{
 			return relay.GetPinValue (0);
 		}

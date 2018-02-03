@@ -3,6 +3,21 @@ using HapSharp.Accessories;
 
 namespace HapSharp.MessageDelegates
 {
+	public class MessageDelegateMonitor : IMonitor
+	{
+		readonly MessageDelegate msgDelegate;
+
+		public MessageDelegateMonitor (MessageDelegate msgDelegate)
+		{
+			this.msgDelegate = msgDelegate;
+		}
+
+		public void WriteLine (string message)
+		{
+			msgDelegate.WriteLog (message);
+		}
+	}
+
 	public abstract class MessageDelegate : IDisposable
 	{
 		protected const string ReceiveTopicNode = "r";
@@ -84,7 +99,7 @@ namespace HapSharp.MessageDelegates
 
 		}
 
-		protected void WriteLog (string message) 
+		public void WriteLog (string message) 
 		{
 			Console.WriteLine($"[Net][{Accessory.Name}]{message}");
 		}
