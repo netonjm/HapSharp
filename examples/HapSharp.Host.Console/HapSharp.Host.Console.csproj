@@ -43,25 +43,13 @@
     <Compile Include="MessageDelegates\CustomMotionSensor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HapSharp.Host\HapSharp.Host.csproj">
+    <ProjectReference Include="..\..\HapSharp.Host\HapSharp.Host.csproj">
       <Project>{235C22F7-4738-4C12-99F0-0D2F25F0E8C7}</Project>
       <Name>HapSharp.Host</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HapSharp.Host.Core\HapSharp.Host.Core.csproj">
+    <ProjectReference Include="..\..\HapSharp.Host.Core\HapSharp.Host.Core.csproj">
       <Project>{57B7FD9C-946A-44C0-AA79-E2E5838CC38F}</Project>
       <Name>HapSharp.Host.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HapSharp.Accessories.Humidity\HapSharp.Accessories.Humidity.csproj">
-      <Project>{B7013675-93E3-4196-897A-CD93404FE51F}</Project>
-      <Name>HapSharp.Accessories.Humidity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HapSharp.Accessories.Mpd\HapSharp.Accessories.Mpd.csproj">
-      <Project>{C5C11072-7DE4-44B8-BA09-ED51E1123EBE}</Project>
-      <Name>HapSharp.Accessories.Mpd</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HapSharp.Accessories.Broadlink\HapSharp.Accessories.Broadlink.csproj">
-      <Project>{F8CCA0FB-67EA-4C5A-A2F7-18AE2436DDA8}</Project>
-      <Name>HapSharp.Accessories.Broadlink</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

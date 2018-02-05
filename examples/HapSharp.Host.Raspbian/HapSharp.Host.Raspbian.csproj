@@ -7,17 +7,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\HapSharp.Host\HapSharp.Host.csproj" />
-	  <ProjectReference Include="..\HapSharp.Host.Core\HapSharp.Host.Core.csproj" />
-	  <ProjectReference Include="..\HapSharp.Accessories.Mpd\HapSharp.Accessories.Mpd.csproj" />
-	  <ProjectReference Include="..\HapSharp.Accessories.IoTRelayLight\HapSharp.Accessories.IoTRelayLight.csproj" />
-	  <ProjectReference Include="..\HapSharp.Accessories.IoTMotionSensor\HapSharp.Accessories.IoTMotionSensor.csproj" />
-	</ItemGroup>
-	<ItemGroup>
 	  <Folder Include="MessageDelegates\" />
 	  <Folder Include="Accessories\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="IoTSharp.Components.Raspbian" Version="0.4.2" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\HapSharp.Host\HapSharp.Host.csproj" />
+	  <ProjectReference Include="..\..\HapSharp.Host.Core\HapSharp.Host.Core.csproj" />
+	  <ProjectReference Include="..\..\HapSharp.Accessories.Mpc\HapSharp.Accessories.Mpc.csproj" />
+	  <ProjectReference Include="..\..\HapSharp.Accessories.IoTDhtSensor\HapSharp.Accessories.IoTDhtSensor.csproj" />
+	  <ProjectReference Include="..\..\HapSharp.Accessories.IoTMotionSensor\HapSharp.Accessories.IoTMotionSensor.csproj" />
+	  <ProjectReference Include="..\..\HapSharp.Accessories.IoTRelayLight\HapSharp.Accessories.IoTRelayLight.csproj" />
 	</ItemGroup>
 </Project>
