@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using HapSharp;
 using HapSharp.Accessories;
 using HapSharp.MessageDelegates;
@@ -6,9 +7,17 @@ using IoTSharp.Components;
 
 namespace HapSharp_Host_Raspbian
 {
-	partial class Program
+	class ConsoleMonitor : IMonitor
 	{
-		class Mpd : MpdPlayerAccessory
+		public void WriteLine(string message)
+		{
+			Console.WriteLine(message);
+		}
+	}
+
+	class Program
+	{
+		class Mpd : MpcPlayerAccessory
 		{
 			public Mpd () : base("Music", "44:66:23:68:81:11")
 			{
@@ -51,7 +60,7 @@ namespace HapSharp_Host_Raspbian
 			session.Add<BridgedCoreMessageDelegate>(new BridgedCore("Baño Bridge", "52:72:41:41:33:14"));
 		
 			session.Add<IoTMotionSensorMessageDelegate> (new MotionSensor ());
-			session.Add<MpdPlayerMessageDelegate> (new Mpd ());
+			session.Add<MpcPlayerMessageDelegate> (new Mpd ());
 			session.Add<IoTLightMessageDelegate> (new RelayLight ());
 			session.Start(HapNodeJsPath);
 

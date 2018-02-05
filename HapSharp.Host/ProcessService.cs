@@ -12,8 +12,8 @@ namespace HapSharp
 	{
 		static List<System.Diagnostics.Process> GetProcessesByName (string name)
 		{
-			var dev = new List<System.Diagnostics.Process> ();
-			var processes = System.Diagnostics.Process.GetProcesses ();
+			var dev = new List<Process> ();
+			var processes = Process.GetProcesses ();
 			foreach (var item in processes) {
 				try {
 					if (item.ProcessName.Contains (name)) {
