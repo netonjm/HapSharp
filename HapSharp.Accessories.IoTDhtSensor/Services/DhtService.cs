@@ -1,17 +1,17 @@
 ﻿using System.Runtime.InteropServices;
 using System;
+using System.Threading.Tasks;
 
 namespace HapSharp.Accessories
 {
-	public class DhtService
+	public class DhtService : IDisposable
 	{
 		[DllImport("Raspberry_Pi_2_Driver.so")]
 		static extern int pi_2_dht_read(int sensor, int pin, out float humidity, out float temperature);
 		static object obj = new object();
 
+		bool finished = false;
 		public const int DefaultDelay = 5000;
-
-		System.Threading.Timer t;
 
 		int Sensor; //DHT11
 		int GpioPin;
@@ -21,40 +21,60 @@ namespace HapSharp.Accessories
 
 		public bool IsRunning { get; private set; }
 
-
 		public DhtService () 
 		{
 		}
 
+		Task Initialization { get; set; }
+
 		public void Start (int gpioPin, DhtModel model, int delay = DefaultDelay) 
 		{
-			if (IsRunning) {
-				return;
-			}
+			lock (obj) {
+				if (IsRunning) {
+					return;
+				}
 
-			IsRunning = true;
-			Sensor = (int)model;
-			GpioPin = gpioPin;
-			t = new System.Threading.Timer(o => Refresh(), null, 0, delay);
+				IsRunning = true;
+				Sensor = (int)model;
+				GpioPin = gpioPin;
+
+				Initialization = InitializeAsync(); 	
+			}
 		}
 
-		void Refresh ()
+		async Task InitializeAsync()
 		{
-			lock (obj)
+			while (!finished)
 			{
 				try
 				{
 					float hum, temp;
 					pi_2_dht_read(Sensor, GpioPin, out hum, out temp);
 
-					Humidity = (int)hum;
-					Temperature = (int)temp;
+					if (hum != 0) {
+						Humidity = (int)hum;
+					}
+
+					if (temp != 0) {
+						Temperature = (int)temp;
+					}
 				}
-				catch (Exception ex)
-				{
+				catch (Exception ex) {
 					Console.WriteLine(ex.Message);
 				}
+				// Asynchronously initialize this instance.
+				await Task.Delay(DefaultDelay);
 			}
+		}
+
+		public void Cancel ()
+		{
+			finished = true;
+		}
+
+		public void Dispose()
+		{
+			Cancel();
 		}
 
 		static DhtService current;
