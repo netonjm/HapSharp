@@ -88,13 +88,13 @@ namespace System.Diagnostics.Terminal
 			};
 		}
 
-		public void ExecuteCommand (string command, bool waitsUntilIdle = false)
+		public async Task ExecuteCommand (string command, bool waitsUntilIdle = false)
 		{
 			LastOutputLines.Clear ();
 			process.StandardInput.WriteLine (command);
 
 			if (waitsUntilIdle) {
-				WaitUntilIdle ();
+				await WaitUntilIdle ().ConfigureAwait(false);
 			}
 		}
 
@@ -103,15 +103,19 @@ namespace System.Diagnostics.Terminal
 			process.StandardInput.WriteLine ($"echo {DefaultPingMessage}{++idleCounter}");
 		}
 
+		int timeout;
+
 		/// <summary>
 		/// This is a custom implementation of wait iddle cursor is available in a console application (works in mac and windows)
 		/// </summary>
-		public void WaitUntilIdle ()
+		public async Task WaitUntilIdle ()
 		{
+			timeout = 0;
 			appIdle = false;
-			while (!appIdle) {
+			while (!appIdle && timeout <= 10) {
 				Ping ();
-				Thread.Sleep (waitUntilIdleSleep);
+				await Task.Delay(waitUntilIdleSleep).ConfigureAwait(false);
+				timeout++;
 			}
 		}
 
