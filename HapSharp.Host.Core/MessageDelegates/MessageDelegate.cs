@@ -22,6 +22,13 @@ namespace HapSharp.MessageDelegates
 	{
 		protected const string ReceiveTopicNode = "r";
 
+		public event EventHandler ValueChanged;
+
+		protected void OnValueChanged()
+		{
+			ValueChanged?.Invoke(this, EventArgs.Empty);
+		}
+
 		public virtual void OnInitialize () 
 		{
 			
