@@ -12,10 +12,16 @@ namespace HapSharp.MessageDelegates
 		public FindMyPhoneMessageDelegate(FindMyPhoneAccessory accessory) : base(accessory)
 		{
 			this.accessory = accessory;
-			client = new iCloud ();
-			client.Connect (new iCloud.iCloudLoginCredentials (accessory.PhoneUsername, accessory.PhonePassword, false));
+		
+		}
+
+		public override void OnInitialize()
+		{
+			base.OnInitialize();
+			client = new iCloud();
+			client.Connect(new iCloud.iCloudLoginCredentials(accessory.PhoneUsername, accessory.PhonePassword, false));
 			if (!client.IsConnected) {
-				WriteLog ("Error: Login was not correct check user and password values");
+				WriteLog("Error: Login was not correct check user and password values");
 			}
 		}
 
