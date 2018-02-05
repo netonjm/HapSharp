@@ -5,6 +5,8 @@ namespace HapSharp.MessageDelegates
 {
 	public class DhtHumidityMessageDelegate : HumidityMessageDelegate
 	{
+		public int Value => DhtService.Current.Humidity;
+		int lastValue;
 		public DhtHumidityMessageDelegate(DhtHumidityAccesory accessory) : base(accessory)
 		{
 			DhtService.Current.Start(accessory.GpioPin, accessory.DhtModel, accessory.Delay);
@@ -12,7 +14,13 @@ namespace HapSharp.MessageDelegates
 
 		public override int OnGetMessageReceived()
 		{
-			return DhtService.Current.Humidity;
+			var newValue = Value;
+			if (newValue != lastValue)
+			{
+				OnValueChanged();
+				lastValue = newValue;
+			}
+			return Value;
 		}
 	}
 }

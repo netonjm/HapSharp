@@ -62,12 +62,12 @@ namespace HapSharp.MessageDelegates
 			return enabled;
 		}
 
-		protected override int OnGetBrightness()
+		public override int OnGetBrightness()
 		{
 			return volume;
 		}
 
-		protected override void OnChangeBrightness(int value)
+		public override void OnChangeBrightness(int value)
 		{
 			WriteLog ($"[Volume] [{value}]");
 			ExectuteMpd((client) => client.VolumeAsync(value).Wait());

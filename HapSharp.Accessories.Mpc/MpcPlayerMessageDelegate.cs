@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using HapSharp.Accessories;
 using HapSharp.Accessories.Mpc;
 
@@ -6,12 +7,16 @@ namespace HapSharp.MessageDelegates
 {
 	public class MpcPlayerMessageDelegate : RegulableLightMessageDelegate
 	{
+		bool lastValue;
 		int port;
 		string host;
 
-		bool enabled;
 		MpcPlayer client;
 		MessageDelegateMonitor logger;
+
+		public bool Value => client.CurrentState == MpcPlayerState.Playing;
+
+		public int Brightness { get; private set; }
 
 		public override void OnInitialize ()
 		{
@@ -27,31 +32,41 @@ namespace HapSharp.MessageDelegates
 			port = accessory.Port;
 		}
 
-		public override void OnChangePower (bool value)
+		public async override void OnChangePower (bool value)
 		{
 			if (value) {
-				client.Play ();
+				await client.Play().ConfigureAwait(false);
 			} else {
-				client.Pause ();
+				await client.Pause ().ConfigureAwait(false);;
 			}
+			OnValueChanged();
 			logger.WriteLine ($"[Set] [{value}]");
 		}
 
 		public override bool OnGetPower ()
 		{
-			client.RefreshStatus ();
-			return client.CurrentSong != null;
+			client.RefreshStatus().Wait();
+
+			var newValue = Value;
+			if (newValue != lastValue) {
+				OnValueChanged();
+				lastValue = newValue;
+			}
+			return newValue;
 		}
 
 		public override int OnGetBrightness ()
 		{
-			return client.GetVolume ();
+			Brightness = client.GetVolume().Result;
+			return Brightness;
 		}
 
 		public override void OnChangeBrightness (int value)
 		{
-			client.SetVolume (value);
+			Brightness = value;
+			client.SetVolume(value).Wait();
 			WriteLog ($"[Volume] [{value}]");
+			OnValueChanged();
 		}
 	}
 }

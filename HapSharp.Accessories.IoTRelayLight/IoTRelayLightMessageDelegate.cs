@@ -6,9 +6,12 @@ namespace HapSharp.MessageDelegates
 {
 	public class IoTLightMessageDelegate : LightMessageDelegate
 	{
+		readonly IoTLightAccessory sensor;
 		IoTRelay relay;
 
-		readonly IoTLightAccessory sensor;
+		public bool Value => relay.GetPinValue(0);
+		bool lastValue;
+
 		public IoTLightMessageDelegate(IoTLightAccessory sensor) : base(sensor)
 		{
 			this.sensor = sensor;
@@ -24,11 +27,17 @@ namespace HapSharp.MessageDelegates
 			var resultValue = sensor.InverseSwitch ? !value : value;
 			WriteLog ($"[On] {resultValue}");
 			relay.EnablePin (0, resultValue);
+			OnValueChanged();
 		}
 
 		public override bool OnGetPower ()
 		{
-			return relay.GetPinValue (0);
+			var newValue = Value;
+			if (newValue != lastValue) {
+				OnValueChanged();
+				lastValue = newValue;
+			}
+			return newValue;
 		}
 
 		public override void Dispose()

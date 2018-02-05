@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Diagnostics.Terminal;
+using System.Threading.Tasks;
 
 namespace HapSharp.Accessories.Mpc
 {
+	public enum MpcPlayerState
+	{
+		Playing, Paused, Stop
+	}
+
 	/// <summary>
 	/// Process wrapper of Mpc Player version 0.28
 	/// </summary>
@@ -13,7 +19,17 @@ namespace HapSharp.Accessories.Mpc
 		public string Host { get; set; } = DefaultHost;
 		IMonitor monitor;
 
+		public string CurrentSong { get; private set; }
+		public bool Repeat { get; private set; }
+		public bool Random { get; private set; }
+		public bool Single { get; private set; }
+		public bool Consume { get; private set; }
+
+		public int Volume { get; private set; }
+
 		public bool Debug { get; set; }
+
+		public MpcPlayerState CurrentState { get; set; }
 
 		public MpcPlayer (IMonitor monitor)
 		{
@@ -29,13 +45,10 @@ namespace HapSharp.Accessories.Mpc
 			};
 		}
 
-		public string CurrentSong { get; private set; }
-		public bool Repeat { get; private set; }
-		public bool Random { get; private set; }
-		public bool Single { get; private set; }
-		public bool Consume { get; private set; }
-
-		public int Volume { get; private set; }
+		public void Initialize()
+		{
+			process.Start();
+		}
 
 		string ExtractValue (string line, string parameter, string endChar)
 		{
@@ -47,16 +60,19 @@ namespace HapSharp.Accessories.Mpc
 			return line.Substring (0, endIndex == -1 ? line.Length : endIndex);
 		}
 
-		public void RefreshStatus ()
+		public async Task RefreshStatus ()
 		{
-			ExecuteMpcCommand ("status");
+			await ExecuteMpcCommand ("status").ConfigureAwait(false);
 			var commandLines = process.LastOutputLines;
 
+			CurrentState = MpcPlayerState.Stop;
 			CurrentSong = "";
 
 			foreach (var line in commandLines) {
-				if (line.StartsWith ("[playing]", StringComparison.OrdinalIgnoreCase)) {
-
+				if (line.StartsWith("[playing]", StringComparison.OrdinalIgnoreCase)) {
+					CurrentState = MpcPlayerState.Playing;
+				} else if (line.StartsWith("[paused]", StringComparison.OrdinalIgnoreCase)) {
+					CurrentState = MpcPlayerState.Paused;
 				} else if (line.Contains ("volume:")) {
 					Volume = int.Parse (ExtractValue (line, "volume:", "%"));
 					Repeat = ExtractValue (line, "repeat:", " ") == "on";
@@ -75,48 +91,35 @@ namespace HapSharp.Accessories.Mpc
 			return $"mpc {host}{command}";
 		}
 
-		public void Initialize ()
-		{
-			process.Start ();
-		}
-
-		public void ExecuteMpcCommand (string command)
+		public async Task ExecuteMpcCommand (string command)
 		{
 			var executeCommand = GetMpcExecutableCommand (command);
 			if (Debug)
 				monitor.WriteLine ("Command: " + executeCommand);
-			process.ExecuteCommand (executeCommand, true);
+			await process.ExecuteCommand (executeCommand, true).ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// Start playing at position
 		/// </summary>
-		public void Play (int position = 0)
+		public async Task Play (int position = 0)
 		{
-			ExecuteMpcCommand ("play" + (position == 0 ? "" : " " + position));
+			CurrentState = MpcPlayerState.Playing;
+			await ExecuteMpcCommand ("play" + (position == 0 ? "" : " " + position)).ConfigureAwait(false);
 		}
 
-		public int GetVolume ()
+		public async Task<int> GetVolume ()
 		{
-			try {
-				ExecuteMpcCommand ("volume");
-				var volume = process.LastOutputLine;
-				volume = volume.Substring (volume.IndexOf (":", StringComparison.Ordinal) + 1);
-				volume = volume.Substring (0, volume.IndexOf ("%", StringComparison.Ordinal));
-				Volume = int.Parse (volume);
-				return Volume;
-			} catch (Exception ex) {
-				monitor.WriteLine ("Exception: " + ex.Message);
-				return -1;
-			}
+			await RefreshStatus();
+			return Volume;
 		}
 
 		/// <summary>
 		/// Shuffle the current playlist
 		/// </summary>
-		public void Suffle ()
+		public async Task Suffle ()
 		{
-			ExecuteMpcCommand ("shuffle");
+			await ExecuteMpcCommand ("shuffle").ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -124,9 +127,10 @@ namespace HapSharp.Accessories.Mpc
 		/// </summary>
 		/// <returns>The repeat.</returns>
 		/// <param name="value">If set to <c>true</c> value.</param>
-		public void RepeatMode (bool value)
+		public async Task RepeatMode (bool value)
 		{
-			ExecuteMpcCommand ("repeat " + (value ? "1" : "0"));
+			Repeat = value;
+			await ExecuteMpcCommand ("repeat " + (value ? "1" : "0")).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -134,9 +138,10 @@ namespace HapSharp.Accessories.Mpc
 		/// </summary>
 		/// <returns>The random.</returns>
 		/// <param name="value">If set to <c>true</c> value.</param>
-		public void RandomMode (bool value)
+		public async Task RandomMode (bool value)
 		{
-			ExecuteMpcCommand ("random " + (value ? "1" : "0"));
+			Random = value;
+			await ExecuteMpcCommand ("random " + (value ? "1" : "0")).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -144,14 +149,15 @@ namespace HapSharp.Accessories.Mpc
 		/// </summary>
 		/// <returns>The single.</returns>
 		/// <param name="value">If set to <c>true</c> value.</param>
-		public void SingleMode (bool value)
+		public async Task SingleMode (bool value)
 		{
-			ExecuteMpcCommand ("single " + (value ? "1" : "0"));
+			Single = value;
+			await ExecuteMpcCommand ("single " + (value ? "1" : "0")).ConfigureAwait(false);
 		}
 
-		public void SavePlaylist (string file)
+		public async Task SavePlaylist (string file)
 		{
-			ExecuteMpcCommand ("save " + file);
+			await ExecuteMpcCommand ("save " + file).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -159,9 +165,9 @@ namespace HapSharp.Accessories.Mpc
 		/// </summary>
 		/// <returns>The seek.</returns>
 		/// <param name="percentage">Percentage.</param>
-		public void Seek (int percentage)
+		public async Task Seek (int percentage)
 		{
-			ExecuteMpcCommand ("seek " + percentage);
+			await ExecuteMpcCommand ("seek " + percentage).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -169,45 +175,49 @@ namespace HapSharp.Accessories.Mpc
 		/// </summary>
 		/// <returns>The update.</returns>
 		/// <param name="path">Path.</param>
-		public void Update (string path)
+		public async Task Update (string path)
 		{
-			ExecuteMpcCommand ("update " + path);
+			await ExecuteMpcCommand ("update " + path).ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// Load file as a playlist
 		/// </summary>
 		/// <param name="file">File.</param>
-		public void LoadPlaylist (string file)
+		public async Task LoadPlaylist (string file)
 		{
-			ExecuteMpcCommand ("load " + file);
+			await ExecuteMpcCommand ("load " + file).ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// Stop the currently playing playlists
 		/// </summary>
-		public void Stop ()
+		public async Task Stop ()
 		{
-			ExecuteMpcCommand ("stop");
+			CurrentState = MpcPlayerState.Stop;
+			await ExecuteMpcCommand ("stop").ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// Pauses the currently playing song
 		/// </summary>
-		public void Pause ()
+		public async Task Pause ()
 		{
-			ExecuteMpcCommand ("pause");
+			CurrentState = MpcPlayerState.Paused;
+			await ExecuteMpcCommand ("pause").ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// Set volume to num or adjusts
 		/// </summary>
 		/// <param name="volume">Volume.</param>
-		public void SetVolume (int volume)
+		public async Task SetVolume (int volume)
 		{
 			if (volume < 0 || volume > 100)
-				throw new Exception ("Volume must be in range 0/100");
-			ExecuteMpcCommand ("volume " + volume);
+				return;
+
+			Volume = volume;
+			await ExecuteMpcCommand ("volume " + volume).ConfigureAwait(false);
 		}
 
 		public void Dispose ()
