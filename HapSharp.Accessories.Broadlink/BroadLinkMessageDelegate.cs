@@ -21,12 +21,12 @@ namespace HapSharp.MessageDelegates
 							.WaitUntilReady();
 		}
 
-		protected override void OnChangePower(bool value)
+		public override void OnChangePower(bool value)
 		{
 			device.SendCommand(accessory.Code);
 		}
 
-		protected override bool OnGetPower()
+		public override bool OnGetPower()
 		{
 			return false;
 		}
