@@ -97,6 +97,7 @@ namespace HapSharp
 		{
 			monitor.WriteLine($"[Net] Starting accessories initialization...");
 			foreach (var accHost in accessoriesHosts) {
+				accHost.MessageDelegate.monitor = monitor;
 				accHost.MessageDelegate.OnInitialize();
 			}
 		}

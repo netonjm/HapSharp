@@ -24,6 +24,8 @@ namespace HapSharp.MessageDelegates
 
 		public event EventHandler ValueChanged;
 
+		internal IMonitor monitor;
+
 		protected void OnValueChanged()
 		{
 			ValueChanged?.Invoke(this, EventArgs.Empty);
@@ -108,7 +110,7 @@ namespace HapSharp.MessageDelegates
 
 		public void WriteLog (string message) 
 		{
-			Console.WriteLine($"[Net][{Accessory.Name}]{message}");
+			monitor.WriteLine ($"[Net][{Accessory.Name}]{message}");
 		}
 
 		public virtual void Dispose()
