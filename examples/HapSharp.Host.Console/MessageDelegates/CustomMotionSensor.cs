@@ -7,6 +7,7 @@ namespace HapSharp.MessageDelegates
 	{
 		bool value;
 		Random rnd = new Random();
+		public override bool Value { get; }
 
 		public CustomMotionSensorMessageDelegate(MotionSensorAccessory accessory) : base(accessory)
 		{

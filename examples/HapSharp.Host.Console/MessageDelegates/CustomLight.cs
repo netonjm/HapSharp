@@ -13,13 +13,13 @@ namespace HapSharp.MessageDelegates
 
 		}
 
-		protected override void OnChangePower (bool value)
+		public override void OnChangePower (bool value)
 		{
 			actualValue = value;
 			Console.WriteLine ($"[Net][{Accessory.Name}][Set] " + value);
 		}
 
-		protected override bool OnGetPower ()
+		public override bool OnGetPower ()
 		{
 			return actualValue;
 		}

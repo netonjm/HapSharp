@@ -14,13 +14,13 @@ namespace HapSharp.MessageDelegates
 
 		}
 
-		protected override void OnChangePower (bool value)
+		public override void OnChangePower (bool value)
 		{
 			actualValue = value;
 			Console.WriteLine ($"[Net][{Accessory.Name}][Set] [{value}]");
 		}
 
-		protected override bool OnGetPower ()
+		public override bool OnGetPower ()
 		{
 			return actualValue;
 		}
@@ -30,12 +30,12 @@ namespace HapSharp.MessageDelegates
 			Console.WriteLine ($"[Net][{Accessory.Name}] Identified");
 		}
 
-		protected override int OnGetBrightness ()
+		public override int OnGetBrightness ()
 		{
 			return brightness;
 		}
 
-		protected override void OnChangeBrightness (int value)
+		public override void OnChangeBrightness (int value)
 		{
 			Console.WriteLine ($"[Net][{Accessory.Name}][Brightness] [{value}]");
 			brightness = value;
