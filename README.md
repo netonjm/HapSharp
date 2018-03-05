@@ -193,11 +193,9 @@ If you want execute the current configured host, you can do it from VSforMac/VS 
     make run
 
 
-
-
 ### Setup Guide
 
-
+#### Mac and Linux
 
 First of all you will need to configure your environment, I created a simple script to do it automagically for you
 
@@ -206,7 +204,10 @@ First of all you will need to configure your environment, I created a simple scr
 If you want execute the current configured host, you can do it from VSforMac/VS or from a terminal window with:
 
     make run
-    
+
+### Windows
+
+Not finished yet.
 
 
 ## How add the bridge accessory to your HomeKit
@@ -248,7 +249,7 @@ MQTT protocol allows users publish/subscribe topics and send messages between th
 
 In our case, we are only to use this in a localhost scope to communicate HAP-NodeJS and HapSharp. 
 
-Because protocol specification, they need before run and connect a Broker installed in the localhost machine (or you will get an exception), this is because we recommend install ![Mosquitto Broker](https://mosquitto.org) in your host machine, they provide a very easy installation and scripts to auto-execution on every reboot (Daemon).
+Because protocol specification, they need before run and connect a Broker installed in the localhost machine (or you will get an exception), this is because we recommend install [Mosquitto Broker](https://mosquitto.org) in your host machine, they provide a very easy installation and scripts to auto-execution on every reboot (Daemon).
 
 [Follow this easily guide to install it.](https://github.com/netonjm/HapSharp/blob/master/Broker.md)
 
