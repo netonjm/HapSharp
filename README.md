@@ -190,7 +190,7 @@ To successfull execute all processes, it's a requirement install *node* in your 
 
 If you don't want to worry about this, we added an easy target in make script to do this magically..
 
-    make install
+    make install-mac
 
 This will install Brew and Node for you.
 
@@ -231,8 +231,27 @@ xxxxxx with your architecture - check your rpi's docs)
 
 As we mention, HAP-NodeJS is executed in background, but first we need install and make sure it works.
 
-    make configure
+##### Mac and linux
 
+    make configure
+    
+##### Windows
+
+Not tested yet. We need volunteers here
+
+#### Testing your host
+
+##### Mac and linux
+
+This target in Makefile script builds the solution and executes the broker instance and the generated HapSharp.Host.Console binary instance.
+
+
+    make run
+    
+    
+##### Windows
+
+Not tested yet. We need volunteers here
 
 ## How add the bridge accessory to your HomeKit
 
