@@ -8,14 +8,17 @@ using System.Reflection;
 using HapSharp.Accessories;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
+using System.Threading;
 
 namespace HapSharp
 {
 	public class HapSession : IDisposable
 	{
 		const string DefaultBrokerHost = "localhost";
+		const int DefaultConnectionRetries = 5;
 
 		public string[] AllowedHosts { get; set; }
+		public int ConnectionRetries { get; set; } = DefaultConnectionRetries;
 
 		internal const int Port = 51826;
 		readonly List<AccessoryHost> accessoriesHosts = new List<AccessoryHost> ();
@@ -162,8 +165,25 @@ namespace HapSharp
 			client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
 
 			string clientId = Guid.NewGuid ().ToString ();
-			monitor.WriteLine ($"[Net] Connecting to: {host} with clientId: {clientId}");
-			client.Connect (clientId);
+		
+			Exception lastConnectionException = null;
+			for (int i = 1; i <= ConnectionRetries && !client.IsConnected; i++) {
+				try {
+					monitor.WriteLine ($"[Net] Connecting to Broker ({host}) with client id: {clientId} ({i}/{ConnectionRetries}) ... ");
+					client.Connect (clientId);
+
+				} catch (Exception ex) {
+					monitor.WriteLine ($"[Net] Error connecting! Check if your Broker is up!");
+					lastConnectionException = ex;
+
+					Thread.Sleep (2000);
+				}
+			}
+
+			if (!client.IsConnected) {
+				throw lastConnectionException;
+			}
+
 			monitor.WriteLine ($"[Net] Connected: {client.IsConnected}");
 		}
 
