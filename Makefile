@@ -1,4 +1,7 @@
 all: 
+	#updating the submodules
+	git submodule update --init --recursive
+
 		# nuget restoring
 	if [ ! -f src/.nuget/nuget.exe ]; then \
 		mkdir -p src/.nuget ; \
@@ -9,8 +12,16 @@ all:
 	mono src/.nuget/nuget.exe restore HapSharp.sln
 	msbuild HapSharp.sln /p:Configuration=Debug /p:Platform="x86"
 
-configure: 
-	git submodule sync && git submodule update --init --recursive --force
+install-mac:
+	#installation of brew
+	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	#installation of node
+	brew install node
+	
+configure:
+	#updating the submodules
+	git submodule update --init --recursive
+	#updates all the submodules
 	cd HAP-NodeJS && npm install && npm update && npm install mqtt && cd ..
 
 clean:
