@@ -1,4 +1,9 @@
 # HAP-Sharp
+
+| Gitter Chat |
+|---|
+|  [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mono/HapSharp?utm_campaign=pr-badge&utm_content=badge&utm_medium=badge&utm_source=badge)
+
 ## Connected home with .NET
 
 Using the .NET Bridge Accessory Server for HomeKit to control your home appliances and IOT devices.
