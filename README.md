@@ -218,27 +218,27 @@ Open your home app in any IOS device with iOS 10+
 
 1. Select add new accessory
 
-[](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0016.PNG)
+![](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0016.PNG)
 
 2. Select the use a code option
 
-[](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0017.PNG)
+![](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0017.PNG)
 
 3. Select your net bridge in the accessory list detected
 
-[](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0018.PNG)
+![](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0018.PNG)
 
 4. Type the code of your bridge (by default is: 031-45-154)
 
-[](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0019.PNG)
+![](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0019.PNG)
 
 5. Configure each accessory in your desired room
 
-[](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0022.PNG)
+![](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0022.PNG)
 
 6. Enjoy your new .Net accessories!
 
-[](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0024.PNG)
+![](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0024.PNG)
 
 
 ## Broker
