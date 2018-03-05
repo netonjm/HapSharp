@@ -1,7 +1,35 @@
 # HAP-Sharp
-## Net bridge Accessory Server for HomeKit 
+## Connected home with .NET
+
+Using the .NET Bridge Accessory Server for HomeKit to control your home appliances and IOT devices.
 
 ### Overview
+
+If you are an iOS user that is using HomeKit to control devices at home, you might be interested in controlling your own devices that you might have put together, purchased online or even controlling your home computers.
+
+We have made it simple for you to build 
+HapSharp is a Net implementation of the HomeKit Accessory Server.
+
+With this host you would be able to create your own custom HomeKit Accessory on a Raspberry Pi, Mac computer or any other platform that can run Mono.
+ 
+
+![](https://d2mxuefqeaa7sj.cloudfront.net/s_FFD577E82AF51F20FD390F386BE119D266319762E84E17D789AF5DD44E377BAA_1518107528718_Accessories.png)
+
+
+HapSharp also supports create your own custom accessories and share between the community installed by using NuGet.org platform.. explore now all available nugets ready to use! 
+
+Since Siri could interact with HomeKit accessories, this means we can ask Siri to control devices that don’t have support for HomeKit.
+
+For instance, using just some of the available accessories, you can say:
+
+
+- Siri, unlock the back door.
+- Siri, open the garage door.
+- Siri, turn on the coffee maker.
+- Siri, turn on the living room lights.
+- Siri, good morning!
+
+### Introducing HapSharp
 
 HapSharp project basically is a library which includes a class session to host your .net virtual accessories and expose they over HomeKit.
 
