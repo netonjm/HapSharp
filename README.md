@@ -3,11 +3,123 @@
 
 ### Overview
 
- HapSharp it’s a .net bridge to allow you expose our awesome .net world into HomeKit protocol.
+HapSharp project basically is a library which includes a class session to host your .net virtual accessories and expose they over HomeKit.
+
+To use it, you will only need create a simple console, desktop, forms.. application and include the library (or nuget), and… with a few lines of code your host will be available in your network and ready to use from any application that use HomeKit API (for example the Home App)
+
+To establish communication between HapSharp and HomeKit, we need a new player into the game, HAP-NodeJS. His mission is keep the communication with HomeKit and tunnel this information to our HapSharp host using MQTT.
+
+HAP-NodeJS is a consolidated project, started at 2014, with a very active community and a solid and tested connection logic. In the future we can thing about the posibility of port to C# this layer.
+
+HapSharp requires some previous steps before start to work with. I tried to simplify all with a setup guide.
+
+Once your installation is done we are ready to the next step.
+
 
 [![Alt text](https://img.youtube.com/vi/wNGShmgaPqI/0.jpg)](https://www.youtube.com/watch?v=wNGShmgaPqI)
 
+**NOTES BEFORE LAUNCH**
+
+Remember you will need run any MQTT broker before start the host server
+
+Note: If you are experiencing issues executing, check the Troubleshooting section
+
+Once we have all our NodeJS accessories are generated in place, we launch the NodeJS process in background.
+
+
+![](https://d2mxuefqeaa7sj.cloudfront.net/s_FFD577E82AF51F20FD390F386BE119D266319762E84E17D789AF5DD44E377BAA_1517886800253_Esquema.png)
+
+### Accessories
+
+Right now, in this prototype there are 4 type of accessories to include in your host:
+
+- **BridgedCore**: This an special accessory, like a hub, can host other Accessories “behind”. This way we can simply publish the Bridge (with a simple HAPServer on a single port) and all bridged Accessories will be hosted automatically.
+- **Light**: This accessory exposes the behaviour of a single light, with 2 states: On/Off
+- **Light with Brightness**: Same like simple light but adds a regulable brightness bar
+- **Temperature sensor**: It allows handle the temperature in a specific timeout sending the calculated values to HomeKit.
+- **Humidity sensor:** It allows handle the humidty in a specific timeout sending the calculated values to HomeKit.
+
+Every new accessory inherits from Accessory class which has all the metadata required by HomeKit.
+
+### Message Delegates
+
+This accessories are useless without a logic, and here the Messages Delegates come into play.
+They handle and configures the MQTT channel messages and transforms the MQTT calls into events.
+
+For example:
+If you want create your own managed Temperature accessory, you will need create your own CustomMessageTemperatureDelegate class:
+
+
+
+            class CustomTemperatureMessageDelegate : GetMessageDelegate
+            {
+                    Random rnd = new Random (DateTime.Now.Millisecond);
+    
+                    public CustomTemperatureMessageDelegate (TemperatureAccessory accessory) : base (accessory)
+                    {
+                    }
+    
+                    public override int OnGetMessageReceived ()
+                    {
+                            var calculated = rnd.Next (20, 50);
+                            Console.WriteLine ($"[Net][{Accessory.Name}][Get] {calculated}");
+                            return calculated;
+                    }
+    
+    
+                    public override void OnIdentify ()
+                    {
+                            Console.WriteLine ($"[Net][{Accessory.Name}] Identified.");
+                    }
+            }
+
+OnGetTemperature method includes the logic to calculate the temperature and returns the resulting value.
+
+OnIdentify method is common to all delegates and is called every time HomeKit identifies the accessory.
+
+### The Host
+
+As we said, our most important piece, has the logic to make all this things possible! It’s the responsible of:
+
+
+- Run and manage a clean environment
+- Keeps alive the current .net session with all the accessories
+- Generates metadata necessary and runs an internal HAP-NodeJS process
+- Establish MQTT connection with a Broker and communicate with a HAP-NodeJS endpoint
+
+But we don't have to be worry about that… The Host is available in a nuget package you’ll only need create a simple Console Application and include it.
+
+Session instantiation.
+
+
+    var session = new HapSession();
+
+Configuring our session with Accessories and Message Delegates.
+
+
+    //Bridge accessory is mandatory
+    session.Add<BridgedCore, MessageBridgedCoreDelegate> ("Xamarin Net Bridge", "22:32:43:54:65:14");
+    
+    //Adding an example of custom temperature accessory
+    session.Add<LightAccessory, CustomLightMessageDelegate> ("First Light", "AA:21:4D:87:66:78");
+
+Starting the session
+
+
+    session.Start ([Your HAP-NodeJS full path], [Optional: Broker MQTT IP/host address for communication, default value is connect to localhost]);
+
+As we talked before, this process will kill any other running process in memory, before start the session to be sure your port is not busy.
+
+After this, we start loading and initializing all the Accessories and Delegates, also will clean and dynamically generates HAP-NodeJS metadata into it’s accessory folder.
+
+This accessories in node-js files are prepared to create our MQTT bridge to propagate to our .net world all events received from HAP protocol and vice versa.
+
+The console output will inform you about what’s happening and if something goes wrong.
+The host finishes session, closes communications and stops processes calling to Stop() method or Dispose. 
+
+
 ### Requisites
+
 
 First of all you will need to configure your environment, I created a simple script to do it automagically for you
 
@@ -17,135 +129,19 @@ If you want execute the current configured host, you can do it from VSforMac/VS 
 
     make run
 
-### How it works
+### Setup Guide
 
-Because we want re-use years of work and investigation from the community, my work it’s based in HAP-NodeJS project https://github.com/KhaosT/HAP-NodeJS .
-
-Basically, our .net data structure generates the node-js “accessory” code required by HAP-NodeJS which is the protagonist of all communication with HomeKit protocol.
-
-The generated NodeJS accessory files are prepared to establish MQTT communication with our .Net Bridge converting this MQTT calls into .net calls event based.
-
-### Accessories
-
-Right now, in this prototype there are 4 type of accessories to include in your host:
-
-* BridgedCore: This an special accessory can host other Accessories “behind”. This way we can simply publish the Bridge (with a simple HAPServer on a single port) and all bridged Accessories will be hosted automatically, instead of needed to publish every single Accessory as a separte server (this is not implemented yet).
-
-Right now, we use this way to load all accessories created because it’s the easiest way. In the future this will be more customisable.
-
-* **Light:** This accessory exposes the behaviour of a single light, with 2 states: On/Off
-
-* :**Light with Brightness::** Same like simple light but adds a regulable brightness bar
-
-* :**Temperature sensor::** It allows handle the temperature in a specific timeout sending the calculated values to HomeKit.
-
-Every new accessory inherits from **Accessory class** which has all the metadata required by HomeKit.
+First of all you will need to configure your environment, I created a simple script to do it automagically for you
 
 
-### Message Delegates
+    make configure
 
-This accessories are useless without a logic, and here the Messages Delegates come into play.
-
-The Message Delegate handles and configures the MQTT channel messages and transforms the MQTT calls into events.
-
-For example:
-
-If you want create your own managed Temperature accessory, you will need create your own CustomMessageTemperatureDelegate class:
-
-```
-	class CustomTemperatureMessageDelegate : GetMessageDelegate
-	{
-		Random rnd = new Random (DateTime.Now.Millisecond);
-
-		public CustomTemperatureMessageDelegate (TemperatureAccessory accessory) : base (accessory)
-		{
-		}
-
-		public override int OnGetMessageReceived ()
-		{
-			var calculated = rnd.Next (20, 50);
-			Console.WriteLine ($"[Net][{Accessory.Name}][Get] {calculated}");
-			return calculated;
-		}
+If you want execute the current configured host, you can do it from VSforMac/VS or from a terminal window with:
 
 
-		public override void OnIdentify ()
-		{
-			Console.WriteLine ($"[Net][{Accessory.Name}] Identified.");
-		}
-	}
-```
-
-OnGetTemperature handles the logic to calculate (or get) the temperature returns the desired temperature value.
-
-OnIdentify method is common to all delegates and is called every time HomeKit identifies the accessory.
-
-
-### The Host
-
-This process has the logic to make all this things possible! 
-
-In order of execution it’s the responsible of:
-
-1. Run and manage a clean environment
-2. Generates all native accessory code
-3. Keeps alive the current .net session
-4. Management HAP-NodeJS sessions …  
-
-### In Code
-
-The host is represented by HapSession class which has 3 steps
-
-Instanciate
-
-```
-var session = new HapSession();
-```
-
-Add all message delegates and accessories you want
-
-```
-//Bridge accessory is mandatory
-session.Add<BridgedCore, MessageBridgedCoreDelegate> ("Xamarin Net Bridge", "22:32:43:54:65:14");
-
-//Adding an example of custom temperature accessory
-session.Add<LightAccessory, CustomLightMessageDelegate> ("First Light", "AA:21:4D:87:66:78");
-```
-
-Start the session
-
-```
-session.Start ([Your HAP-NodeJS path], [your Broker MQTT address for communication, leave empty for localhost]);
-```
-
-**NOTE: HapSharp.Host.Console project include better examples with comments**
-
-At this point your defined message handlers and accessories are loaded and your host knows all the necessary things to execute your HomeKit accessory hosting. 
-
-As we talked before, this process will kill any other running process in memory, before start the session to be sure your port is not busy. 
-
-Note: If you are experiencing issues executing, check the Troubleshooting section
-
-After this, all native accessories will be cleaned in the HAP-NodeJS embedded project (remember you specified the path) and the host will generate the necessary native files in the corresponding folder.
-
-The console output will inform you about what’s happening and if something goes wrong.
-
-The host finishes session, closes communications and stops processes calling to Stop() method or Dispose.
-
-## Extensivity
-
-HAP-Sharp 0.41 has a preview feature of extensions, and it allows read resources from external assemblies and resolve it for the file generation.
-
-You only need create an empty library with the follow structure:
-
-- Library
-	- template (folder)
-		foo_accessory.js -> this is your js template, build as EmbeddedResource and be sure your resource id match with it.
-	- FooAccessory.cs -> based from Accessory based classes 
-	- FooMesssageDelegate.cs based from MessageDelegates based classes
-
-Generate your nuget and share with the community!!!!!
-
+    make run
+    
+    
 ## How add the bridge accessory to your HomeKit
 
 Open your home app in any IOS device with iOS 10+
@@ -176,40 +172,71 @@ Open your home app in any IOS device with iOS 10+
 
 ## Broker
 
-NodeJS and C# talk with MQTT, both are are clients from a server (Broker), and there is a HapSharp.Host.Broker.exe to avoid install additional stuff.
+MQTT protocol allows users publish/subscribe topics and send messages between themselves, it follows a star topology setup.
 
-Right now, the broker executes automatically with **make run**, but you can execute it with: 
+In our case, we are only to use this in a localhost scope to communicate HAP-NodeJS and HapSharp. 
 
-```
-make broker
-```
+Because protocol specification, they need before run and connect a Broker installed in the localhost machine (or you will get an exception), this is because we recommend install Mosquitto Broker in your host machine, they provide a very easy installation and scripts to auto-execution on every reboot (Daemon).
 
-If you want clean the environtment, because you have some Zombie process try:
+Follow this easily guide to install it.
 
-```
-make clean
-```
+
+Another alternative is execute the Broker included in the solution (HapSharp.Host.Broker.exe). This is added to the host project and is compiled and generated every time you build the solution (the executable will be generated in HapSharp.Host.Console output directory)
+
+You can easily execute the compiled broker executable with :
+
+
+    make broker
+
+Or 
+
+
+    mono HapSharp.Host.Console/bin/Debug/HapSharp.Host.Console.exe $(PWD)/HAP-NodeJS
+
+## Extensivity
+
+After HAP-Sharp 0.41 version we added the feature of extensions points, and it allows read resources from external assemblies and resolve it for the file generation.
+
+You only need create an empty library with the follow structure:
+
+- Library
+  - template (folder) foo_accessory.js -> this is your js template, build as EmbeddedResource and be sure your resource id match with it.
+  - FooAccessory.cs -> based from Accessory based classes
+  - FooMesssageDelegate.cs based from MessageDelegates based classes
+
+Generate your nuget and share with the community!!!!!
+
 
 ## NuGeT
 
-To generate all the nugets in the main directory:
+All host + accessories are published under NuGet.org
 
-```
-make package
-```
+But maybe you want compile a not published version or a custom one… then try execute this script:
+
+
+    make package
+
+This will generate all *.nupkg files and you will only need to create a local folder and include like a NuGet local source
 
 ## Troubleshooting
 
-* Your port is bussy with some instance of HAP-NodeJS zombie
+- Exception in session.Start: "Exception connecting to the broker"
+
+This is because you don't have running any broker session in background before executing your HAP session. 
+
+You will need execute in another terminal the Broker project included in the solution or install any other famous Broker like a service, for example in Mac or Linux Mosquitto works very well.
+
+You have detailed in broker section how to do it
+
+- Your port is bussy with some instance of HAP-NodeJS zombie
 
 Show processes using the current port:
 
-```
-sudo lsof -iTCP:51826 -sTCP:LISTEN
-```
+    sudo lsof -iTCP:51826 -sTCP:LISTEN
 
-* Extra logging
 
-```
-var session = new HapSession() { Debug = True };
-```
+- Extra logging
+
+
+    var session = new HapSession() { Debug = True };
+
