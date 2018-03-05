@@ -4,9 +4,11 @@
 |---|
 |  [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mono/HapSharp?utm_campaign=pr-badge&utm_content=badge&utm_medium=badge&utm_source=badge)
 
+
 ## Connected home with .NET
 
 Using the .NET Bridge Accessory Server for HomeKit to control your home appliances and IOT devices.
+
 
 ### Overview
 
@@ -15,15 +17,15 @@ If you are an iOS user that is using HomeKit to control devices at home, you mig
 We have made it simple for you to build 
 HapSharp is a Net implementation of the HomeKit Accessory Server.
 
-With this host you would be able to create your own custom HomeKit Accessory on a Raspberry Pi, Mac computer or any other platform that can run Mono.
+With this host you would be able to create your own custom ![HomeKit Accessory](https://www.apple.com/ios/home/accessories/) on a Raspberry Pi, Mac computer or any other platform that can run Mono.
  
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_FFD577E82AF51F20FD390F386BE119D266319762E84E17D789AF5DD44E377BAA_1518107528718_Accessories.png)
 
 
-HapSharp also supports create your own custom accessories and share between the community installed by using NuGet.org platform.. explore now all available nugets ready to use! 
+HapSharp also supports create your own custom accessories and share between the community installed by using NuGet.org platform.. explore now ![all available nugets ready to use](https://www.nuget.org/packages?q=HapSharp)! 
 
-Since Siri could interact with HomeKit accessories, this means we can ask Siri to control devices that don’t have support for HomeKit.
+Since Siri could interact with HomeKit accessories, this means we can ask Siri to control devices that don’t have support for ![HomeKit](https://www.apple.com/es/ios/home/).
 
 For instance, using just some of the available accessories, you can say:
 
@@ -34,22 +36,24 @@ For instance, using just some of the available accessories, you can say:
 - Siri, turn on the living room lights.
 - Siri, good morning!
 
+
 ### Introducing HapSharp
 
 HapSharp project basically is a library which includes a class session to host your .net virtual accessories and expose they over HomeKit.
 
-To use it, you will only need create a simple console, desktop, forms.. application and include the library (or nuget), and… with a few lines of code your host will be available in your network and ready to use from any application that use HomeKit API (for example the Home App)
+To use it, you will only need create a simple console, desktop, forms.. application and include the library (or nuget), and… with a few lines of code your host will be available in your network and ready to use from any application that use ![HomeKit API](https://developer.apple.com/documentation/homekit) (for example the ![Home App](https://www.apple.com/es/ios/home/))
 
 To establish communication between HapSharp and HomeKit, we need a new player into the game, HAP-NodeJS. His mission is keep the communication with HomeKit and tunnel this information to our HapSharp host using MQTT.
 
-HAP-NodeJS is a consolidated project, started at 2014, with a very active community and a solid and tested connection logic. In the future we can thing about the posibility of port to C# this layer.
+![HAP-NodeJS](https://github.com/KhaosT/HAP-NodeJS) is a consolidated project, started at 2014, with a very active community and a solid and tested connection logic. In the future we can thing about the posibility of port to C# this layer.
 
-HapSharp requires some previous steps before start to work with. I tried to simplify all with a setup guide.
+HapSharp requires some previous steps before start to work with. I tried to simplify all with a ![setup guide](https://github.com/netonjm/HapSharp#setup-guide).
 
 Once your installation is done we are ready to the next step.
 
 
 [![Alt text](https://img.youtube.com/vi/wNGShmgaPqI/0.jpg)](https://www.youtube.com/watch?v=wNGShmgaPqI)
+
 
 **NOTES BEFORE LAUNCH**
 
@@ -61,6 +65,7 @@ Once we have all our NodeJS accessories are generated in place, we launch the No
 
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_FFD577E82AF51F20FD390F386BE119D266319762E84E17D789AF5DD44E377BAA_1517886800253_Esquema.png)
+
 
 ### Accessories
 
@@ -80,6 +85,8 @@ This accessories are useless without a logic, and here the Messages Delegates co
 They handle and configures the MQTT channel messages and transforms the MQTT calls into events.
 
 For example:
+
+
 If you want create your own managed Temperature accessory, you will need create your own CustomMessageTemperatureDelegate class:
 
 
@@ -106,9 +113,11 @@ If you want create your own managed Temperature accessory, you will need create 
                     }
             }
 
+
 OnGetTemperature method includes the logic to calculate the temperature and returns the resulting value.
 
 OnIdentify method is common to all delegates and is called every time HomeKit identifies the accessory.
+
 
 ### The Host
 
@@ -162,6 +171,7 @@ If you want execute the current configured host, you can do it from VSforMac/VS 
 
     make run
 
+
 ### Setup Guide
 
 First of all you will need to configure your environment, I created a simple script to do it automagically for you
@@ -203,15 +213,16 @@ Open your home app in any IOS device with iOS 10+
 
 ![](https://github.com/netonjm/HapSharp/blob/master/images/IMG_0024.PNG)
 
+
 ## Broker
 
 MQTT protocol allows users publish/subscribe topics and send messages between themselves, it follows a star topology setup.
 
 In our case, we are only to use this in a localhost scope to communicate HAP-NodeJS and HapSharp. 
 
-Because protocol specification, they need before run and connect a Broker installed in the localhost machine (or you will get an exception), this is because we recommend install Mosquitto Broker in your host machine, they provide a very easy installation and scripts to auto-execution on every reboot (Daemon).
+Because protocol specification, they need before run and connect a Broker installed in the localhost machine (or you will get an exception), this is because we recommend install ![Mosquitto Broker](https://mosquitto.org) in your host machine, they provide a very easy installation and scripts to auto-execution on every reboot (Daemon).
 
-Follow this easily guide to install it.
+![Follow this easily guide to install it.](https://github.com/netonjm/HapSharp/blob/master/Broker.md)
 
 
 Another alternative is execute the Broker included in the solution (HapSharp.Host.Broker.exe). This is added to the host project and is compiled and generated every time you build the solution (the executable will be generated in HapSharp.Host.Console output directory)
@@ -226,6 +237,7 @@ Or
 
     mono HapSharp.Host.Console/bin/Debug/HapSharp.Host.Console.exe $(PWD)/HAP-NodeJS
 
+
 ## Extensivity
 
 After HAP-Sharp 0.41 version we added the feature of extensions points, and it allows read resources from external assemblies and resolve it for the file generation.
@@ -236,6 +248,7 @@ You only need create an empty library with the follow structure:
   - template (folder) foo_accessory.js -> this is your js template, build as EmbeddedResource and be sure your resource id match with it.
   - FooAccessory.cs -> based from Accessory based classes
   - FooMesssageDelegate.cs based from MessageDelegates based classes
+
 
 Generate your nuget and share with the community!!!!!
 
@@ -249,7 +262,9 @@ But maybe you want compile a not published version or a custom one… then try e
 
     make package
 
-This will generate all *.nupkg files and you will only need to create a local folder and include like a NuGet local source
+
+This will generate all *.nupkg files and you will only need to create a local folder and include like ![a NuGet local source](https://docs.microsoft.com/es-es/visualstudio/mac/nuget-walkthrough#adding-package-sources)
+
 
 ## Troubleshooting
 
@@ -272,4 +287,14 @@ Show processes using the current port:
 
 
     var session = new HapSession() { Debug = True };
+
+
+
+## Advanced Topics
+
+https://www.apple.com/ios/home/accessories/
+
+This is a link of the protocol specification:
+
+https://developer.apple.com/homekit/specification/
 
