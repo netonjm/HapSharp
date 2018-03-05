@@ -180,34 +180,51 @@ The console output will inform you about what’s happening and if something goe
 The host finishes session, closes communications and stops processes calling to Stop() method or Dispose. 
 
 
-
-### Requisites
-
-
-First of all you will need to configure your environment, I created a simple script to do it automagically for you
-
-    make configure
-
-If you want execute the current configured host, you can do it from VSforMac/VS or from a terminal window with:
-
-    make run
-
-
 ### Setup Guide
 
-#### Mac and Linux
+To successfull execute all processes, it's a requirement install *node* in your machine/device.
 
-First of all you will need to configure your environment, I created a simple script to do it automagically for you
+#### Node Installation (node.js, npm, node-gyp)
+
+* Mac
+
+If you don't want to worry about this, we added an easy target in make script to do this magically..
+
+    make install
+
+This will install Brew and Node for you.
+
+* Windows
+
+Not tested yet. But I supose, if your download from website the correct installer version to HAP-NodeJS will work. 
+
+We need volunteers here!
+
+* Raspbian
+
+In progress...
+
+* Ubuntu/Debian
+
+    sudo apt-get update
+    sudo apt-get install git-core libnss-mdns libavahi-compat-libdnssd-dev
+    
+xxxxxx with your architecture - check your rpi's docs)
+
+    wget https://nodejs.org/dist/latest-v7.x/node-v7.9.0-linux-xxxxxx.tar.gz
+    tar -xvf node-v7.9.0-linux-xxxxxx.tar.gz
+    cd node-v7.9.0-linux-xxxxxx.tar.gz
+    sudo cp -R * /usr/local/
+    cd ..
+    sudo npm config set registry http://registry.npmjs.org/
+    sudo npm install -g node-gyp
+
+
+#### HAP-NodeJS Installation
+
+As we mention, HAP-NodeJS is executed in background, but first we need install and make sure it works.
 
     make configure
-
-If you want execute the current configured host, you can do it from VSforMac/VS or from a terminal window with:
-
-    make run
-
-### Windows
-
-Not finished yet.
 
 
 ## How add the bridge accessory to your HomeKit
