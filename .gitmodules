@@ -3,4 +3,4 @@
 	url = https://github.com/netonjm/HAP-NodeJS
 [submodule "external/paho.mqtt.m2mqtt"]
 	path = external/paho.mqtt.m2mqtt
-	url = git@github.com:eclipse/paho.mqtt.m2mqtt.git
+	url = https://github.com/eclipse/paho.mqtt.m2mqtt
