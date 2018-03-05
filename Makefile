@@ -34,19 +34,11 @@ processes:
 	sudo lsof -iTCP:51826 -sTCP:LISTEN
 
 package:
-	mono src/.nuget/nuget.exe restore external/broadlink-dotnet-mono/Broadlink.NET.sln
-	mono src/.nuget/nuget.exe restore external/Dapplo.MPD/Dapplo.MPD.sln
 	mono src/.nuget/nuget.exe restore HapSharp.sln
 	msbuild HapSharp.sln /p:Configuration=Package
 	curl -O https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 	mono nuget.exe pack NuGeT/HapSharp.nuspec
 	mono nuget.exe pack NuGeT/HapSharp.Core.nuspec
-	mono nuget.exe pack NuGeT/HapSharp.Accessories.Humidity.nuspec
-	mono nuget.exe pack NuGeT/HapSharp.Accessories.FindMyIphone.nuspec
-	mono nuget.exe pack NuGeT/HapSharp.Accessories.DhtSensor.nuspec
-	mono nuget.exe pack NuGeT/HapSharp.Accessories.Mpd.nuspec
-	mono nuget.exe pack NuGeT/HapSharp.Accessories.IoTMotionSensor.nuspec
-	mono nuget.exe pack NuGeT/HapSharp.Accessories.IoTRelayLight.nuspec
-	mono nuget.exe pack NuGeT/HapSharp.Accessories.Broadlink.nuspec
+	mono nuget.exe pack NuGeT/HapSharp.Accessories.HumidityExample.nuspec
 
 .PHONY: all configure

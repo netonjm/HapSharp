@@ -3,13 +3,4 @@
 	url = https://github.com/netonjm/HAP-NodeJS
 [submodule "external/paho.mqtt.m2mqtt"]
 	path = external/paho.mqtt.m2mqtt
-	url = https://github.com/eclipse/paho.mqtt.m2mqtt
-[submodule "external/iCloudLib"]
-	path = external/iCloudLib
-	url = git@github.com:netonjm/iCloudLib.git
-[submodule "external/Dapplo.MPD"]
-	path = external/Dapplo.MPD
-	url = git@github.com:netonjm/Dapplo.MPD.git
-[submodule "external/broadlink-dotnet-mono"]
-	path = external/broadlink-dotnet-mono
-	url = git@github.com:netonjm/broadlink-dotnet-mono.git
+	url = git@github.com:eclipse/paho.mqtt.m2mqtt.git

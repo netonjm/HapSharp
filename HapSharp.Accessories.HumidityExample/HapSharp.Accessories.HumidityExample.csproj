@@ -2,15 +2,15 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{235C22F7-4738-4C12-99F0-0D2F25F0E8C7}</ProjectGuid>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B7013675-93E3-4196-897A-CD93404FE51F}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>HapSharp.Host</RootNamespace>
-    <AssemblyName>HapSharp.Host</AssemblyName>
+    <RootNamespace>HapSharp.Accessories.HumidityExample</RootNamespace>
+    <AssemblyName>HapSharp.Accessories.HumidityExample</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <ReleaseVersion>0.7</ReleaseVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -18,33 +18,36 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ExternalConsole>true</ExternalConsole>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ExternalConsole>true</ExternalConsole>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HapSession.cs" />
-    <Compile Include="FileExtension.cs" />
-    <Compile Include="ProcessService.cs" />
+    <Compile Include="NugetHumidityMessageDelegate.cs" />
+    <Compile Include="CustomHumidityAccessory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HapSharp.Host.Core\HapSharp.Host.Core.csproj">
       <Project>{57B7FD9C-946A-44C0-AA79-E2E5838CC38F}</Project>
       <Name>HapSharp.Host.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\external\paho.mqtt.m2mqtt\M2Mqtt\M2Mqtt.Net.csproj">
-      <Project>{A11AEF5A-B246-4FE8-8330-06DB73CC8074}</Project>
-      <Name>M2Mqtt.Net</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="template\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="template\NugetHumidity_accessory.js">
+      <LogicalName>NugetHumidity_accessory.js</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
