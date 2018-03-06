@@ -110,30 +110,34 @@ For example:
 
 If you want create your own managed Temperature accessory, you will need create your own CustomMessageTemperatureDelegate class:
 
+```cs
+class CustomLightMessageDelegate : LightMessageDelegate
+{
+        bool actualValue;
 
+        public CustomLightMessageDelegate (LightAccessory lightAccessory)
+                : base (lightAccessory)
+        {
 
-            class CustomTemperatureMessageDelegate : GetMessageDelegate
-            {
-                    Random rnd = new Random (DateTime.Now.Millisecond);
-    
-                    public CustomTemperatureMessageDelegate (TemperatureAccessory accessory) : base (accessory)
-                    {
-                    }
-    
-                    public override int OnGetMessageReceived ()
-                    {
-                            var calculated = rnd.Next (20, 50);
-                            Console.WriteLine ($"[Net][{Accessory.Name}][Get] {calculated}");
-                            return calculated;
-                    }
-    
-    
-                    public override void OnIdentify ()
-                    {
-                            Console.WriteLine ($"[Net][{Accessory.Name}] Identified.");
-                    }
-            }
+        }
 
+        public override void OnChangePower (bool value)
+        {
+                actualValue = value;
+                Console.WriteLine ($"[{Accessory.Name}][Set] " + value);
+        }
+
+        public override bool OnGetPower ()
+        {
+                return actualValue;
+        }
+
+        public override void OnIdentify ()
+        {
+                Console.WriteLine ($"[{Accessory.Name}] Identified.");
+        }
+}
+```
 
 OnGetTemperature method includes the logic to calculate the temperature and returns the resulting value.
 
@@ -154,21 +158,25 @@ But we don't have to be worry about that… The Host is available in a nuget pac
 
 Session instantiation.
 
-    var session = new HapSession();
+```cs
+var session = new HapSession();
+```
 
 Configuring our session with Accessories and Message Delegates.
 
+```cs
+//Bridge accessory is mandatory
+session.Add<BridgedCore, MessageBridgedCoreDelegate> ("Xamarin Net Bridge", "22:32:43:54:65:14");
 
-    //Bridge accessory is mandatory
-    session.Add<BridgedCore, MessageBridgedCoreDelegate> ("Xamarin Net Bridge", "22:32:43:54:65:14");
-    
-    //Adding an example of custom temperature accessory
-    session.Add<LightAccessory, CustomLightMessageDelegate> ("First Light", "AA:21:4D:87:66:78");
+//Adding an example of custom temperature accessory
+session.Add<LightAccessory, CustomLightMessageDelegate> ("First Light", "AA:21:4D:87:66:78");
+```
 
 Starting the session
 
-
-    session.Start ([Your HAP-NodeJS full path], [Optional: Broker MQTT IP/host address for communication, default value is connect to localhost]);
+```cs
+session.Start ([Your HAP-NodeJS full path], [Optional: Broker MQTT IP/host address for communication, default value is connect to localhost]);
+```
 
 As we talked before, this process will kill any other running process in memory, before start the session to be sure your port is not busy.
 
@@ -182,7 +190,15 @@ The host finishes session, closes communications and stops processes calling to 
 
 ### Setup Guide
 
-To successfull execute all processes, it's a requirement install *node* in your machine/device.
+Important: *To restore correctly current submodules you will need clone this repository, it doesn't work if you download directly from zip file*
+
+You can do it from terminal using Git (or using your favorite git client):
+
+    git clone https://github.com/netonjm/HapSharp
+
+
+Also to execute all scripts correctly, it's a requirement install *node* in your machine/device.
+
 
 #### Node Installation (node.js, npm, node-gyp)
 
@@ -348,8 +364,14 @@ This will generate all *.nupkg files and you will only need to create a local fo
 ## Troubleshooting
 
 
+* Issue executing 'make configure': fatal: Not a git repository (or any of the parent directories .git).
 
-- Exception in session.Start: "Exception connecting to the broker"
+You downloaded the repository like a .zip file. You can't restore the git submodules if you don't do it using a git client
+
+Follow the [setup guide](https://github.com/netonjm/HapSharp/#setup-guide)
+
+
+* Exception in session.Start: "Exception connecting to the broker"
 
 This is because you don't have running any broker session in background before executing your HAP session. 
 
@@ -357,22 +379,20 @@ You will need execute in another terminal the Broker project included in the sol
 
 You have detailed in broker section how to do it
 
-- Your port is bussy with some instance of HAP-NodeJS zombie
+* Your port is bussy with some instance of HAP-NodeJS zombie
 
 Show processes using the current port:
 
     sudo lsof -iTCP:51826 -sTCP:LISTEN
 
 
-- Extra logging
+* Extra logging
 
 
     var session = new HapSession() { Debug = True };
 
 
-
 ## Advanced Topics
-
 
 
 https://www.apple.com/ios/home/accessories/
