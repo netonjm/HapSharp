@@ -15,7 +15,7 @@
     <tags>homekit hap-nodejs</tags>
   </metadata>
   <files>
-    <file src="../HapSharp.Host/bin/Debug/*.dll" target="lib/net40" />
+    <file src="..\HapSharp.Host\bin\Debug\*.dll" target="lib/net40" />
   </files>
 
 </package>
