@@ -400,3 +400,8 @@ This is a link of the protocol specification:
 
 https://developer.apple.com/homekit/specification/
 
+
+## Other interesting projects related:
+
+**IoTSharp.Components:** https://github.com/netonjm/IoTSharp.Components
+Using an abstraction library to access IoT Components in your Raspberry using Raspbian/AndroidThings.
