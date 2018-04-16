@@ -32,38 +32,7 @@ In another window, send a message to the listener.
 
 ## Raspberry
 
-To use the new repository you should first import the repository package signing key follow the below comman, the wget command is used to download single file and stores in a current directory.
+Install using aptitude package manager
 
-    wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+    sudo aptitude install mosquitto
 
-    sudo apt-key add mosquitto-repo.gpg.key
-
-Then make the repository available to apt
-
-    cd /etc/apt/sources.list.d/
-
-Enter the following
-
-for wheezy
-
-    sudo wget http://repo.mosquitto.org/debian/mosquitto-wheezy.list
-
-for jessie
-
-    sudo wget http://repo.mosquitto.org/debian/mosquitto-wheezy.list
-
-to install the mqtt mosquitto for the raspberry pi follow the below steps use sudo before the command if not using root
-
-    sudo -i
-
-The above command is not mandatory ,it is if you wish to use root or you will need to prefix each below command with sudo eg sudo apt-get update
-
-The below command is used to update the source list
-
-    apt-get update
-
-After updating type the following commands to install mosquitto broker as shown in the image 1.
-
-    apt-get install mosquitto
-
-the above command is to install mqtt mosquitto broker.
