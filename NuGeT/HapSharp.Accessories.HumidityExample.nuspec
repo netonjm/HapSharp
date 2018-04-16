@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>HapSharp.Accessories.HumidityExample</id>
-    <version>0.7</version>
+    <version>0.8.0</version>
     <title>An example of HAP-Sharp accessory module</title>
     <authors>Jose Medrano</authors>
     <owners>Jose Medrano</owners>
