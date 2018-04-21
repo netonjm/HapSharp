@@ -5,11 +5,11 @@ namespace HapSharp.Core.Tests
 	[TestFixture ()]
 	public class AccessoryTests
 	{
-		readonly AccessoryService service;
+		readonly Service service;
 
 		public AccessoryTests ()
 		{
-			service = new AccessoryService ();
+			service = new Service ();
 		}
 
 		[Test ()]

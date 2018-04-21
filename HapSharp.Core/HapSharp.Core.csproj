@@ -34,8 +34,8 @@
     <Compile Include="MessageType.cs" />
     <Compile Include="Accessory.cs" />
     <Compile Include="HapServer.cs" />
-    <Compile Include="AccessoryService.cs" />
-    <Compile Include="CharacteristicService.cs" />
+    <Compile Include="Service.cs" />
+    <Compile Include="Definitions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

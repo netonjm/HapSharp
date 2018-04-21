@@ -55,7 +55,7 @@ namespace HapSharp.Core
 
 		// If we are a Bridge, these are the Accessories we are bridging
 		readonly public List<Accessory> BridgedAccessories = new List<Accessory> (); 
-		readonly public List<AccessoryService> Services = new List<AccessoryService> ();
+		readonly public List<Service> Services = new List<Service> ();
 		internal Dictionary<ServiceCharacteristicType, string> serviceCharacteristic = new Dictionary<ServiceCharacteristicType, string>();
 
 		public virtual void Identify ()
@@ -63,7 +63,7 @@ namespace HapSharp.Core
 
 		}
 
-		public Accessory (AccessoryService service, string displayName, Guid UUID)
+		public Accessory (Service service, string displayName, Guid UUID)
 		{
 			if (displayName == null)
 				throw new Exception ("Accessories must be created with a non-empty displayName.");
@@ -102,7 +102,7 @@ namespace HapSharp.Core
 			//callback ();
 		}
 
-		public void AddService (AccessoryService service)
+		public void AddService (Service service)
 		{
 			//TODO: we need to check UUID, subtype 
 			if (Services.Contains (service)) {
@@ -115,7 +115,7 @@ namespace HapSharp.Core
 				_updateConfiguration ();
 
 			} else {
-				this.Emit (MessageType.ServiceConfigurationChange, new Tuple<Accessory, AccessoryService> (this, service));
+				this.Emit (MessageType.ServiceConfigurationChange, new Tuple<Accessory, Service> (this, service));
 			}
 
 			service.MessageReceived += (s, message) => {
@@ -123,10 +123,10 @@ namespace HapSharp.Core
 					if (!this.bridged) {
 						this._updateConfiguration ();
 					} else {
-						this.Emit (MessageType.ServiceConfigurationChange, new Tuple<Accessory, AccessoryService> (this, service));
+						this.Emit (MessageType.ServiceConfigurationChange, new Tuple<Accessory, Service> (this, service));
 					}
 				} else if (message == MessageType.CharacteristicChange) {
-					this.Emit (MessageType.ServiceCharacteristicChange, new Tuple<Accessory, AccessoryService> (this, service));
+					this.Emit (MessageType.ServiceCharacteristicChange, new Tuple<Accessory, Service> (this, service));
 
 					// if we're not bridged, when we'll want to process this event through our HAPServer
 					if (!this.bridged)
@@ -140,7 +140,7 @@ namespace HapSharp.Core
 				if (!this.bridged) {
 					this._updateConfiguration ();
 				} else {
-					this.Emit (MessageType.ServiceConfigurationChange, new Tuple<Accessory, AccessoryService> (this, service));
+					this.Emit (MessageType.ServiceConfigurationChange, new Tuple<Accessory, Service> (this, service));
 				}
 			};
 		}
@@ -170,7 +170,7 @@ namespace HapSharp.Core
 			throw new NotImplementedException ();
 		}
 
-		public AccessoryService GetService (string name)
+		public Service GetService (string name)
 		{
 			throw new NotImplementedException ();
 		}
