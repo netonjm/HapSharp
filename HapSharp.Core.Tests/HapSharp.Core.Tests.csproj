@@ -32,6 +32,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test.cs" />
+    <Compile Include="Chacha20poly1305_Tests.cs" />
+    <Compile Include="UUID_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

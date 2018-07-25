@@ -36,6 +36,12 @@
     <Compile Include="HapServer.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Definitions.cs" />
+    <Compile Include="Characteristic.cs" />
+    <Compile Include="Bridge.cs" />
+    <Compile Include="Chacha20poly1305.cs" />
+    <Compile Include="OperationExpensions.cs" />
+    <Compile Include="UUID.cs" />
+    <Compile Include="Types.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
