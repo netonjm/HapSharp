@@ -7,21 +7,26 @@ namespace HapSharp.Core.Tests
 	{
 		readonly Service service;
 
-		public AccessoryTests ()
+		[Test ()]
+		public void Bridge_CheckInitialValues ()
 		{
-			service = new Service ();
+			var bridgeGuid = Guid.NewGuid ();
+			var bridge = new Bridge ("bridge", bridgeGuid);
+			Assert.IsTrue (bridge._isBridge);
 		}
 
 		[Test ()]
-		public void CheckInitialValues ()
+		public void Accessory_CheckInitialValues ()
 		{
 			string accessoryName = "test";
 			var accessoryGuid = Guid.NewGuid ();
 
-			var accessory = new Accessory (service, accessoryName, accessoryGuid);
+			var accessory = new Accessory (accessoryName, accessoryGuid);
 			Assert.AreEqual (accessoryGuid, accessory.UUID);
 			Assert.AreEqual (AccessoryCategory.OTHER, accessory.Category);
 			Assert.AreEqual (0, accessory.BridgedAccessories.Count);
+
+			Assert.IsFalse (accessory._isBridge);
 
 			Assert.AreEqual (5, accessory.serviceCharacteristic.Count);
 			Assert.IsTrue (accessory.serviceCharacteristic.TryGetValue (ServiceCharacteristicType.Manufacturer, out string manufacturer));

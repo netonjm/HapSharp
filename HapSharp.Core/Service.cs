@@ -51,7 +51,7 @@ namespace HapSharp.Core
 
 		public Service GetCharacteristic (ServiceCharacteristicType characteristic)
 		{
-			return new Service ();
+			throw new NotImplementedException ();
 		}
 	}
 }

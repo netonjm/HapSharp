@@ -42,12 +42,12 @@ namespace HapSharp.Core
 	public class Accessory
 	{
 		object aid;
-		bool _isBridge;
+		internal bool _isBridge;
 		bool bridged;
 		bool reachable;
 		bool shouldPurgeUnusedIDs;
 	
-		public string DisplayName { get; private set; }
+		public string DisplayName { get; protected set; }
 		public Guid UUID { get; private set; }
 
 		public ServiceType ServiceType { get; set; }
@@ -63,7 +63,7 @@ namespace HapSharp.Core
 
 		}
 
-		public Accessory (Service service, string displayName, Guid UUID)
+		public Accessory (string displayName, Guid UUID)
 		{
 			if (displayName == null)
 				throw new Exception ("Accessories must be created with a non-empty displayName.");
