@@ -42,6 +42,7 @@
     <Compile Include="OperationExpensions.cs" />
     <Compile Include="UUID.cs" />
     <Compile Include="Types.cs" />
+    <Compile Include="Encription.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

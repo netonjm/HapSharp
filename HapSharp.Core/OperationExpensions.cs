@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HapSharp.Core.Tests
+namespace HapSharp.Core
 {
 	public static class OperationExpensions
 	{

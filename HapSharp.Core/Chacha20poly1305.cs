@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace HapSharp.Core.Tests
+namespace HapSharp.Core
 {
-	public class BufferShim
+	public static class BufferShim
 	{
-		public int[] Alloc (int test) {
+		public static int[] Alloc (int test) {
 			throw new NotImplementedException ();
 		}
 	}
@@ -22,8 +22,6 @@ namespace HapSharp.Core.Tests
 
 		const int Chacha20KeySize = 32;
 		const int Chacha20NonceSize = 8;
-
-		static BufferShim bufferShim = new BufferShim ();
 
 		public Chacha20Cxt Chacha20Ctx ()
 		{
