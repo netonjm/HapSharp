@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Core", "HapSharp.Core\HapSharp.Core.csproj", "{24CB3D20-D49D-4361-8B78-92726D8477BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Core.Example", "HapSharp.Core.Example\HapSharp.Core.Example.csproj", "{3C9CBFBB-1DE6-4599-A293-C0CC7DAAA852}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HapSharp.Core.Tests", "HapSharp.Core.Tests\HapSharp.Core.Tests.csproj", "{7FDBCF30-37C2-43A4-9B0A-6EBE5E340D14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24CB3D20-D49D-4361-8B78-92726D8477BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24CB3D20-D49D-4361-8B78-92726D8477BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24CB3D20-D49D-4361-8B78-92726D8477BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24CB3D20-D49D-4361-8B78-92726D8477BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C9CBFBB-1DE6-4599-A293-C0CC7DAAA852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C9CBFBB-1DE6-4599-A293-C0CC7DAAA852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C9CBFBB-1DE6-4599-A293-C0CC7DAAA852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C9CBFBB-1DE6-4599-A293-C0CC7DAAA852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FDBCF30-37C2-43A4-9B0A-6EBE5E340D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FDBCF30-37C2-43A4-9B0A-6EBE5E340D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FDBCF30-37C2-43A4-9B0A-6EBE5E340D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FDBCF30-37C2-43A4-9B0A-6EBE5E340D14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
