@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace HapSharp.Core.Tests
+namespace HapSharp.Server.Tests
 {
 	class Chacha20poly1305_Tests
 	{

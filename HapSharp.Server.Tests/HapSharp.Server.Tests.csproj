@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24CB3D20-D49D-4361-8B78-92726D8477BD}</ProjectGuid>
+    <ProjectGuid>{7FDBCF30-37C2-43A4-9B0A-6EBE5E340D14}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>HapSharp.Core</RootNamespace>
-    <AssemblyName>HapSharp.Core</AssemblyName>
+    <RootNamespace>HapSharp.Server.Tests</RootNamespace>
+    <AssemblyName>HapSharp.Server.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -17,32 +17,32 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MessageType.cs" />
-    <Compile Include="Accessory.cs" />
-    <Compile Include="HapServer.cs" />
-    <Compile Include="Service.cs" />
-    <Compile Include="Definitions.cs" />
-    <Compile Include="Characteristic.cs" />
-    <Compile Include="Bridge.cs" />
-    <Compile Include="Chacha20poly1305.cs" />
-    <Compile Include="OperationExpensions.cs" />
-    <Compile Include="UUID.cs" />
-    <Compile Include="Types.cs" />
-    <Compile Include="Encription.cs" />
+    <Compile Include="Test.cs" />
+    <Compile Include="Chacha20poly1305_Tests.cs" />
+    <Compile Include="UUID_Tests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HapSharp.Server\HapSharp.Server.csproj">
+      <Project>{24CB3D20-D49D-4361-8B78-92726D8477BD}</Project>
+      <Name>HapSharp.Server</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

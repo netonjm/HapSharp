@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HapSharp.Core.Example
+namespace HapSharp.Server.Example
 {
 	class MainClass
 	{

@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace HapSharp.Core
+namespace HapSharp.Server
 {
 	public enum EncriptionType
 	{

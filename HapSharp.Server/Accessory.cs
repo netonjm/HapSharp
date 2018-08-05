@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HapSharp.Core
+namespace HapSharp.Server
 {
 	public enum AccessoryCategory
 	{

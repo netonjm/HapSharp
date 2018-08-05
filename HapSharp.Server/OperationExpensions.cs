@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HapSharp.Core
+namespace HapSharp.Server
 {
 	public static class OperationExpensions
 	{

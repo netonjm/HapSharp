@@ -1,4 +1,4 @@
-﻿namespace HapSharp.Core
+﻿namespace HapSharp.Server
 {
 	public enum MessageType
 	{

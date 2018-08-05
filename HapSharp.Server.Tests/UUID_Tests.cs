@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-namespace HapSharp.Core.Tests
+namespace HapSharp.Server.Tests
 {
 	[TestFixture ()]
 	class UUID_Tests

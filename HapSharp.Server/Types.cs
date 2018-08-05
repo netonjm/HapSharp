@@ -1,5 +1,5 @@
 ﻿using System;
-namespace HapSharp.Core
+namespace HapSharp.Server
 {
 	public enum Utf8AsciiLatin1Encoding
 	{

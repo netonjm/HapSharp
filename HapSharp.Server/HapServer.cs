@@ -56,7 +56,7 @@
  *        the provided callback when the request has been processed.
  */
 
-namespace HapSharp.Core
+namespace HapSharp.Server
 {
 	class HAP_TYPES
 	{

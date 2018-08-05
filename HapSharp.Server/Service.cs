@@ -25,7 +25,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace HapSharp.Core
+namespace HapSharp.Server
 {
 	public class Service
 	{

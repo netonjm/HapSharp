@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
-namespace HapSharp.Core.Tests
+
+namespace HapSharp.Server.Tests
 {
 	[TestFixture ()]
 	public class AccessoryTests

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace HapSharp.Core
+namespace HapSharp.Server
 {
 	public class Bridge : Accessory
 	{
