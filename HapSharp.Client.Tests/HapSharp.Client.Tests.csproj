@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test.cs" />
+    <Compile Include="TlvTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

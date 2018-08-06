@@ -38,6 +38,10 @@
       <Project>{24CB3D20-D49D-4361-8B78-92726D8477BD}</Project>
       <Name>HapSharp.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HapSharp.Client\HapSharp.Client.csproj">
+      <Project>{820E537C-F8ED-40D2-9169-39998C6228A6}</Project>
+      <Name>HapSharp.Client</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

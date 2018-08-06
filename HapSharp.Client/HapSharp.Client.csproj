@@ -48,6 +48,9 @@
     <Compile Include="PairStep.cs" />
     <Compile Include="VerifyStep.cs" />
     <Compile Include="SecureStore.cs" />
+    <Compile Include="TLV.cs" />
+    <Compile Include="Buffer.cs" />
+    <Compile Include="Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
