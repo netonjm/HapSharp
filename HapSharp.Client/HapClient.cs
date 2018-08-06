@@ -7,18 +7,8 @@ using Zeroconf;
 
 namespace HapSharp.Client
 {
-	public class SecureStore
-	{
-		public SecureStore (object clientName)
-		{
-			_clientName = clientName;
-		}
 
-		public object _clientName {
-			get;
-			set;
-		}
-	}
+
 
 	public class HapClientSession
 	{
@@ -42,7 +32,7 @@ namespace HapSharp.Client
 
 		object Pair (int pinProvider) 
 		{
-			SecureStore secureStore = new SecureStore (this.clientName);
+			SecureStore secureStore = new SecureStore ();
 			var session = GetSession (secureStore, null);
 			return null;
 		}

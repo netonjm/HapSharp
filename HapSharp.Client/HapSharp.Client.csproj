@@ -37,6 +37,9 @@
     <Reference Include="Zeroconf">
       <HintPath>..\packages\Zeroconf.3.0.30\lib\netstandard2.0\Zeroconf.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HapClient.cs" />
@@ -44,6 +47,7 @@
     <Compile Include="ErrorCode.cs" />
     <Compile Include="PairStep.cs" />
     <Compile Include="VerifyStep.cs" />
+    <Compile Include="SecureStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
