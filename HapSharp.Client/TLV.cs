@@ -75,13 +75,14 @@ namespace HapSharp.Client
 		{
 			Buffer encodedTLVBuffer = Buffer.Alloc(0);
 			Buffer data;
-			foreach (var arg in args)
-			{
-				//if (int.TryParse(arg.data, out int number)) {
-				//	data = Buffer.From(number);
-				//} else {
+			foreach (var arg in args) {
+
+				try {
+					int value = (int)new System.ComponentModel.Int32Converter ().ConvertFromString (arg.data);
+					data = Buffer.From (value);
+				} catch (Exception) {
 					data = Buffer.From (arg.data);
-				//}
+				}
 
 				// break into chunks of at most 255 bytes
 				int pos = 0;

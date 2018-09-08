@@ -43,6 +43,17 @@ namespace HapSharp.Client
 			return ToBuffer (array);
 		}
 
+		public static Buffer From (int data)
+		{
+			var array = (byte)data;
+			return ToBuffer (array);
+		}
+
+		static Buffer ToBuffer (byte array)
+		{
+			return ToBuffer (new [] { array });
+		}
+
 		static Buffer ToBuffer (byte[] array)
 		{
 			var buff = new Buffer (array.Length);
