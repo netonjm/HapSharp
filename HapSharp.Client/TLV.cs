@@ -71,6 +71,16 @@ namespace HapSharp.Client
 			return ret;
 		}
 
+		public static Buffer Encode ((int type, Buffer data) args)
+		{
+			return Encode ((args.type,args.data.ToString ()));
+		}
+
+		public static Buffer Encode ((int type, string data) args)
+		{
+			return Encode (new List<(int type, string data)> { args });
+		}
+
 		public static Buffer Encode(List<(int type, string data)> args)
 		{
 			Buffer encodedTLVBuffer = Buffer.Alloc(0);
