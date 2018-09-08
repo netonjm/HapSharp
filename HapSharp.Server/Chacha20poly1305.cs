@@ -2,13 +2,6 @@
 
 namespace HapSharp.Server
 {
-	public static class BufferShim
-	{
-		public static int[] Alloc (int test) {
-			throw new NotImplementedException ();
-		}
-	}
-
 	public class Chacha20poly1305
 	{
 		#region Chacha20

@@ -19,5 +19,12 @@ namespace HapSharp.Client.Tests
 			}
 			Assert.AreNotEqual (0, services.Count);
 		}
+
+		[Test ()]
+		public async Task GetClient ()
+		{
+			var client = new HapClient ("My Client Name", "10.67.1.81", 80);
+			client.Pair ("123-45-678");
+		}
 	}
 }

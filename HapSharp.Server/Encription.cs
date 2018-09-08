@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using HapSharp.Core;
 
 namespace HapSharp.Server
 {
@@ -12,17 +13,17 @@ namespace HapSharp.Server
 	public static class Curve25519
 	{
 		//TODO: TO IMPLEMENT
-		public static void MakeSecretKey (int[] data)
+		public static void MakeSecretKey (byte[] data)
 		{
 			throw new NotImplementedException ();
 		}
 		//TODO: TO IMPLEMENT
-		internal static int[] deriveSharedSecret (int[] secKey, int[] pubKey)
+		internal static byte [] deriveSharedSecret (byte [] secKey, byte [] pubKey)
 		{
 			throw new NotImplementedException ();
 		}
 		//TODO: TO IMPLEMENT
-		internal static int[] derivePublicKey (int[] secKey)
+		internal static byte [] derivePublicKey (byte [] secKey)
 		{
 			throw new NotImplementedException ();
 		}
@@ -75,22 +76,22 @@ namespace HapSharp.Server
 		}
 
 		//TODO: TO IMPLEMENT
-		public static int[] generateCurve25519SecretKey ()
+		public static byte[] generateCurve25519SecretKey ()
 		{
-			var secretKey = BufferShim.Alloc (32);
-			Curve25519.MakeSecretKey (secretKey);
-			return secretKey;
+			var secretKey = HapBuffer.Alloc (32);
+			Curve25519.MakeSecretKey (secretKey.Data);
+			return secretKey.Data;
 		}
 
 		//TODO: TO IMPLEMENT
-		public static int[] generateCurve25519PublicKeyFromSecretKey (int[] secKey)
+		public static byte [] generateCurve25519PublicKeyFromSecretKey (byte [] secKey)
 		{
 			var publicKey = Curve25519.derivePublicKey (secKey);
 			return publicKey;
 		}
 
 		//TODO: TO IMPLEMENT
-		public static int[] generateCurve25519SharedSecKey (int[] secKey, int[] pubKey)
+		public static byte [] generateCurve25519SharedSecKey (byte [] secKey, byte [] pubKey)
 		{
 			var sharedSec = Curve25519.deriveSharedSecret (secKey, pubKey);
 			return sharedSec;
@@ -98,7 +99,7 @@ namespace HapSharp.Server
 
 		//Security Layer Enc/Dec
 		//TODO: TO IMPLEMENT
-		public static int[] layerEncrypt (int[] data, int[] count, int[] key)
+		public static int[] layerEncrypt (byte [] data, byte [] count, byte [] key)
 		{
 			//	var result = BufferShim.Alloc (0);
 			//	var total = data.Length;

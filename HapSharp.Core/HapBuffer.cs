@@ -1,28 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace HapSharp.Client
+namespace HapSharp.Core
 {
-	public class Buffer
+	public class HapBuffer
 	{
 		readonly public byte[] Data;
 		public int position;
 
 		public int Length => Data.Length;
 
-		public Buffer (string text) : this (Encoding.UTF8.GetBytes(text))
+		public HapBuffer (string text) : this (Encoding.UTF8.GetBytes(text))
 		{
 
 		}
 
-		public Buffer (int size)
+		public HapBuffer (int size)
 		{
 			Data = new byte[size];
 		}
 
-		public Buffer (byte[] slice)
+		public HapBuffer RestAll ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public HapBuffer (byte[] slice)
 		{
 			Data = slice;
 		}
@@ -32,38 +36,38 @@ namespace HapSharp.Client
 			return Encoding.UTF8.GetString (Data);
 		}
 
-		public static Buffer From (int type, int len)
+		public static HapBuffer From (int type, int len)
 		{
-			return new Buffer (new [] { (byte)type, (byte)len });
+			return new HapBuffer (new [] { (byte)type, (byte)len });
 		}
 
-		public static Buffer From (string data)
+		public static HapBuffer From (string data)
 		{
 			var array = Encoding.UTF8.GetBytes (data);
 			return ToBuffer (array);
 		}
 
-		public static Buffer From (int data)
+		public static HapBuffer From (int data)
 		{
 			var array = (byte)data;
 			return ToBuffer (array);
 		}
 
-		static Buffer ToBuffer (byte array)
+		static HapBuffer ToBuffer (byte array)
 		{
 			return ToBuffer (new [] { array });
 		}
 
-		static Buffer ToBuffer (byte[] array)
+		static HapBuffer ToBuffer (byte[] array)
 		{
-			var buff = new Buffer (array.Length);
+			var buff = new HapBuffer (array.Length);
 			for (int i = 0; i < array.Length; i++) {
 				buff.Data[i] = array[i];
 			}
 			return buff;
 		}
 
-		public Buffer Append (Buffer newData)
+		public HapBuffer Append (HapBuffer newData)
 		{
 
 			var list = new byte[Data.Length + newData.Length];
@@ -74,29 +78,29 @@ namespace HapSharp.Client
 			foreach (var item in newData.Data) {
 				list[i++] = item;
 			}
-			return new Buffer (list);
+			return new HapBuffer (list);
 		}
 
-		public Buffer Slice (int pos, int len)
+		public HapBuffer Slice (int pos, int len)
 		{
 			var slice = Data.Slice (pos, len);
-			return new Buffer (slice.ToArray ());
+			return new HapBuffer (slice.ToArray ());
 		}
 
-		public Buffer Slice (int pos)
+		public HapBuffer Slice (int pos)
 		{
 			var slice = Data.Slice (pos);
-			return new Buffer (slice.ToArray ());
+			return new HapBuffer (slice.ToArray ());
 		}
 
-		public static Buffer Alloc (int pos)
+		public static HapBuffer Alloc (int pos)
 		{
-			return new Buffer (pos);
+			return new HapBuffer (pos);
 		}
 
-		public Buffer Append (Buffer buffer1, Buffer buffer2)
+		public HapBuffer Append (HapBuffer buffer1, HapBuffer buffer2)
 		{
-			var buf = new Buffer (Data);
+			var buf = new HapBuffer (Data);
 			buf = buf.Append (buffer1);
 			buf = buf.Append (buffer2);
 			return buf;

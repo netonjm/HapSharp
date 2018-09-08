@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace HapSharp.Client
+﻿namespace HapSharp.Core
 {
 	public static class StringExtensions
 	{

@@ -44,5 +44,11 @@
     <Compile Include="Types.cs" />
     <Compile Include="Encription.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HapSharp.Core\HapSharp.Core.csproj">
+      <Project>{C98036F3-5036-4023-B935-FF9E88120A23}</Project>
+      <Name>HapSharp.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,6 +13,10 @@ namespace HapSharp.Client
 		{
 		}
 
+		public SecureStore (string clientName)
+		{
+		}
+
 		public SecureAccessoryInfo Load (string client) 
 		{
 			SecureAccessoryInfo result;

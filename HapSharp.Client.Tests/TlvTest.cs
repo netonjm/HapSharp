@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HapSharp.Core;
 using NUnit.Framework;
 
 namespace HapSharp.Client.Tests
@@ -14,7 +15,7 @@ namespace HapSharp.Client.Tests
 		[Test()]
 		public void CreateFromText()
 		{
-			var buffer = new Buffer(longText);
+			var buffer = new HapBuffer(longText);
 			Assert.AreEqual(longText, buffer.ToString());
 		}
 
@@ -22,9 +23,9 @@ namespace HapSharp.Client.Tests
 		public void AppendBuffer()
 		{
 			string[] data = { "hola", "adios"};
-			Buffer buffer = Buffer.Alloc(0);
+			var buffer = HapBuffer.Alloc(0);
 			foreach (var item in data) {
-				buffer = buffer.Append (new Buffer(item));
+				buffer = buffer.Append (new HapBuffer (item));
 			}
 			Assert.AreEqual(string.Join("", data), buffer.ToString());
 		}
@@ -34,9 +35,9 @@ namespace HapSharp.Client.Tests
 		public void SliceBuffer()
 		{
 			string[] data = { "hola", "adios"};
-			Buffer buffer = Buffer.Alloc(0);
+			var buffer = HapBuffer.Alloc(0);
 			foreach (var item in data) {
-				buffer = buffer.Append (new Buffer(item));
+				buffer = buffer.Append (new HapBuffer (item));
 			}
 			Assert.AreEqual(string.Join("", data), buffer.ToString());
 		}
@@ -48,7 +49,7 @@ namespace HapSharp.Client.Tests
 		[Test ()]
 		public void DecodeEncodeMultiple ()
 		{
-			var dict = new List<(int type, string data)> {
+			var dict = new (int type, string data)[] {
 				( 11, "345a" ),
 				( 14, "4 5 6a" ),
 				( 15, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nec ex in finibus. Cras enim magna, fringilla mattis urna et, congue porta nulla. In vitae ex interdum neque congue semper id at tellus. Nam placerat nulla sed vestibulum egestas. Etiam ac elit scelerisque augue finibus dictum. Pellentesque accumsan hendrerit orci at egestas. Vestibulum imperdiet nec magna quis aliquam. Nunc pellentesque, orci sed tristique imperdiet, tellus nunc vulputate dolor, at feugiat nibh nulla eu ex. Mauris in lobortis odio. Vivamus rutrum est velit, vitae euismod elit luctus eu. Ut maximus, ex ac fringilla porta, sapien erat lacinia enim, non hendrerit urna arcu ut neque. Vestibulum commodo sagittis mauris ultricies sagittis." ),
@@ -58,7 +59,7 @@ namespace HapSharp.Client.Tests
 			var decoded = TLV.Decode (encoded);
 			Assert.AreEqual (3, decoded.Count);
 
-			Buffer buffer;
+			HapBuffer buffer;
 
 			Assert.IsTrue (decoded.TryGetValue (11, out buffer));
 			Assert.AreEqual ("345a", buffer.ToString ());
@@ -74,7 +75,7 @@ namespace HapSharp.Client.Tests
 		public void EncodeHex ()
 		{
 			string hex = "7F";
-			var data = new List<(int, string)> (){
+			var data = new (int, string)[]{
 				( 5, "0x" + hex )
 			};
 			var encoded = TLV.Encode (data);
@@ -87,7 +88,7 @@ namespace HapSharp.Client.Tests
 		[Test ()]
 		public void Encode1Byte ()
 		{
-			var data = new List<(int, string)> { ( 0x01, "0x7f" ) };
+			var data = new (int, string)[]  { ( 0x01, "0x7f" ) };
 			var enc = TLV.Encode (data);
 			Assert.AreEqual (new byte [] { 0x01, 0x01, 0x7f }, enc.Data);
 		}
@@ -95,7 +96,7 @@ namespace HapSharp.Client.Tests
 		[Test ()]
 		public void EncodeMultipleField ()
 		{
-			var data = new List<(int, string)> { 
+			var data = new (int, string)[] { 
 				(0x01, "0x7f"),
 				(0x02, "0x91")
 			};
@@ -114,7 +115,7 @@ namespace HapSharp.Client.Tests
 		[Test ()]
 		public void EncodeSingleFieldsSeveralBytes ()
 		{
-			var enc = TLV.Encode ((0x01, Buffer.From ("foobar")));
+			var enc = TLV.Encode ((0x01, HapBuffer.From ("foobar")));
 			Assert.AreEqual (new byte [] { 0x01, 0x06, 0x66, 0x6F, 0x6F, 0x62, 0x61, 0x72 }, enc.Data);
 		}
 	}
