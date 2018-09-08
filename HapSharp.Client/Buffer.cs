@@ -12,6 +12,11 @@ namespace HapSharp.Client
 
 		public int Length => Data.Length;
 
+		public Buffer (string text) : this (Encoding.UTF8.GetBytes(text))
+		{
+
+		}
+
 		public Buffer (int size)
 		{
 			Data = new byte[size];
@@ -49,21 +54,27 @@ namespace HapSharp.Client
 
 		public Buffer Append (Buffer newData)
 		{
-			var list = new List<byte> ();
-			list.AddRange (Data);
-			list.AddRange (newData.Data);
-			return new Buffer (list.ToArray ());
+
+			var list = new byte[Data.Length + newData.Length];
+			int i = 0;
+			foreach (var item in Data) {
+				list[i++] = item;
+			}
+			foreach (var item in newData.Data) {
+				list[i++] = item;
+			}
+			return new Buffer (list);
 		}
 
 		public Buffer Slice (int pos, int len)
 		{
-			var slice = Data.ToList ().Slice (pos, len);
+			var slice = Data.Slice (pos, len);
 			return new Buffer (slice.ToArray ());
 		}
 
 		public Buffer Slice (int pos)
 		{
-			var slice = Data.ToList ().Slice (pos);
+			var slice = Data.Slice (pos);
 			return new Buffer (slice.ToArray ());
 		}
 

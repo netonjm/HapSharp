@@ -1,36 +1,56 @@
 ﻿using System;
 using System.Linq;
-using Greensoft.TlvLib;
+using System.Text;
 using NUnit.Framework;
 
 namespace HapSharp.Client.Tests
 {
+	[TestFixture()]
+	public class BufferTest
+	{
+		const string longText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nec ex in finibus. Cras enim magna, fringilla mattis urna et, congue porta nulla. In vitae ex interdum neque congue semper id at tellus. Nam placerat nulla sed vestibulum egestas. Etiam ac elit scelerisque augue finibus dictum. Pellentesque accumsan hendrerit orci at egestas. Vestibulum imperdiet nec magna quis aliquam. Nunc pellentesque, orci sed tristique imperdiet, tellus nunc vulputate dolor, at feugiat nibh nulla eu ex. Mauris in lobortis odio. Vivamus rutrum est velit, vitae euismod elit luctus eu. Ut maximus, ex ac fringilla porta, sapien erat lacinia enim, non hendrerit urna arcu ut neque. Vestibulum commodo sagittis mauris ultricies sagittis.";
+
+		[Test()]
+		public void CreateFromText()
+		{
+			var buffer = new Buffer(longText);
+			Assert.AreEqual(longText, buffer.ToString());
+		}
+
+		[Test()]
+		public void AppendBuffer()
+		{
+			string[] data = { "hola", "adios"};
+			Buffer buffer = Buffer.Alloc(0);
+			foreach (var item in data) {
+				buffer = buffer.Append (new Buffer(item));
+			}
+			Assert.AreEqual(string.Join("", data), buffer.ToString());
+		}
+
+
+		[Test()]
+		public void SliceBuffer()
+		{
+			string[] data = { "hola", "adios"};
+			Buffer buffer = Buffer.Alloc(0);
+			foreach (var item in data) {
+				buffer = buffer.Append (new Buffer(item));
+			}
+			Assert.AreEqual(string.Join("", data), buffer.ToString());
+		}
+	}
+
 	[TestFixture ()]
 	public class TlvTest
 	{
-		[TestCase(11, "1234")]
-		[TestCase(13, "a")]
-		[TestCase(15, "añada")]
-		public void DecodeEncode(byte type, string data)
-		{
-			var dict = new System.Collections.Generic.List<(int type, string data)> {
-				( type, data ),
-			};
-
-			var encoded = TLV.Encode(dict);
-			var decoded = TLV.Decode(encoded);
-			Assert.AreEqual(1, decoded.Count);
-			Assert.IsTrue(decoded.TryGetValue(type, out Buffer buffer));
-			Assert.AreEqual(data, buffer.ToString ());
-		}
-
 		[Test ()]
 		public void DecodeEncodeMultiple ()
 		{
 			var dict = new System.Collections.Generic.List<(int type, string data)> {
 				( 11, "345" ),
 				( 14, "4 5 6" ),
-				( 15, "33a" )
+				( 15, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nec ex in finibus. Cras enim magna, fringilla mattis urna et, congue porta nulla. In vitae ex interdum neque congue semper id at tellus. Nam placerat nulla sed vestibulum egestas. Etiam ac elit scelerisque augue finibus dictum. Pellentesque accumsan hendrerit orci at egestas. Vestibulum imperdiet nec magna quis aliquam. Nunc pellentesque, orci sed tristique imperdiet, tellus nunc vulputate dolor, at feugiat nibh nulla eu ex. Mauris in lobortis odio. Vivamus rutrum est velit, vitae euismod elit luctus eu. Ut maximus, ex ac fringilla porta, sapien erat lacinia enim, non hendrerit urna arcu ut neque. Vestibulum commodo sagittis mauris ultricies sagittis." )
 			};
 
 			var encoded = TLV.Encode(dict);
@@ -45,7 +65,7 @@ namespace HapSharp.Client.Tests
 			Assert.AreEqual("4 5 6", buffer.ToString());
 
 			Assert.IsTrue(decoded.TryGetValue(15, out buffer));
-			Assert.AreEqual("33a", buffer.ToString());
+			Assert.AreEqual("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nec ex in finibus. Cras enim magna, fringilla mattis urna et, congue porta nulla. In vitae ex interdum neque congue semper id at tellus. Nam placerat nulla sed vestibulum egestas. Etiam ac elit scelerisque augue finibus dictum. Pellentesque accumsan hendrerit orci at egestas. Vestibulum imperdiet nec magna quis aliquam. Nunc pellentesque, orci sed tristique imperdiet, tellus nunc vulputate dolor, at feugiat nibh nulla eu ex. Mauris in lobortis odio. Vivamus rutrum est velit, vitae euismod elit luctus eu. Ut maximus, ex ac fringilla porta, sapien erat lacinia enim, non hendrerit urna arcu ut neque. Vestibulum commodo sagittis mauris ultricies sagittis.".Substring(0, 255), buffer.ToString());
 		}
 	}
 }

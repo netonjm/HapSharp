@@ -5,21 +5,21 @@ namespace HapSharp.Client
 {
 	public static class StringExtensions
 	{
-		public static List<byte> Slice (this List<byte> sender, int pos, int len)
+		public static byte[] Slice (this byte[] sender, int pos, int len)
 		{
-			if (pos < 0 || (pos + len) > sender.Count || len == 0) {
-				return new List<byte> ();
+			if (pos < 0 || (pos + len) > sender.Length || len == 0) {
+				return new byte[0];
 			}
 			var result = new byte[len];
 			for (int i = 0; i < len; i++) {
 				result[i] = sender[i + pos];
 			}
-			return result.ToList ();
+			return result;
 		}
 
-		public static List<byte> Slice (this List<byte> sender, int pos)
+		public static byte[] Slice (this byte[] sender, int pos)
 		{
-			return Slice (sender, pos, sender.Count - pos);
+			return Slice (sender, pos, sender.Length - pos);
 		}
 	}
 }
