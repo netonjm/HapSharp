@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HapSharp.Core;
+using Newtonsoft.Json;
 using Zeroconf;
 
 namespace HapSharp.Client
@@ -15,8 +16,7 @@ namespace HapSharp.Client
 		string clientId;
 		string ip;
 		int port;
-
-		EventedHttpClient session;
+		readonly EventedHttpClient client;
 
 		bool _isAuthenticated = false;
 		bool _authPending = false;
@@ -26,7 +26,7 @@ namespace HapSharp.Client
 			this.clientName = clientId = clientName;
 			this.ip = ip;
 			this.port = port;
-			session = new EventedHttpClient (ip, port);
+			client = new EventedHttpClient (ip, port);
 		}
 
 		public void _verifyPairing ()
@@ -56,8 +56,9 @@ namespace HapSharp.Client
 			var text = Get ("/accessories");
 		}
 
-		void Post (string url, HapBuffer req, string contentType, EventHandler postHandler = null) 
+		void Post (string url, HapBuffer buffer, string contentType = "application/json", string[] headers = null, EventHandler postHandler = null) 
 		{
+			Console.WriteLine ("POSTing to {0}: {1}", url, buffer);
 
 		}
 
@@ -92,7 +93,7 @@ namespace HapSharp.Client
 			Console.WriteLine ("encoded request: {0}", req);
 
 			//session.http.post 
-			Post ("/pair-setup", req, PairingContentType);
+			client.Post ("/pair-setup", req, PairingContentType);
 		}
 	}
 }
