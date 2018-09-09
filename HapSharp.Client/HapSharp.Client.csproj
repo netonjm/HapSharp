@@ -51,6 +51,8 @@
     <Compile Include="ShaHelper.cs" />
     <Compile Include="SrpClient.cs" />
     <Compile Include="DiscoveredClient.cs" />
+    <Compile Include="EncoderDelegate.cs" />
+    <Compile Include="EventedHttpClientResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

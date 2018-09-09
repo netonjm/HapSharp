@@ -38,16 +38,19 @@ namespace HapSharp.Client
 			//Sodium.randombytes_buf (privateKey);
 		}
 
-		public byte[] Encode(byte[] message)
+		public bool Identify()
 		{
-			return null;
+			var response = client.Request ("GET", "/identify");
+
+
+			return false;
 		}
 
-		public void Identify() => client.Get("/identify");
-
-		public void ListAccessories()
+		public EventedHttpClientResponse ListAccessories()
 		{
-			var text = client.Get("/accessories");
+			var response = client.Request("GET", "/accessories");
+			Console.WriteLine("encoded request:");
+			return response;
 		}
 
 		public void Pair(string pin)
@@ -69,7 +72,7 @@ namespace HapSharp.Client
 					 );
 			Console.WriteLine("encoded request: {0}", req);
 
-			byte[] response;
+			EventedHttpClientResponse response;
 			//session.http.post 
 			try {
 				response = client.Request("POST", "/pair-setup",  PairingContentType, req);
@@ -79,9 +82,7 @@ namespace HapSharp.Client
 				throw ex;
 			}
 
-			var respondeBuffer = new HapBuffer(response);
-
-			var response_tlv = TLV.Decode(respondeBuffer);
+			var response_tlv = TLV.Decode(response.Buffer);
 
 			HapBuffer responseCheck;
 			//# Step #3 ios --> accessory (send SRP verify request) (see page 41)
@@ -111,9 +112,9 @@ namespace HapSharp.Client
 				   (TLV.kTLVType_Proof, proofBuffer)
 					 );
 
-			var postResponse = client.Post("/pair-setup", encode_tlv, PairingContentType);
+			var postResponse = client.Request ("POST", "/pair-setup", buffer: encode_tlv,contentType: PairingContentType);
 
-			response_tlv = TLV.Decode(new HapBuffer(postResponse));
+			response_tlv = TLV.Decode(postResponse.Buffer);
 
 			// Step #5 ios --> accessory (exchange request) (see page 43)
 			//# M4 Verification (page 43)
