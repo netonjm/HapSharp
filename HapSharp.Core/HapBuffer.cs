@@ -21,11 +21,6 @@ namespace HapSharp.Core
 			Data = new byte[size];
 		}
 
-		public HapBuffer RestAll ()
-		{
-			throw new NotImplementedException ();
-		}
-
 		public HapBuffer (byte[] slice)
 		{
 			Data = slice;
@@ -67,9 +62,18 @@ namespace HapSharp.Core
 			return buff;
 		}
 
+		public HapBuffer Append(params HapBuffer[] newData)
+		{
+			var buff = Alloc(0);
+			foreach (var item in newData) {
+				buff = buff.Append(item);
+			}
+
+			return buff;
+		}
+
 		public HapBuffer Append (HapBuffer newData)
 		{
-
 			var list = new byte[Data.Length + newData.Length];
 			int i = 0;
 			foreach (var item in Data) {

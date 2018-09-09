@@ -51,7 +51,7 @@ namespace HapSharp.Client
 			var request = (HttpWebRequest)WebRequest.Create (url);
 			request.Method = method;
 			//request.UserAgent = "XXX";
-			//request.Accept = contentType;
+			request.Accept = contentType;
 			request.ContentType = contentType;
 			/* Sart browser signature */
 

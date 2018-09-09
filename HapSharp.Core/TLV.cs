@@ -66,65 +66,82 @@ namespace HapSharp.Core
 		public const byte kTLVError_Unavailable = 0x06;
 		public const byte kTLVError_Busy = 0x07;
 
-		public static Dictionary<byte, HapBuffer> Decode (HapBuffer data)
+		public static Dictionary<byte, HapBuffer> Decode(HapBuffer data)
 		{
-			int pos = 0;
-			var ret = new Dictionary<byte, HapBuffer> ();
+			var ret = new Dictionary<byte, HapBuffer>();
+			var leftLength = data.Length;
+			var currentIndex = 0;
 
-			while (data.Length - pos > 0) {
-				var typeLen = data.Slice (pos);
-				var type = typeLen.Data [0];
-				var length = (int)typeLen.Data [1];
+			for (; leftLength > 0;)
+			{
+				var type = data.Data[currentIndex];
+				var length = data.Data[currentIndex + 1];
+				currentIndex += 2;
+				leftLength -= 2;
 
-				pos += 2;
+				var newData = data.Slice(currentIndex, currentIndex + length);
 
-				var newData = data.Slice (pos, length);
-				if (ret.TryGetValue (type, out HapBuffer result)) {
-					ret [type] = ret [type].Append (newData);
-				} else {
-					ret [type] = newData;
+				if (ret.TryGetValue(type, out HapBuffer result))
+				{
+					ret[type] = ret[type].Append(newData);
 				}
-				pos += length;
+				else
+				{
+					ret[type] = newData;
+				}
+
+				currentIndex += length;
+				leftLength -= length;
 			}
+
 			return ret;
 		}
 
 		public static HapBuffer Encode(params (int type, int data)[] args)
 		{
-			var test = args.Select(s =>
-			{
-				var hex = "0x" + s.data.ToString("X");
-				return (s.type, hex);
-			}).ToArray();
-			//var hex = string hexValue = data.ToString("X");
-			return Encode(test);
+			var ele = args.Select(s => (s.type, HapBuffer.From (s.data))).ToArray();
+			return Encode(ele);
 		}
 
-		public static HapBuffer Encode (params (int type, HapBuffer data) [] args)
+		public static HapBuffer Encode(params (int type, HapBuffer data)[] args)
 		{
-			return Encode (args.Select (s => (s.type, s.data.ToString ())).ToArray ());
+			return Encode(args.Select(s => (s.type, s.data.ToString ())).ToArray());
 		}
 
-		public static HapBuffer Encode (params (int type, string data)[] args)
+		public static HapBuffer Encode(params (int type, string data)[] args)
 		{
-			HapBuffer encodedTLVBuffer = HapBuffer.Alloc (0);
+			HapBuffer encodedTLVBuffer = HapBuffer.Alloc(0);
 			HapBuffer data;
-			foreach (var arg in args) {
+			foreach (var arg in args)
+			{
+				data = HapBuffer.From(arg.data);
 
-				try {
-					int value = (int)new System.ComponentModel.Int32Converter ().ConvertFromString (arg.data);
-					data = HapBuffer.From (value);
-				} catch (Exception) {
-					data = HapBuffer.From (arg.data);
+				if (data.Length <= 255)
+				{
+					encodedTLVBuffer = encodedTLVBuffer.Append (HapBuffer.From(arg.type, arg.data.Length), data);
 				}
+				else
+				{
+					var leftLength = arg.data.Length;
+					var tempBuffer = HapBuffer.Alloc(0);
+					var currentStart = 0;
 
-				// break into chunks of at most 255 bytes
-				int pos = 0;
-				while (data.Length - pos > 0) {
-					var len = Math.Min (data.Length - pos, 255);
-					Console.WriteLine ($"adding ${len} bytes of type ${arg.type} to the buffer starting at ${pos}");
-					encodedTLVBuffer = encodedTLVBuffer.Append (HapBuffer.From (arg.type, len), data.Slice (pos, pos + len));
-					pos += len;
+					for (; leftLength > 0;)
+					{
+						if (leftLength >= 255)
+						{
+							tempBuffer = tempBuffer.Append(HapBuffer.From(arg.type, 255), data.Slice(currentStart, currentStart + 255));//  Buffer.concat([tempBuffer,bufferShim.from([type,0xFF]),data.slice(currentStart, currentStart + 255)]);
+							leftLength -= 255;
+							currentStart = currentStart + 255;
+						}
+						else
+						{
+							tempBuffer = tempBuffer.Append(HapBuffer.From(arg.type, leftLength), data.Slice(currentStart, currentStart + leftLength)); // Buffer.concat([tempBuffer,bufferShim.from([type,leftLength]),data.slice(currentStart, currentStart + leftLength)]);
+							leftLength -= leftLength;
+						}
+					}
+					encodedTLVBuffer = encodedTLVBuffer.Append (tempBuffer);
+
 				}
 			}
 
