@@ -89,6 +89,17 @@ namespace HapSharp.Core
 			return ret;
 		}
 
+		public static HapBuffer Encode(params (int type, int data)[] args)
+		{
+			var test = args.Select(s =>
+			{
+				var hex = "0x" + s.data.ToString("X");
+				return (s.type, hex);
+			}).ToArray();
+			//var hex = string hexValue = data.ToString("X");
+			return Encode(test);
+		}
+
 		public static HapBuffer Encode (params (int type, HapBuffer data) [] args)
 		{
 			return Encode (args.Select (s => (s.type, s.data.ToString ())).ToArray ());

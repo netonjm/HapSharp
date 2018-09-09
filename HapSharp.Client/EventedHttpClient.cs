@@ -6,6 +6,7 @@ using System.Net;
 using HapSharp.Core;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Text;
 
 namespace HapSharp.Client
 {
@@ -32,8 +33,13 @@ namespace HapSharp.Client
 			new EncoderHapJson ()
 		};
 
+		string host;
+		int port;
+
 		public EventedHttpClient (string host, int port = 80)
 		{
+			this.host = host;
+			this.port = port;
 		}
 
 		public void ReadChunk ()
@@ -98,22 +104,23 @@ namespace HapSharp.Client
 			}
 		}
 
-		public string Get (string destinationUrl, (string header, string value)[] collection = null)
+		public string Get (string url, (string header, string value)[] collection = null)
 		{
+			url = GetUrl(url, false, host, port);
 			var client = new WebClient ();
 			if (collection != null) {
 				foreach (var item in collection) {
 					client.Headers.Add (item.header, item.value);
 				}
 			}
-			string response = client.DownloadString (destinationUrl);
+			string response = client.DownloadString (url);
 			return response;
 		}
 
 		public string Put (string url, HapBuffer data, string contentType = "application/json", (string header, string value) [] collection = null)
 		{
 			Console.WriteLine ("PUTing {0}: {1}", url, data);
-
+			url = GetUrl(url, false, host, port);
 			var encoder = encoders.FirstOrDefault (s => s.ContentType == contentType);
 			if (encoder != null) {
 				data = encoder.OnEncoding (data.Data);
@@ -129,17 +136,29 @@ namespace HapSharp.Client
 			return Request ("PUT", url, contentType, data, newCol);
 		}
 
-		public string Post (string url, HapBuffer buffer, string contentType = "application/json", (string header, string value)[] collection = null)
+		string GetUrl (string url, bool isSecure, string host, int port = 80)
 		{
+			var builder = new StringBuilder(isSecure ? "https://" : "http://");
+			builder.Append(host);
+			if (port != 80) {
+				builder.Append(":" + port);
+			}
+			builder.Append(url);
+			return builder.ToString();
+		}
+
+		public byte[] Post (string url, HapBuffer buffer, string contentType = "application/json", (string header, string value)[] collection = null)
+		{
+			url = GetUrl(url, false, host, port);
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create (url);
 
 			request.ContentLength = buffer.Length;
 			request.Method = "POST";
 			//request.UserAgent = "XXX";
-			request.Accept = contentType;
+			//request.Accept = contentType;
 			request.ContentType = contentType;
-			request.Headers.Add (HttpRequestHeader.ContentType, contentType);
-			request.Headers.Add (HttpRequestHeader.ContentLength, buffer.Length.ToString ());
+			//request.Headers.Add (HttpRequestHeader.ContentType, contentType);
+			//request.Headers.Add (HttpRequestHeader.ContentLength, buffer.Length.ToString ());
 			/* Sart browser signature */
 			if (collection != null) {
 				foreach (var item in collection) {
@@ -152,11 +171,23 @@ namespace HapSharp.Client
 			requestStream.Close ();
 			HttpWebResponse response;
 			response = (HttpWebResponse)request.GetResponse ();
+
+			MemoryStream memoryStream = new MemoryStream(0x10000);
+
 			if (response.StatusCode == HttpStatusCode.OK) {
-				Stream responseStream = GetStreamForResponse (response, 200);
-				string responseStr = new StreamReader (responseStream).ReadToEnd ();
-				return responseStr;
+				byte[] bf = new byte[0x1000];
+				int bytes;
+				var responseStream = response.GetResponseStream();
+				while ((bytes = responseStream.Read(bf, 0, bf.Length)) > 0)
+				{
+					memoryStream.Write(bf, 0, bytes);
+				}
+				return bf;
 			}
+			//Stream responseStream = GetStreamForResponse (response, 200);
+			//	string responseStr = new StreamReader (responseStream).ReadToEnd ();
+			//	return responseStr;
+			//}
 			return null;
 		}
 	}

@@ -83,14 +83,12 @@ namespace HapSharp.Core
 
 		public HapBuffer Slice (int pos, int len)
 		{
-			var slice = Data.Slice (pos, len);
-			return new HapBuffer (slice.ToArray ());
+			return new HapBuffer (Data.Slice(pos, len));
 		}
 
 		public HapBuffer Slice (int pos)
 		{
-			var slice = Data.Slice (pos);
-			return new HapBuffer (slice.ToArray ());
+			return new HapBuffer (Data.Slice(pos));
 		}
 
 		public static HapBuffer Alloc (int pos)

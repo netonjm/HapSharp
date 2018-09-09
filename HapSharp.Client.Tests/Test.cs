@@ -21,7 +21,7 @@ namespace HapSharp.Client.Tests
 		}
 
 		[Test ()]
-		public async Task GetClient ()
+		public void GetClient ()
 		{
 			var client = new HapClient ("My Client Name", "10.67.1.81", 80);
 			client.Pair ("123-45-678");

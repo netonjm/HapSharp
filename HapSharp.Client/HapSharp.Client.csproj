@@ -47,6 +47,9 @@
     <Compile Include="Codes.cs" />
     <Compile Include="SecureStore.cs" />
     <Compile Include="EventedHttpClient.cs" />
+    <Compile Include="Sha512Builder.cs" />
+    <Compile Include="ShaHelper.cs" />
+    <Compile Include="SrpClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
