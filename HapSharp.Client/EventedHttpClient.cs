@@ -66,10 +66,10 @@ namespace HapSharp.Client
 			return stream;
 		}
 
-		string Request (string method, string url, string contentType, HapBuffer buffer, (string header, string value) [] collection = null)
+		public byte[] Request (string method, string url, string contentType, HapBuffer buffer, (string header, string value) [] collection = null)
 		{
 			Console.WriteLine ($"requesting: ${method} ${url}");
-
+			url = GetUrl(url, false, host, port);
 			var request = (HttpWebRequest)WebRequest.Create (url);
 
 			request.ContentLength = buffer.Length;
@@ -90,9 +90,18 @@ namespace HapSharp.Client
 			HttpWebResponse response;
 			response = (HttpWebResponse)request.GetResponse ();
 			if (response.StatusCode == HttpStatusCode.OK) {
-				Stream responseStream = GetStreamForResponse (response, 200);
-				string responseStr = new StreamReader (responseStream).ReadToEnd ();
-				return responseStr;
+				//Stream responseStream = GetStreamForResponse (response, 200);
+				//string responseStr = new StreamReader (responseStream).ReadToEnd ();
+				//return responseStr;
+				MemoryStream memoryStream = new MemoryStream(0x10000);
+				byte[] bf = new byte[0x1000];
+				int bytes;
+				var responseStream = response.GetResponseStream();
+				while ((bytes = responseStream.Read(bf, 0, bf.Length)) > 0)
+				{
+					memoryStream.Write(bf, 0, bytes);
+				}
+				return bf;
 			}
 			return null;
 		}
@@ -117,7 +126,7 @@ namespace HapSharp.Client
 			return response;
 		}
 
-		public string Put (string url, HapBuffer data, string contentType = "application/json", (string header, string value) [] collection = null)
+		public byte[] Put (string url, HapBuffer data, string contentType = "application/json", (string header, string value) [] collection = null)
 		{
 			Console.WriteLine ("PUTing {0}: {1}", url, data);
 			url = GetUrl(url, false, host, port);
@@ -152,29 +161,28 @@ namespace HapSharp.Client
 			url = GetUrl(url, false, host, port);
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create (url);
 
-			request.ContentLength = buffer.Length;
+
 			request.Method = "POST";
 			//request.UserAgent = "XXX";
-			//request.Accept = contentType;
+			request.Accept = contentType;
 			request.ContentType = contentType;
-			//request.Headers.Add (HttpRequestHeader.ContentType, contentType);
-			//request.Headers.Add (HttpRequestHeader.ContentLength, buffer.Length.ToString ());
+			request.ContentLength = buffer.Length;
 			/* Sart browser signature */
-			if (collection != null) {
-				foreach (var item in collection) {
-					request.Headers.Add (item.header, item.value);
-				}
-			}
+			//if (collection != null) {
+			//	foreach (var item in collection) {
+			//		request.Headers.Add (item.header, item.value);
+			//	}
+			//}
 
 			Stream requestStream = request.GetRequestStream ();
 			requestStream.Write (buffer.Data, 0, buffer.Length);
 			requestStream.Close ();
 			HttpWebResponse response;
-			response = (HttpWebResponse)request.GetResponse ();
+			response = request.GetResponse () as HttpWebResponse;
 
-			MemoryStream memoryStream = new MemoryStream(0x10000);
-
+		
 			if (response.StatusCode == HttpStatusCode.OK) {
+				MemoryStream memoryStream = new MemoryStream(0x10000);
 				byte[] bf = new byte[0x1000];
 				int bytes;
 				var responseStream = response.GetResponseStream();

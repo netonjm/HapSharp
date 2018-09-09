@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HapSharp.Core;
-using Newtonsoft.Json;
 using Zeroconf;
-using System.Linq;
 
 namespace HapSharp.Client
 {
@@ -45,11 +43,6 @@ namespace HapSharp.Client
 			return null;
 		}
 
-		public static async Task<IReadOnlyList<IZeroconfHost>> GetServices()
-		{
-			return await ZeroconfResolver.ResolveAsync("_hap._tcp.local.");
-		}
-
 		public void Identify() => client.Get("/identify");
 
 		public void ListAccessories()
@@ -76,26 +69,30 @@ namespace HapSharp.Client
 					 );
 			Console.WriteLine("encoded request: {0}", req);
 
+			byte[] response;
 			//session.http.post 
-			var response = client.Post("/pair-setup", req, PairingContentType);
+			try {
+				response = client.Request("POST", "/pair-setup",  PairingContentType, req);
+				//response = client.Post("/pair-setup", req, PairingContentType);
+			} catch (Exception ex) {
+				Console.WriteLine("error in webclient: {0}", ex);
+				throw ex;
+			}
+
 			var respondeBuffer = new HapBuffer(response);
 
 			var response_tlv = TLV.Decode(respondeBuffer);
 
+			HapBuffer responseCheck;
 			//# Step #3 ios --> accessory (send SRP verify request) (see page 41)
-			if (!response_tlv.Keys.Contains(TLV.kTLVType_State))
-			{
-				Console.WriteLine("response not contains kTLVType_State");
+			if (!response_tlv.TryGetValue (TLV.kTLVType_State, out responseCheck) || responseCheck.Data[0] != TLV.M2) {
+				throw new Exception ("response not contains kTLVType_State"); ;
 			}
 
-			if (response_tlv[TLV.kTLVType_State].Data[0] != TLV.M2)
-			{
-				Console.WriteLine("response not contains kTLVType_State");
-			}
+			Console.WriteLine ("Found State: {0}", responseCheck);
 
-			if (response_tlv.Keys.Contains(TLV.kTLVType_Error))
-			{
-				Console.WriteLine("response contains kTLVType_Error");
+			if (response_tlv.TryGetValue (TLV.kTLVType_Error, out responseCheck)) {
+				throw new Exception ($"response contains kTLVType_Error: {responseCheck}" );
 			}
 
 			var srp_client = new SrpClient("Pair-Setup", pin);
@@ -123,5 +120,21 @@ namespace HapSharp.Client
 
 			Console.WriteLine("encoded request: ");
 		}
+
+		#region Static methods
+
+		public static async Task<IReadOnlyList<DiscoveredClient>> GetDiscoveredClients()
+		{
+			List<DiscoveredClient> found = new List<DiscoveredClient>();
+			var services = await ZeroconfResolver.ResolveAsync("_hap._tcp.local.");
+			foreach (var item in services)
+			{
+				found.Add(new DiscoveredClient(item));
+			}
+			return found;
+		}
+
+		#endregion
+
 	}
 }
